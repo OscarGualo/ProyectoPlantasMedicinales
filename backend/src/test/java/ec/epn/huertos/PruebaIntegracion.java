@@ -24,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 @Import(ContenedoresPrueba.class)
-@Sql(scripts = "/datos-prueba.sql")
+@Sql(scripts = "classpath:e2e/datos-prueba.sql")
 public abstract class PruebaIntegracion {
 
     protected static final String CONTRASENA = "clave-prueba";

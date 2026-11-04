@@ -30,12 +30,16 @@ INSERT INTO huerto (id, comunidad_id, lider_id, nombre, provincia, latitud, long
     (4, 4, 3, 'Huerto de prueba H4', NULL, NULL, NULL, 10, FALSE),
     (5, 5, 4, 'Huerto de prueba H5', 'Azuay', -2.900000, -79.000000, 30, FALSE);
 
--- Zonas: Z1, Z2 y Z4 (sin cultivos) en H1; Z3 en H2.
+-- Zonas: Z1, Z2 y Z4 (sin cultivos) en H1; Z3 en H2. H1 incluye además el camino, la cerca y la bodega del
+-- croquis CR1 que compara P-027. Geometría en metros: (x, z) es el centro; ancho en x, largo en z.
 INSERT INTO zona (id, huerto_id, codigo, nombre, tipo, geometria) VALUES
-    (1, 1, 'Z1', 'Camellón 1', 'CULTIVO', '{"x": 0, "z": 0, "ancho": 4.0, "largo": 1.2, "alto": 0.3}'),
-    (2, 1, 'Z2', 'Camellón 2', 'CULTIVO', '{"x": 0, "z": 2, "ancho": 4.0, "largo": 1.2, "alto": 0.3}'),
+    (1, 1, 'Z1', 'Camellón 1', 'CULTIVO', '{"x": -1.5, "z": -2, "ancho": 4.0, "largo": 1.2, "alto": 0.3}'),
+    (2, 1, 'Z2', 'Camellón 2', 'CULTIVO', '{"x": -1.5, "z": 0, "ancho": 4.0, "largo": 1.2, "alto": 0.3}'),
     (3, 2, 'Z3', 'Terraza 1', 'CULTIVO', '{"x": 0, "z": 0, "ancho": 3.0, "largo": 2.0, "alto": 0.3}'),
-    (4, 1, 'Z4', 'Camellón 3', 'CULTIVO', '{"x": 0, "z": 4, "ancho": 4.0, "largo": 1.2, "alto": 0.3}');
+    (4, 1, 'Z4', 'Camellón 3', 'CULTIVO', '{"x": -1.5, "z": 2, "ancho": 4.0, "largo": 1.2, "alto": 0.3}'),
+    (5, 1, 'C1', 'Camino', 'CAMINO', '{"x": 1.5, "z": 0, "ancho": 1.0, "largo": 5.6, "alto": 0.05}'),
+    (6, 1, 'CE1', 'Cerca', 'CERCA', '{"x": 0, "z": -3.2, "ancho": 8.0, "largo": 0.15, "alto": 1.0}'),
+    (7, 1, 'B1', 'Bodega', 'BODEGA', '{"x": 3.0, "z": 2.0, "ancho": 1.6, "largo": 1.6, "alto": 1.8}');
 
 -- Plantas (datos sintéticos sin uso medicinal).
 INSERT INTO planta (id, huerto_id, nombre_comun, nombre_cientifico, familia, fuente, descripcion, clasificacion) VALUES

@@ -31,7 +31,13 @@ public class ServicioFotos {
     /** Valida y guarda dentro de la transacción del llamador, de modo que ambas se confirmen o reviertan juntas. */
     @Transactional
     public Foto guardar(MultipartFile archivo) {
-        return fotos.save(new Foto(validar(archivo), reloj.instant()));
+        return guardar(validar(archivo));
+    }
+
+    /** Guarda una imagen ya validada; una falla de almacenamiento se propaga como DataAccessException. */
+    @Transactional
+    public Foto guardar(ImagenValidada imagen) {
+        return fotos.save(new Foto(imagen, reloj.instant()));
     }
 
     public ImagenValidada validar(MultipartFile archivo) {

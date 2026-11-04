@@ -1,0 +1,41 @@
+spring:
+  application:
+    name: huertos-medicinales
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5433/huertos}
+    username: ${DB_USER:huertos}
+    password: ${DB_PASSWORD:huertos}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+  flyway:
+    locations: classpath:db/migration
+    placeholders:
+      # Contraseña de los líderes de demostración (V2). Vacía por defecto: sin ella nadie puede ingresar.
+      demo_password: ${DEMO_PASSWORD:}
+  servlet:
+    multipart:
+      # Algo por encima de 5 MB para que el servicio valide el tamaño y responda MSG-07 (doc 06 §9).
+      max-file-size: 6MB
+      max-request-size: 7MB
+
+server:
+  error:
+    include-message: never
+    include-stacktrace: never
+  servlet:
+    session:
+      cookie:
+        http-only: true
+        same-site: lax
+        secure: ${COOKIE_SECURE:false}
+
+huertos:
+  reloj:
+    # Instante fijo opcional (ISO-8601). Solo se usa en pruebas; vacío = reloj del sistema.
+    fijo: ${RELOJ_FIJO:}

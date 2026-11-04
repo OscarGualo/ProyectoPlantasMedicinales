@@ -1,0 +1,534 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-03T01:30:18-05:00",
+  "title": "Design System: Huertos Medicinales Comunitarios",
+  "extensions": {
+    "colorMeta": {
+      "bolsa": {
+        "role": "primary",
+        "displayName": "Verde bolsa",
+        "canonical": "#14532d",
+        "tonalRamp": [
+          "#163623",
+          "#225e3a",
+          "#2a8850",
+          "#31c46b",
+          "#60d28d",
+          "#95dbb0",
+          "#c5e8d3",
+          "#eef7f1"
+        ]
+      },
+      "bolsa-profunda": {
+        "role": "primary",
+        "displayName": "Verde bolsa profundo",
+        "canonical": "#0e3f22",
+        "tonalRamp": [
+          "#163723",
+          "#205f3a",
+          "#288a50",
+          "#2ec76c",
+          "#5ed48e",
+          "#93dcb1",
+          "#c4e8d3",
+          "#edf7f1"
+        ]
+      },
+      "sobre-bolsa": {
+        "role": "neutral",
+        "displayName": "Papel sobre la bolsa",
+        "canonical": "#f4f8f3",
+        "tonalRamp": [
+          "#222d1f",
+          "#384d33",
+          "#4d6e45",
+          "#679a5b",
+          "#8ab181",
+          "#afc7a9",
+          "#d2decf",
+          "#f1f4f0"
+        ]
+      },
+      "sobre-bolsa-suave": {
+        "role": "neutral",
+        "displayName": "Verde pálido sobre la bolsa",
+        "canonical": "#c9dccd",
+        "tonalRamp": [
+          "#212c23",
+          "#354a3a",
+          "#496a50",
+          "#61946c",
+          "#85ad8e",
+          "#abc4b1",
+          "#d0dcd3",
+          "#f1f4f1"
+        ]
+      },
+      "papel": {
+        "role": "neutral",
+        "displayName": "Papel de etiqueta",
+        "canonical": "#f4f8f3",
+        "tonalRamp": [
+          "#222d1f",
+          "#384d33",
+          "#4d6e45",
+          "#679a5b",
+          "#8ab181",
+          "#afc7a9",
+          "#d2decf",
+          "#f1f4f0"
+        ]
+      },
+      "fondo": {
+        "role": "neutral",
+        "displayName": "Mesa",
+        "canonical": "#e7efe8",
+        "tonalRamp": [
+          "#212b22",
+          "#364a38",
+          "#4a694e",
+          "#629268",
+          "#86ac8b",
+          "#acc3af",
+          "#d1dcd2",
+          "#f1f4f1"
+        ]
+      },
+      "banda": {
+        "role": "neutral",
+        "displayName": "Banda de campo",
+        "canonical": "#dde8de",
+        "tonalRamp": [
+          "#212b22",
+          "#364938",
+          "#4a684d",
+          "#639267",
+          "#87ab8a",
+          "#adc3af",
+          "#d1dcd2",
+          "#f1f4f1"
+        ]
+      },
+      "banda-fuerte": {
+        "role": "neutral",
+        "displayName": "Banda fuerte",
+        "canonical": "#cbdccd",
+        "tonalRamp": [
+          "#212b22",
+          "#364938",
+          "#4a684e",
+          "#639268",
+          "#87ab8b",
+          "#acc3af",
+          "#d1dcd2",
+          "#f1f4f1"
+        ]
+      },
+      "tinta": {
+        "role": "neutral",
+        "displayName": "Tinta verde negra",
+        "canonical": "#0f2417",
+        "tonalRamp": [
+          "#1b3124",
+          "#2b543b",
+          "#397952",
+          "#49ac6f",
+          "#73bf90",
+          "#a0cfb2",
+          "#cbe2d3",
+          "#eff5f2"
+        ]
+      },
+      "tinta-suave": {
+        "role": "neutral",
+        "displayName": "Tinta de nombre de campo",
+        "canonical": "#2c4334",
+        "tonalRamp": [
+          "#212c25",
+          "#364a3d",
+          "#496954",
+          "#619373",
+          "#86ac93",
+          "#acc3b4",
+          "#d0dcd4",
+          "#f1f4f2"
+        ]
+      },
+      "accion": {
+        "role": "primary",
+        "displayName": "Verde acción",
+        "canonical": "#15803d",
+        "tonalRamp": [
+          "#133922",
+          "#1c6337",
+          "#22914b",
+          "#24d165",
+          "#56dc88",
+          "#8ee1ad",
+          "#c2ebd1",
+          "#edf8f1"
+        ]
+      },
+      "accion-hover": {
+        "role": "primary",
+        "displayName": "Verde acción presionado",
+        "canonical": "#116c33",
+        "tonalRamp": [
+          "#133921",
+          "#1c6437",
+          "#21914b",
+          "#23d264",
+          "#55dd88",
+          "#8ee1ad",
+          "#c2ebd1",
+          "#edf8f1"
+        ]
+      },
+      "enlace": {
+        "role": "primary",
+        "displayName": "Verde enlace",
+        "canonical": "#0f5c2d",
+        "tonalRamp": [
+          "#133922",
+          "#1c6338",
+          "#22914d",
+          "#24d167",
+          "#56dc8a",
+          "#8ee1af",
+          "#c2ebd2",
+          "#edf8f1"
+        ]
+      },
+      "sello-caliente": {
+        "role": "semantic",
+        "displayName": "Sello caliente",
+        "canonical": "#b4320f",
+        "tonalRamp": [
+          "#3c1910",
+          "#6a2816",
+          "#9b3418",
+          "#e04015",
+          "#e86c4a",
+          "#e89c87",
+          "#eec8be",
+          "#f9efec"
+        ]
+      },
+      "sello-fria": {
+        "role": "semantic",
+        "displayName": "Sello fría",
+        "canonical": "#046c4e",
+        "tonalRamp": [
+          "#0e3f31",
+          "#126e53",
+          "#12a178",
+          "#0beaaa",
+          "#43efbd",
+          "#82edce",
+          "#bcf0e1",
+          "#ebf9f5"
+        ]
+      },
+      "sello-neutro": {
+        "role": "semantic",
+        "displayName": "Sello sin clasificar",
+        "canonical": "#56605a",
+        "tonalRamp": [
+          "#252826",
+          "#3d423f",
+          "#555d58",
+          "#748179",
+          "#949e98",
+          "#b4bbb7",
+          "#d5d8d6",
+          "#f2f3f2"
+        ]
+      },
+      "sello-ambar": {
+        "role": "semantic",
+        "displayName": "Sello ámbar de cosecha",
+        "canonical": "#8a4b06",
+        "tonalRamp": [
+          "#3e270e",
+          "#6d4212",
+          "#a05c12",
+          "#e97f0c",
+          "#ee9d44",
+          "#ecba83",
+          "#f0d7bc",
+          "#f9f3eb"
+        ]
+      },
+      "error": {
+        "role": "semantic",
+        "displayName": "Error",
+        "canonical": "#a3200f",
+        "tonalRamp": [
+          "#3c1510",
+          "#692017",
+          "#992819",
+          "#de2d16",
+          "#e65e4c",
+          "#e79388",
+          "#eec4bf",
+          "#f9edec"
+        ]
+      },
+      "error-fondo": {
+        "role": "semantic",
+        "displayName": "Fondo de error",
+        "canonical": "#fbe9e5",
+        "tonalRamp": [
+          "#391a13",
+          "#64291c",
+          "#923521",
+          "#d34222",
+          "#dd6e55",
+          "#e29d8e",
+          "#ebc9c1",
+          "#f8efed"
+        ]
+      },
+      "exito": {
+        "role": "semantic",
+        "displayName": "Éxito",
+        "canonical": "#0f5c2d",
+        "tonalRamp": [
+          "#133922",
+          "#1c6338",
+          "#22914d",
+          "#24d167",
+          "#56dc8a",
+          "#8ee1af",
+          "#c2ebd2",
+          "#edf8f1"
+        ]
+      },
+      "exito-fondo": {
+        "role": "semantic",
+        "displayName": "Fondo de éxito",
+        "canonical": "#dcefe0",
+        "tonalRamp": [
+          "#1c3021",
+          "#2d5235",
+          "#3c7649",
+          "#4ea760",
+          "#76bc85",
+          "#a2cdab",
+          "#cce1d0",
+          "#eff5f1"
+        ]
+      },
+      "info": {
+        "role": "semantic",
+        "displayName": "Información",
+        "canonical": "#1d3d5c",
+        "tonalRamp": [
+          "#192634",
+          "#264059",
+          "#315a81",
+          "#3c7bb9",
+          "#699ac9",
+          "#9ab8d5",
+          "#c7d6e5",
+          "#eef2f6"
+        ]
+      },
+      "info-fondo": {
+        "role": "semantic",
+        "displayName": "Fondo de información",
+        "canonical": "#e2ecf5",
+        "tonalRamp": [
+          "#192733",
+          "#284158",
+          "#345b7f",
+          "#407db5",
+          "#6c9bc6",
+          "#9cb9d3",
+          "#c8d7e4",
+          "#eff2f6"
+        ]
+      },
+      "campo-borde": {
+        "role": "neutral",
+        "displayName": "Borde de campo",
+        "canonical": "#8fa996",
+        "tonalRamp": [
+          "#232a25",
+          "#39463d",
+          "#4f6355",
+          "#6b8a73",
+          "#8da593",
+          "#b0bfb4",
+          "#d2dad4",
+          "#f1f3f2"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display condensado",
+        "purpose": "Título del campo de la bolsa y nombre del pie."
+      },
+      "headline": {
+        "displayName": "Encabezado",
+        "purpose": "Encabezados de sección y cifras de conteo."
+      },
+      "title": {
+        "displayName": "Nombre de etiqueta",
+        "purpose": "Nombre de un huerto o planta en su etiqueta."
+      },
+      "lead": {
+        "displayName": "Entrada",
+        "purpose": "Bajada bajo el título; marca de la barra."
+      },
+      "body": {
+        "displayName": "Cuerpo",
+        "purpose": "Texto y valores de campo, con cifras tabulares."
+      },
+      "label": {
+        "displayName": "Nombre de campo",
+        "purpose": "Nombres de campo, notas y pies de lámina."
+      }
+    },
+    "shadows": [
+      {
+        "name": "globo-mapa",
+        "value": "0 10px 28px rgb(14 63 34 / 0.28)",
+        "purpose": "Solo el globo del mapa, que flota; nada en reposo lleva sombra."
+      }
+    ],
+    "motion": [
+      {
+        "name": "curva-salida",
+        "value": "cubic-bezier(0.23, 1, 0.32, 1)",
+        "purpose": "Entradas y respuesta a la presión (emil-design-eng)."
+      },
+      {
+        "name": "presion",
+        "value": "transform 160ms; :active scale(0.97)",
+        "purpose": "Respuesta de botones y etiquetas enlazadas."
+      },
+      {
+        "name": "entrada-etiqueta",
+        "value": "280ms, translateY(12px) + opacidad, escalón 50 ms",
+        "purpose": "Entrada única de etiquetas; con movimiento reducido, solo fundido de 160 ms."
+      },
+      {
+        "name": "sello",
+        "value": "220ms, scale 1.12 a 1 + opacidad",
+        "purpose": "Firma: el sello cae una vez cuando entra su etiqueta."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "plantas-horizontal",
+        "value": "560px"
+      },
+      {
+        "name": "rejilla",
+        "value": "640px"
+      },
+      {
+        "name": "lista",
+        "value": "720px"
+      },
+      {
+        "name": "escritorio",
+        "value": "768px"
+      },
+      {
+        "name": "bolsa-dos-columnas",
+        "value": "900px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Botón primario",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Acción principal de un formulario o pantalla.",
+      "html": "<button class=\"ds-boton\">Guardar ficha</button>",
+      "css": ".ds-boton{display:inline-flex;align-items:center;min-height:48px;padding:8px 24px;border:2px solid #15803d;border-radius:2px;background:#15803d;color:#fff;font-family:'Archivo Variable',system-ui,sans-serif;font-weight:700;cursor:pointer;transition:transform 160ms cubic-bezier(0.23,1,0.32,1),background-color 150ms ease}.ds-boton:hover{background:#116c33;border-color:#116c33}.ds-boton:active{transform:scale(0.97)}.ds-boton:focus-visible{outline:3px solid #0f5c2d;outline-offset:3px}"
+    },
+    {
+      "name": "Botón sobre la bolsa",
+      "kind": "button",
+      "refersTo": "button-on-bolsa",
+      "description": "Acción principal dentro del campo verde.",
+      "html": "<div class=\"ds-bolsa\"><button class=\"ds-boton-bolsa\">Recorrer en 3D</button></div>",
+      "css": ".ds-bolsa{background:#14532d;padding:24px}.ds-boton-bolsa{min-height:48px;padding:8px 24px;border:2px solid #f4f8f3;border-radius:2px;background:#f4f8f3;color:#14532d;font-family:'Archivo Variable',system-ui,sans-serif;font-weight:700;cursor:pointer;transition:transform 160ms cubic-bezier(0.23,1,0.32,1)}.ds-boton-bolsa:hover{background:#fff}.ds-boton-bolsa:active{transform:scale(0.97)}.ds-boton-bolsa:focus-visible{outline:3px solid #f4f8f3;outline-offset:3px}"
+    },
+    {
+      "name": "Campo de texto",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Control de formulario; el error va debajo del campo.",
+      "html": "<label class=\"ds-campo\"><span>Nombre común</span><input class=\"ds-control\" value=\"Toronjil\"></label>",
+      "css": ".ds-campo{display:flex;flex-direction:column;gap:4px;font-family:'Archivo Variable',system-ui,sans-serif;font-weight:700;font-size:15px;color:#0f2417}.ds-control{min-height:48px;padding:8px 12px;border:2px solid #8fa996;border-radius:2px;background:#f4f8f3;color:#0f2417;font:inherit;font-weight:400;font-size:16px}.ds-control:focus{outline:3px solid #0f5c2d;outline-offset:1px;border-color:#15803d}"
+    },
+    {
+      "name": "Navegación",
+      "kind": "nav",
+      "description": "Barra plana en el verde de la bolsa con indicador inferior.",
+      "html": "<nav class=\"ds-barra\"><a class=\"ds-activo\">Mapa</a><a>Calendario lunar</a><a>Ingresar</a></nav>",
+      "css": ".ds-barra{display:flex;gap:4px;background:#14532d;padding:0 16px;font-family:'Archivo Variable',system-ui,sans-serif}.ds-barra a{position:relative;padding:18px 16px;color:#c9dccd;font-weight:600;text-decoration:none}.ds-barra a:hover{color:#f4f8f3}.ds-barra .ds-activo{color:#f4f8f3}.ds-barra .ds-activo::after{content:'';position:absolute;left:16px;right:16px;bottom:0;height:4px;background:#f4f8f3}"
+    },
+    {
+      "name": "Sello de clasificación",
+      "kind": "chip",
+      "description": "Estado como marca de tinta con texto.",
+      "html": "<span class=\"ds-sello ds-caliente\">Caliente</span> <span class=\"ds-sello ds-fria\">Fría</span>",
+      "css": ".ds-sello{display:inline-flex;padding:3px 8px;border:2px solid currentColor;border-radius:4px;font-family:'Archivo Variable',system-ui,sans-serif;font-stretch:75%;font-weight:800;font-size:15px;transform:rotate(-2deg)}.ds-caliente{color:#b4320f}.ds-fria{color:#046c4e}"
+    },
+    {
+      "name": "Etiqueta de huerto",
+      "kind": "card",
+      "refersTo": "etiqueta",
+      "description": "Firma del sistema: papel troquelado con campos en bandas de tono.",
+      "html": "<article class=\"ds-etiqueta\"><h3>Huerto demostrativo Sumak Kawsay</h3><dl><div><dt>Provincia</dt><dd>Pichincha</dd></div><div><dt>Plantas</dt><dd>4</dd></div></dl></article>",
+      "css": ".ds-etiqueta{background:#f4f8f3;color:#0f2417;font-family:'Archivo Variable',system-ui,sans-serif;clip-path:polygon(12px 0,calc(100% - 12px) 0,100% 12px,100% calc(100% - 12px),calc(100% - 12px) 100%,12px 100%,0 calc(100% - 12px),0 12px)}.ds-etiqueta h3{margin:0;padding:24px 24px 16px;font-stretch:62%;font-weight:800;font-size:28px;line-height:1.02}.ds-etiqueta dl{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin:0}.ds-etiqueta dl div{background:#dde8de;padding:12px 16px}.ds-etiqueta dt{font-size:15px;font-weight:600;color:#2c4334}.ds-etiqueta dd{margin:0;font-weight:600}"
+    }
+  ],
+  "narrative": {
+    "northStar": "La etiqueta de la planta seca",
+    "overview": "Cada huerto y cada planta se presentan como la etiqueta oficial de empaque de los lineamientos del MSP: datos verificables primero, en campos apretados sobre papel claro, dentro del campo verde de la bolsa. Rechaza la app de mapas genérica de tarjetas con sombra, íconos teñidos y degradados.",
+    "keyCharacteristics": [
+      "Campo verde de la bolsa en el primer tercio de cada pantalla pública",
+      "Archivo condensado al 62 % para títulos y cifras",
+      "Etiquetas troqueladas con campos en bandas de tono",
+      "Sellos de tinta con texto para cada estado",
+      "Láminas botánicas de dominio público con crédito"
+    ],
+    "rules": [
+      {
+        "name": "La regla del sello",
+        "body": "Todo estado es una marca con texto, nunca solo color.",
+        "section": "colors"
+      },
+      {
+        "name": "La regla de la tinta llena",
+        "body": "El texto corrido nunca va en gris.",
+        "section": "colors"
+      },
+      {
+        "name": "Plano por tono",
+        "body": "Las superficies se separan por pasos de tono; solo lo que flota lleva sombra.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Componer cada registro como su etiqueta",
+      "Marcar estados con sellos de texto",
+      "Acreditar cada lámina"
+    ],
+    "donts": [
+      "Antetítulos",
+      "Sombras en reposo, degradados o vidrio",
+      "Líneas finas para separar",
+      "Íconos en cuadros teñidos",
+      "Texto corrido en gris"
+    ]
+  }
+}

@@ -1,0 +1,1574 @@
+/*
+ * Huertos Medicinales Comunitarios · Mundo «La etiqueta de la planta seca»
+ *
+ * Reparto de autoridad entre skills:
+ *  - ui-ux-pro-max: accesibilidad (contraste 4.5:1, objetivos de 44 px, foco, movimiento reducido) y paleta verde.
+ *  - impeccable: dirección y contrato (ver .impeccable/surfaces), piso de oficio.
+ *  - taste-skill: sin degradados, sombras en reposo, vidrio, antetítulos ni líneas finas; una sola familia.
+ *  - emil-design-eng: curvas, duraciones, presión y entradas.
+ */
+
+@import '@fontsource-variable/archivo/wdth.css';
+
+/* ---------- Tokens ---------- */
+:root {
+  /* Color · roles */
+  --bolsa: #14532d;            /* campo verde de la bolsa: ocupa el primer tercio de las pantallas públicas */
+  --bolsa-profunda: #0e3f22;
+  --sobre-bolsa: #f4f8f3;
+  --sobre-bolsa-suave: #c9dccd;
+  --papel: #f4f8f3;            /* papel de etiqueta */
+  --fondo: #e7efe8;            /* mesa sobre la que descansan las etiquetas */
+  --banda: #dde8de;            /* banda de tono para agrupar campos */
+  --banda-fuerte: #cbdccd;
+  --tinta: #0f2417;
+  --tinta-suave: #2c4334;      /* 9.6:1 sobre papel, 8.4:1 sobre banda */
+  --accion: #15803d;
+  --accion-hover: #116c33;
+  --sobre-accion: #ffffff;
+  --enlace: #0f5c2d;           /* 6.3:1 sobre banda, 7.5:1 sobre papel */
+  --sello-caliente: #b4320f;   /* 5.8:1 sobre papel */
+  --sello-fria: #046c4e;       /* 6.4:1 sobre papel */
+  --sello-neutro: #56605a;
+  --sello-ambar: #8a4b06;      /* fechas de cosecha y «sembrado» */
+  --error: #a3200f;
+  --error-fondo: #fbe9e5;
+  --exito: #0f5c2d;
+  --exito-fondo: #dcefe0;
+  --info: #1d3d5c;
+  --info-fondo: #e2ecf5;
+  --anillo: #0f5c2d;
+  --campo-borde: #8fa996;      /* controles de formulario: los campos sí llevan línea */
+
+  /* Tipografía: una familia, dos anchos */
+  --f: 'Archivo Variable', 'Archivo', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  --ancho-titulo: 62%;
+  --ancho-sello: 75%;
+  /* Escala de seis pasos: display, encabezado, nombre, entrada, cuerpo, nota */
+  --t-cifra: clamp(2.375rem, 8.6vw, 6rem);
+  --t-2: clamp(1.75rem, 3.4vw, 2.25rem);
+  --t-3: 1.75rem;
+  --t-entrada: 1.125rem;
+  --t-cuerpo: 1rem;
+  --t-nota: 0.9375rem;
+
+  /* Espacio: ritmo de 4/8 */
+  --e-1: 4px;
+  --e-2: 8px;
+  --e-3: 12px;
+  --e-4: 16px;
+  --e-5: 24px;
+  --e-6: 32px;
+  --e-7: 48px;
+  --e-8: 72px;
+  --margen: clamp(16px, 4vw, 40px);
+  --ancho-max: 1180px;
+
+  /* Forma: etiqueta troquelada con esquinas recortadas; controles de esquina recta */
+  --chaflan: 12px;
+  --radio-control: 2px;
+
+  /* Movimiento (emil-design-eng) */
+  --curva-salida: cubic-bezier(0.23, 1, 0.32, 1);
+  --curva-movimiento: cubic-bezier(0.77, 0, 0.175, 1);
+  --m-presion: 160ms;
+  --m-rapido: 150ms;
+  --m-entrada: 280ms;
+  --escalon: 50ms;
+
+  /* Capas */
+  --z-mapa: 10;
+  --z-barra: 40;
+  --z-salto: 100;
+  --alto-barra-inferior: 64px;
+
+  color-scheme: light;
+  accent-color: var(--accion);
+}
+
+/* El modo oscuro se diseña aparte (ui-ux-pro-max): la bolsa se vuelve la noche del huerto. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bolsa: #0b2a17;
+    --bolsa-profunda: #071d10;
+    --sobre-bolsa: #e9f2ea;
+    --sobre-bolsa-suave: #a9c2b0;
+    --papel: #13241a;
+    --fondo: #0c1811;
+    --banda: #1a3023;
+    --banda-fuerte: #23402e;
+    --tinta: #e9f2ea;
+    --tinta-suave: #b3c7b9;
+    --accion: #5fd18a;
+    --accion-hover: #8ae2aa;
+    --sobre-accion: #04210f;
+    --enlace: #8fe3ad;
+    --sello-caliente: #ff9b7a;
+    --sello-fria: #6fdcb2;
+    --sello-neutro: #b9c2bc;
+    --sello-ambar: #f2b65a;
+    --error: #ffab9c;
+    --error-fondo: #3a1610;
+    --exito: #8fe3ad;
+    --exito-fondo: #12301d;
+    --info: #b9d6f2;
+    --info-fondo: #142538;
+    --anillo: #8fe3ad;
+    --campo-borde: #4f6e5a;
+    color-scheme: dark;
+  }
+}
+
+/* ---------- Base ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scrollbar-color: var(--banda-fuerte) var(--fondo);
+}
+
+body {
+  margin: 0;
+  background: var(--fondo);
+  color: var(--tinta);
+  font-family: var(--f);
+  font-size: var(--t-cuerpo);
+  line-height: 1.55;
+  font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
+  touch-action: manipulation;
+  caret-color: var(--accion);
+}
+
+::selection {
+  background: var(--bolsa);
+  color: var(--sobre-bolsa);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--f);
+  font-stretch: var(--ancho-titulo);
+  font-weight: 800;
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+  margin: 0;
+}
+
+h1 {
+  font-size: var(--t-2);
+}
+
+h2 {
+  font-size: var(--t-2);
+  margin: var(--e-8) 0 var(--e-4);
+}
+
+h3 {
+  font-size: var(--t-entrada);
+  font-stretch: var(--ancho-sello);
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+}
+
+p {
+  margin: 0 0 var(--e-3);
+  max-width: 68ch;
+}
+
+a {
+  color: var(--enlace);
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 1.5px;
+}
+
+img {
+  max-width: 100%;
+  height: auto; /* los atributos width/height reservan espacio; la proporción la decide el CSS */
+  display: block;
+}
+
+:focus-visible {
+  outline: 3px solid var(--anillo);
+  outline-offset: 3px;
+}
+
+/* ---------- Estructura ---------- */
+.salto {
+  position: absolute;
+  left: var(--e-3);
+  top: -100px;
+  z-index: var(--z-salto);
+  padding: var(--e-2) var(--e-4);
+  background: var(--bolsa);
+  color: var(--sobre-bolsa);
+  font-weight: 700;
+}
+
+.salto:focus {
+  top: var(--e-3);
+}
+
+.pagina {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+.barra {
+  position: relative;
+  z-index: var(--z-barra);
+  background: var(--bolsa);
+  color: var(--sobre-bolsa);
+}
+
+.barra-interior {
+  max-width: var(--ancho-max);
+  margin: 0 auto;
+  padding: 0 var(--margen);
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--e-4);
+}
+
+.marca {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--e-2);
+  min-height: 44px;
+  color: var(--sobre-bolsa);
+  text-decoration: none;
+  font-stretch: var(--ancho-titulo);
+  font-weight: 800;
+  font-size: var(--t-entrada);
+  line-height: 1;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.marca svg {
+  color: var(--sobre-bolsa-suave);
+}
+
+.nav-escritorio {
+  display: none;
+  align-items: stretch;
+  gap: var(--e-1);
+  align-self: stretch;
+}
+
+.nav-escritorio a {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--e-2);
+  padding: 0 var(--e-4);
+  color: var(--sobre-bolsa-suave);
+  text-decoration: none;
+  font-weight: 600;
+  position: relative;
+  transition: color var(--m-rapido) ease;
+}
+
+.nav-escritorio a.active {
+  color: var(--sobre-bolsa);
+}
+
+.nav-escritorio a.active::after {
+  content: '';
+  position: absolute;
+  left: var(--e-4);
+  right: var(--e-4);
+  bottom: 0;
+  height: 4px;
+  background: var(--sobre-bolsa);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .nav-escritorio a:hover {
+    color: var(--sobre-bolsa);
+  }
+}
+
+.boton-salir {
+  width: 44px;
+  padding: 0;
+}
+
+.solo-escritorio {
+  display: none;
+}
+
+.nav-inferior {
+  position: fixed;
+  inset: auto 0 0 0;
+  z-index: var(--z-barra);
+  height: calc(var(--alto-barra-inferior) + env(safe-area-inset-bottom));
+  padding-bottom: env(safe-area-inset-bottom);
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  background: var(--papel);
+}
+
+.nav-inferior a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  color: var(--tinta-suave);
+  text-decoration: none;
+  font-size: var(--t-nota);
+  font-weight: 600;
+  position: relative;
+}
+
+.nav-inferior a.active {
+  color: var(--enlace);
+  background: var(--banda);
+}
+
+.nav-inferior a.active::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--enlace);
+}
+
+.lienzo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  container-type: inline-size;
+}
+
+.contenido {
+  flex: 1;
+  width: 100%;
+  max-width: var(--ancho-max);
+  margin: 0 auto;
+  padding: var(--e-6) var(--margen) calc(var(--alto-barra-inferior) + var(--e-7));
+}
+
+.contenido:focus {
+  outline: none;
+}
+
+.pie {
+  background: var(--bolsa);
+  color: var(--sobre-bolsa);
+  padding: var(--e-7) var(--margen) calc(var(--alto-barra-inferior) + var(--e-6));
+  font-size: var(--t-cuerpo);
+}
+
+.pie-interior {
+  max-width: calc(var(--ancho-max) - 2 * var(--margen));
+  margin: 0 auto;
+  display: grid;
+  gap: var(--e-4);
+}
+
+.pie-nombre {
+  font-stretch: var(--ancho-titulo);
+  font-weight: 800;
+  font-size: var(--t-cifra);
+  line-height: 0.95;
+  color: var(--sobre-bolsa);
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.pie a {
+  color: var(--sobre-bolsa);
+}
+
+@media (min-width: 768px) {
+  .barra {
+    position: sticky;
+    top: 0;
+  }
+
+  .nav-escritorio {
+    display: flex;
+  }
+
+  .nav-inferior {
+    display: none;
+  }
+
+  .solo-escritorio {
+    display: inline;
+  }
+
+  .boton-salir {
+    width: auto;
+    padding: var(--e-1) var(--e-4);
+  }
+
+  .contenido {
+    padding-bottom: var(--e-8);
+  }
+
+  .pie {
+    padding-bottom: var(--e-7);
+  }
+}
+
+/* ---------- Campo de la bolsa (primer tercio de las pantallas públicas) ---------- */
+.bolsa {
+  margin: calc(-1 * var(--e-6)) calc(50% - 50cqw) 0;
+  padding: var(--e-7) max(var(--margen), calc(50cqw - var(--ancho-max) / 2 + var(--margen))) var(--e-7);
+  background: var(--bolsa);
+  color: var(--sobre-bolsa);
+}
+
+.bolsa h1 {
+  font-size: var(--t-cifra);
+  max-width: 20ch;
+}
+
+.bolsa .bajada {
+  margin-top: var(--e-5);
+  max-width: 46ch;
+  font-size: var(--t-entrada);
+  color: var(--sobre-bolsa);
+}
+
+.bolsa a {
+  color: var(--sobre-bolsa);
+}
+
+/* Láminas de las especies del huerto: llenan el lado derecho del campo verde */
+.laminas-huerto {
+  margin: var(--e-6) 0 0;
+}
+
+.laminas-fila {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--e-2);
+}
+
+.laminas-fila img {
+  width: 100%;
+  aspect-ratio: 5 / 7;
+  object-fit: cover;
+  object-position: center 35%;
+  background: var(--sobre-bolsa);
+}
+
+.laminas-huerto figcaption {
+  margin-top: var(--e-3);
+  font-size: var(--t-nota);
+  color: var(--sobre-bolsa);
+  max-width: 46ch;
+}
+
+@media (min-width: 900px) {
+  .bolsa-con-laminas {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    gap: var(--e-7);
+    align-items: end;
+  }
+
+  .bolsa-con-laminas .laminas-huerto {
+    margin: 0;
+  }
+
+  .bolsa-con-laminas h1 {
+    font-size: clamp(2.375rem, 4.6vw, 4.5rem);
+  }
+}
+
+.bolsa-con-ventana {
+  padding-bottom: calc(var(--e-8) + 120px);
+}
+
+.volver {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--e-2);
+  min-height: 44px;
+  margin-bottom: var(--e-4);
+  color: var(--sobre-bolsa-suave);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .volver:hover {
+    color: var(--sobre-bolsa);
+  }
+}
+
+/* Sellos de conteo en la bolsa */
+.conteos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--e-5) var(--e-6);
+  margin-top: var(--e-6);
+}
+
+.conteo {
+  display: flex;
+  align-items: baseline;
+  gap: var(--e-2);
+  margin: 0;
+}
+
+.conteo strong {
+  font-stretch: var(--ancho-titulo);
+  font-weight: 800;
+  font-size: var(--t-2);
+  line-height: 1;
+  color: var(--sobre-bolsa);
+}
+
+.conteo span {
+  font-weight: 600;
+  color: var(--sobre-bolsa);
+}
+
+/* ---------- Ventana del mapa: entra solapando el borde del campo ---------- */
+.ventana-mapa {
+  position: relative;
+  z-index: var(--z-mapa);
+  margin-top: -120px;
+  background: var(--papel);
+  padding: var(--e-2);
+  clip-path: polygon(
+    var(--chaflan) 0, calc(100% - var(--chaflan)) 0, 100% var(--chaflan), 100% calc(100% - var(--chaflan)),
+    calc(100% - var(--chaflan)) 100%, var(--chaflan) 100%, 0 calc(100% - var(--chaflan)), 0 var(--chaflan)
+  );
+}
+
+.mapa-lienzo {
+  height: min(64dvh, 560px);
+  min-height: 320px;
+  width: 100%;
+  background: var(--banda);
+}
+
+.ventana-mapa .leaflet-container,
+.ventana-mapa .leaflet-control-zoom a,
+.ventana-mapa .leaflet-control-attribution {
+  font-family: var(--f);
+}
+
+.ventana-mapa .leaflet-control-attribution {
+  font-size: 0.8125rem;
+}
+
+/* El popup flota sobre el mapa: es el único lugar con sombra. */
+.leaflet-popup-content-wrapper {
+  border-radius: var(--radio-control);
+  background: var(--papel);
+  color: var(--tinta);
+  box-shadow: 0 10px 28px rgb(14 63 34 / 0.28);
+}
+
+.leaflet-popup-tip {
+  background: var(--papel);
+}
+
+.leaflet-popup-content {
+  margin: var(--e-4);
+  font-size: var(--t-nota);
+  line-height: 1.45;
+}
+
+.popup-titulo {
+  display: block;
+  font-stretch: var(--ancho-titulo);
+  font-weight: 800;
+  font-size: var(--t-entrada);
+  line-height: 1.1;
+  margin-bottom: var(--e-1);
+}
+
+.marcador-etiqueta {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 38px;
+  background: var(--bolsa);
+  color: var(--sobre-bolsa);
+  clip-path: polygon(0 0, 100% 0, 100% 72%, 50% 100%, 0 72%);
+  transition: transform var(--m-rapido) var(--curva-salida);
+}
+
+.marcador-etiqueta svg {
+  margin-top: -6px;
+}
+
+/* ---------- Etiqueta troquelada ---------- */
+.etiqueta {
+  position: relative;
+  background: var(--papel);
+  color: var(--tinta);
+  clip-path: polygon(
+    var(--chaflan) 0, calc(100% - var(--chaflan)) 0, 100% var(--chaflan), 100% calc(100% - var(--chaflan)),
+    calc(100% - var(--chaflan)) 100%, var(--chaflan) 100%, 0 calc(100% - var(--chaflan)), 0 var(--chaflan)
+  );
+}
+
+.etiqueta-cabeza {
+  padding: var(--e-5) var(--e-5) var(--e-4);
+}
+
+.etiqueta-cabeza h2,
+.etiqueta-cabeza h3 {
+  margin: 0;
+}
+
+.etiqueta-nombre {
+  font-size: var(--t-3);
+  font-stretch: var(--ancho-titulo);
+  line-height: 1.02;
+}
+
+/* Campos: dos columnas apretadas, agrupados por bandas de tono, nunca por líneas */
+.campos {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2px;
+  margin: 0;
+  background: var(--papel);
+}
+
+.campos > div {
+  background: var(--banda);
+  padding: var(--e-3) var(--e-4);
+  min-width: 0;
+}
+
+.campos dt {
+  font-size: var(--t-nota);
+  font-weight: 600;
+  color: var(--tinta-suave);
+}
+
+.campos dd {
+  margin: 0;
+  font-size: var(--t-cuerpo);
+  font-weight: 600;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+
+.campos .ancho-completo {
+  grid-column: 1 / -1;
+}
+
+@media (min-width: 768px) {
+  .campos-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* ---------- Sellos: el estado es una marca, no solo un color ---------- */
+.sello {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: fit-content;
+  padding: 3px var(--e-2);
+  border: 2px solid currentColor;
+  border-radius: 4px;
+  font-stretch: var(--ancho-sello);
+  font-weight: 800;
+  font-size: var(--t-nota);
+  line-height: 1.2;
+  transform: rotate(-2deg);
+}
+
+.sello-redondo {
+  display: grid;
+  place-items: center;
+  width: 76px;
+  height: 76px;
+  padding: 0;
+  border-width: 2.5px;
+  border-radius: 50%;
+  text-align: center;
+  font-size: var(--t-nota);
+  line-height: 1.05;
+  box-shadow: inset 0 0 0 3px var(--papel), inset 0 0 0 4.5px currentColor;
+  transform: rotate(-12deg);
+}
+
+.sello-caliente {
+  color: var(--sello-caliente);
+}
+
+.sello-fria {
+  color: var(--sello-fria);
+}
+
+.sello-neutro {
+  color: var(--sello-neutro);
+}
+
+.sello-sembrado {
+  color: var(--sello-ambar);
+}
+
+.sello-en_crecimiento {
+  color: var(--exito);
+}
+
+.sello-cosechado {
+  color: var(--info);
+}
+
+.sello-perdido {
+  color: var(--sello-neutro);
+}
+
+/* Firma: el sello cae una vez cuando su etiqueta entra (escala y opacidad; sin desplazamiento con movimiento reducido) */
+.revelar .sello,
+.revelar .sello-redondo {
+  animation: sellar 220ms var(--curva-salida) both;
+  animation-delay: calc(var(--orden, 0) * var(--escalon) + 160ms);
+}
+
+@keyframes sellar {
+  from {
+    opacity: 0;
+    scale: 1.12;
+  }
+}
+
+/* ---------- Lista de huertos ---------- */
+.lista-huertos {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: var(--e-4);
+}
+
+@media (min-width: 720px) {
+  .lista-huertos {
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  }
+}
+
+.etiqueta-enlace {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  height: 100%;
+  transition: transform var(--m-presion) var(--curva-salida);
+}
+
+.etiqueta-enlace:active {
+  transform: scale(0.985);
+}
+
+.etiqueta-enlace .etiqueta {
+  height: 100%;
+  transition: background-color var(--m-rapido) ease;
+}
+
+.etiqueta-enlace .ver {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--e-2);
+  padding: var(--e-3) var(--e-5) var(--e-4);
+  font-weight: 700;
+  color: var(--accion);
+}
+
+.etiqueta-enlace .ver svg {
+  transition: transform var(--m-rapido) var(--curva-salida);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .etiqueta-enlace:hover .etiqueta {
+    background: #fbfdfb;
+  }
+
+  .etiqueta-enlace:hover .ver svg {
+    transform: translateX(4px);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-color-scheme: dark) {
+  .etiqueta-enlace:hover .etiqueta {
+    background: #182c20;
+  }
+}
+
+/* ---------- Ficha: etiquetas de plantas ---------- */
+.plantas {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: var(--e-5);
+  align-items: start;
+}
+
+@media (min-width: 900px) {
+  .plantas {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.planta {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+@media (min-width: 560px) {
+  .planta {
+    grid-template-columns: 42% minmax(0, 1fr);
+  }
+}
+
+.planta-figura {
+  margin: 0;
+  background: var(--banda);
+  display: flex;
+  flex-direction: column;
+}
+
+.planta-figura img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: center 30%;
+}
+
+.planta-figura figcaption {
+  padding: var(--e-2) var(--e-3);
+  font-size: var(--t-nota);
+  line-height: 1.35;
+  color: var(--tinta-suave);
+  font-style: italic;
+}
+
+@media (max-width: 559px) {
+  .planta-figura img {
+    aspect-ratio: 16 / 10;
+  }
+}
+
+@media (min-width: 560px) {
+  .planta.planta-sin-figura {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.planta-cuerpo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--e-3);
+  padding: var(--e-5);
+  min-width: 0;
+}
+
+.planta-cuerpo .cabeza {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--e-3);
+}
+
+.cientifico {
+  font-style: italic;
+  color: var(--tinta-suave);
+  margin: var(--e-1) 0 0;
+}
+
+.planta-cuerpo .campos dd {
+  font-size: var(--t-cuerpo);
+}
+
+.fuente {
+  margin: auto 0 0;
+  padding-top: var(--e-2);
+  font-size: var(--t-nota);
+  color: var(--tinta-suave);
+}
+
+/* ---------- Ficha: zonas y cultivos ---------- */
+.zonas {
+  display: grid;
+  gap: 2px;
+  background: var(--banda);
+}
+
+@media (min-width: 720px) {
+  .zonas {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
+}
+
+.zona {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--e-4);
+  padding: var(--e-5);
+  background: var(--papel);
+}
+
+.zona-codigo {
+  font-stretch: var(--ancho-titulo);
+  font-weight: 800;
+  font-size: var(--t-2);
+  line-height: 0.9;
+  color: var(--bolsa);
+}
+
+.zona h3 {
+  margin-bottom: var(--e-2);
+}
+
+.lista-cultivos {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--e-2);
+}
+
+.lista-cultivos li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--e-2) var(--e-3);
+  padding: var(--e-2) var(--e-3);
+  background: var(--banda);
+}
+
+.lista-cultivos .nombre {
+  font-weight: 700;
+  margin-right: auto;
+}
+
+@media (prefers-color-scheme: dark) {
+  .zona-codigo {
+    color: var(--accion);
+  }
+}
+
+/* ---------- Botones ---------- */
+.boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--e-2);
+  min-height: 48px;
+  padding: var(--e-2) var(--e-5);
+  border: 2px solid var(--accion);
+  border-radius: var(--radio-control);
+  background: var(--accion);
+  color: var(--sobre-accion);
+  font: inherit;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform var(--m-presion) var(--curva-salida),
+    background-color var(--m-rapido) ease,
+    border-color var(--m-rapido) ease;
+}
+
+.boton:active {
+  transform: scale(0.97);
+}
+
+.boton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .boton:hover:not(:disabled) {
+    background: var(--accion-hover);
+    border-color: var(--accion-hover);
+  }
+}
+
+.boton-secundario {
+  background: transparent;
+  color: var(--accion);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .boton-secundario:hover:not(:disabled) {
+    background: var(--banda);
+    color: var(--accion);
+  }
+}
+
+/* En la bolsa, los botones se invierten: papel sobre verde */
+.bolsa .boton {
+  background: var(--sobre-bolsa);
+  border-color: var(--sobre-bolsa);
+  color: var(--bolsa);
+}
+
+.bolsa .boton-secundario {
+  background: transparent;
+  color: var(--sobre-bolsa);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .bolsa .boton:hover:not(:disabled) {
+    background: #ffffff;
+    border-color: #ffffff;
+  }
+
+  .bolsa .boton-secundario:hover:not(:disabled) {
+    background: var(--bolsa-profunda);
+    color: var(--sobre-bolsa);
+  }
+}
+
+.boton-tenue {
+  background: transparent;
+  border-color: var(--sobre-bolsa-suave);
+  color: var(--sobre-bolsa);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .boton-tenue:hover:not(:disabled) {
+    background: var(--bolsa-profunda);
+    border-color: var(--sobre-bolsa);
+  }
+}
+
+.boton-pequeno {
+  min-height: 44px;
+  padding: var(--e-1) var(--e-4);
+  font-size: var(--t-nota);
+}
+
+.boton-ancho {
+  width: 100%;
+}
+
+.girando {
+  animation: girar 0.7s linear infinite;
+}
+
+@keyframes girar {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--e-3);
+  margin-top: var(--e-6);
+}
+
+/* ---------- Avisos ---------- */
+.aviso {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--e-3);
+  padding: var(--e-3) var(--e-4);
+  margin: var(--e-3) 0;
+  font-weight: 500;
+  animation: aparecer var(--m-entrada) var(--curva-salida);
+}
+
+.aviso svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.aviso-error {
+  background: var(--error-fondo);
+  color: var(--error);
+}
+
+.aviso-exito {
+  background: var(--exito-fondo);
+  color: var(--exito);
+}
+
+.aviso-info {
+  background: var(--info-fondo);
+  color: var(--info);
+}
+
+.aviso-titulo {
+  font-weight: 700;
+  display: block;
+}
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+
+/* ---------- Vacíos y esqueletos (tono plano, sin degradados) ---------- */
+.vacio {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--e-2);
+  padding: var(--e-6) var(--e-5);
+  background: var(--banda);
+  color: var(--tinta-suave);
+}
+
+.vacio svg {
+  color: var(--accion);
+}
+
+.vacio strong {
+  color: var(--tinta);
+  font-stretch: var(--ancho-titulo);
+  font-weight: 800;
+  font-size: var(--t-entrada);
+  line-height: 1.05;
+}
+
+.vacio p {
+  max-width: 48ch;
+  margin: 0;
+}
+
+.esqueleto {
+  display: block;
+  background: var(--banda-fuerte);
+  animation: pulso 1.2s ease-in-out infinite alternate;
+}
+
+@keyframes pulso {
+  from {
+    opacity: 0.55;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ---------- Superficies de gestión (Operate: hereda el mundo con sobriedad) ---------- */
+.seccion,
+.panel {
+  background: var(--papel);
+  padding: var(--e-5) var(--e-4);
+  margin: var(--e-4) 0;
+}
+
+.panel {
+  background: var(--papel);
+  border-top: 6px solid var(--accion);
+  animation: aparecer var(--m-entrada) var(--curva-salida);
+}
+
+.seccion > h2:first-child,
+.panel > h2:first-child,
+.panel > h3:first-child {
+  margin-top: 0;
+}
+
+.titulo-seccion {
+  display: flex;
+  align-items: center;
+  gap: var(--e-2);
+}
+
+.titulo-seccion svg {
+  color: var(--accion);
+  flex-shrink: 0;
+}
+
+.cabecera-seccion {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--e-3);
+  margin-bottom: var(--e-3);
+}
+
+.cabecera-seccion h2 {
+  margin: 0;
+}
+
+@media (min-width: 768px) {
+  .seccion,
+  .panel {
+    padding: var(--e-6);
+  }
+}
+
+.cabeza-gestion {
+  margin: calc(-1 * var(--e-6)) calc(50% - 50cqw) var(--e-5);
+  padding: var(--e-6) max(var(--margen), calc(50cqw - var(--ancho-max) / 2 + var(--margen))) 0;
+  background: var(--bolsa);
+  color: var(--sobre-bolsa);
+}
+
+.cabeza-gestion .fila {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--e-4);
+  padding-bottom: var(--e-5);
+}
+
+.cabeza-gestion h1 {
+  font-size: var(--t-2);
+}
+
+.cabeza-gestion p {
+  margin: var(--e-2) 0 0;
+  color: var(--sobre-bolsa-suave);
+}
+
+/* ---------- Formularios (los campos sí llevan línea: convención del control) ---------- */
+.formulario {
+  display: flex;
+  flex-direction: column;
+  gap: var(--e-4);
+}
+
+.rejilla {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--e-4);
+}
+
+@media (min-width: 640px) {
+  .rejilla {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .ancho-completo {
+    grid-column: 1 / -1;
+  }
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--e-1);
+  min-width: 0;
+}
+
+.campo-etiqueta {
+  font-weight: 700;
+  font-size: var(--t-nota);
+}
+
+.obligatorio {
+  color: var(--error);
+  margin-left: 2px;
+}
+
+.campo-ayuda {
+  font-size: var(--t-nota);
+  color: var(--tinta-suave);
+  margin: 0;
+}
+
+.campo-error {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--e-1);
+  font-size: var(--t-nota);
+  font-weight: 700;
+  color: var(--error);
+  margin: 0;
+  animation: aparecer var(--m-entrada) var(--curva-salida);
+}
+
+.campo-error svg {
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+.control {
+  width: 100%;
+  font: inherit;
+  font-size: 1rem; /* 16 px evita el zoom automático en iOS */
+  min-height: 48px;
+  padding: var(--e-2) var(--e-3);
+  border: 2px solid var(--campo-borde);
+  border-radius: var(--radio-control);
+  background: var(--papel);
+  color: var(--tinta);
+  transition: border-color var(--m-rapido) ease;
+}
+
+textarea.control {
+  min-height: 96px;
+  resize: vertical;
+}
+
+.control::placeholder {
+  color: var(--tinta-suave);
+}
+
+.control:focus {
+  outline: 3px solid var(--anillo);
+  outline-offset: 1px;
+  border-color: var(--accion);
+}
+
+.control[aria-invalid='true'] {
+  border-color: var(--error);
+  background: var(--error-fondo);
+}
+
+.control-archivo {
+  padding: var(--e-2);
+  cursor: pointer;
+}
+
+.control-archivo::file-selector-button {
+  font: inherit;
+  font-weight: 700;
+  margin-right: var(--e-3);
+  padding: var(--e-2) var(--e-4);
+  border: none;
+  border-radius: var(--radio-control);
+  background: var(--banda-fuerte);
+  color: var(--tinta);
+  cursor: pointer;
+}
+
+.con-boton {
+  position: relative;
+}
+
+.con-boton .control {
+  padding-right: 52px;
+}
+
+.boton-icono {
+  position: absolute;
+  right: 2px;
+  top: 2px;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border: none;
+  background: transparent;
+  color: var(--tinta-suave);
+  cursor: pointer;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .boton-icono:hover {
+    color: var(--tinta);
+    background: var(--banda);
+  }
+}
+
+.grupo-campos {
+  border: none;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+
+.grupo-campos legend {
+  font-stretch: var(--ancho-titulo);
+  font-weight: 800;
+  font-size: var(--t-entrada);
+  line-height: 1.15;
+  padding: 0;
+  margin-bottom: var(--e-3);
+}
+
+/* ---------- Pestañas de gestión ---------- */
+.pestanas {
+  display: flex;
+  gap: var(--e-1);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.pestanas a {
+  flex: 1 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--e-2);
+  min-height: 48px;
+  padding: var(--e-2) var(--e-3);
+  text-decoration: none;
+  color: var(--sobre-bolsa-suave);
+  font-weight: 700;
+  white-space: nowrap;
+  transition: background-color var(--m-rapido) ease, color var(--m-rapido) ease;
+}
+
+.pestanas a.active {
+  background: var(--fondo);
+  color: var(--tinta);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .pestanas a:not(.active):hover {
+    color: var(--sobre-bolsa);
+    background: var(--bolsa-profunda);
+  }
+}
+
+@media (min-width: 640px) {
+  .pestanas a {
+    flex: 0 0 auto;
+    padding: var(--e-2) var(--e-5);
+  }
+}
+
+/* ---------- Listas de gestión ---------- */
+.lista-gestion {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 2px;
+}
+
+.lista-gestion li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--e-3);
+  padding: var(--e-3);
+  background: var(--banda);
+}
+
+.lista-gestion .principal {
+  flex: 1;
+  min-width: 180px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.miniatura {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  background: var(--banda-fuerte);
+  flex-shrink: 0;
+}
+
+.miniatura-vacia {
+  display: grid;
+  place-items: center;
+  color: var(--accion);
+}
+
+.estado-selector .control {
+  min-width: 170px;
+}
+
+/* ---------- Ingreso ---------- */
+.ingreso {
+  max-width: 460px;
+  margin: 0 auto;
+}
+
+.ingreso .etiqueta {
+  padding: var(--e-6) var(--e-5);
+}
+
+.ingreso h1 {
+  font-size: var(--t-2);
+  margin-bottom: var(--e-3);
+}
+
+/* ---------- Utilidades ---------- */
+.secundario {
+  color: var(--tinta-suave);
+}
+
+.solo-lectores {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Entrada escalonada de etiquetas: una vez, desde un estado ya visible al terminar */
+.revelar {
+  animation: revelar var(--m-entrada) var(--curva-salida) both;
+  animation-delay: calc(var(--orden, 0) * var(--escalon));
+}
+
+@keyframes revelar {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+/*
+ * Movimiento reducido (emil-design-eng + ui-ux-pro-max): menos y más suave, no cero.
+ * Se quitan desplazamientos y escalas; se conservan fundidos breves que ayudan a entender.
+ */
+@media (prefers-reduced-motion: reduce) {
+  .revelar {
+    animation-name: fundir;
+    animation-duration: 160ms;
+  }
+
+  .revelar .sello,
+  .revelar .sello-redondo {
+    animation-name: fundir;
+  }
+
+  .aviso,
+  .campo-error,
+  .panel {
+    animation-name: fundir;
+  }
+
+  .boton:active,
+  .etiqueta-enlace:active {
+    transform: none;
+  }
+
+  .girando {
+    animation-duration: 1.6s;
+  }
+
+  .esqueleto {
+    animation: none;
+  }
+}
+
+@keyframes fundir {
+  from {
+    opacity: 0;
+  }
+}

@@ -1,0 +1,4 @@
+# Entorno de prueba (doc 04, «Cómo ejecutar y registrar»): reloj fijado en 31/10/2026 12:00 America/Guayaquil.
+huertos:
+  reloj:
+    fijo: 2026-10-31T12:00:00-05:00

@@ -127,3 +127,77 @@ export const ESTADOS_CULTIVO: { valor: EstadoCultivo; etiqueta: string }[] = [
   { valor: 'COSECHADO', etiqueta: 'cosechado' },
   { valor: 'PERDIDO', etiqueta: 'perdido' },
 ]
+
+// ---------- Siembras y condición lunar (HU-014, HU-015) ----------
+
+export type Tecnica = 'SEMILLAS' | 'ESTACAS' | 'ESQUEJES' | 'PLANTULAS'
+
+export const TECNICAS: { valor: Tecnica; etiqueta: string }[] = [
+  { valor: 'SEMILLAS', etiqueta: 'Semillas' },
+  { valor: 'ESTACAS', etiqueta: 'Estacas' },
+  { valor: 'ESQUEJES', etiqueta: 'Esquejes' },
+  { valor: 'PLANTULAS', etiqueta: 'Plántulas' },
+]
+
+export type ResultadoLunar = 'CONFORME' | 'NO_CONFORME' | 'PENDIENTE'
+
+export interface CondicionLunar {
+  resultado: ResultadoLunar
+  fase: string | null
+  codigo: string
+  mensaje: string
+  regla: string
+}
+
+export interface Siembra {
+  id: number
+  cultivoId: number
+  version: number
+  fechaHecho: string
+  /** Fecha y hora del hecho en la zona del huerto, `yyyy-MM-ddTHH:mm`. */
+  fechaHechoLocal: string
+  registradaEn: string
+  autor: string
+  tecnica: Tecnica
+  tecnicaEtiqueta: string
+  descripcion: string | null
+  fotoUrl: string
+  condicion: CondicionLunar
+}
+
+export interface Bitacora {
+  cultivo: Cultivo
+  zonaHoraria: string
+  siembras: Siembra[]
+}
+
+// ---------- Calendario lunar (HU-019, HU-020) ----------
+
+export type FaseLunar = 'LUNA_OSCURA' | 'LUNA_CRECIENTE' | 'LUNA_LLENA' | 'LUNA_MENGUANTE'
+
+export interface DiaLunar {
+  fecha: string
+  fase: FaseLunar | null
+  faseEtiqueta: string | null
+  resaltado: boolean
+}
+
+export interface EventoFase {
+  fase: 'LUNA_NUEVA' | 'CUARTO_CRECIENTE' | 'LUNA_LLENA' | 'CUARTO_MENGUANTE'
+  etiqueta: string
+  instante: string
+}
+
+export interface CalendarioLunar {
+  desde: string
+  hasta: string
+  disponibleDesde: string
+  disponibleHasta: string
+  zonaHoraria: string
+  actividad: string | null
+  dias: DiaLunar[]
+  fasesPrincipales: EventoFase[]
+  actividadesPorFase: Record<FaseLunar, string[]>
+  opciones: { id: string; etiqueta: string }[]
+  fuente: string
+}

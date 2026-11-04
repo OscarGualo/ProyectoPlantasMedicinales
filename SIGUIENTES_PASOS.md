@@ -20,12 +20,19 @@ npm install
 npm run dev
 
 # Pruebas del backend (requiere Docker Desktop abierto)
-cd backend && ./mvnw verify            # hoy: 48/48 en verde
+cd backend && ./mvnw verify            # hoy: 63 pruebas, 0 fallos, 1 omitida (P-050 contra REF-LUNA)
+
+# Pruebas de navegador (Playwright; requiere el contenedor de la base arriba)
+cd frontend && npx playwright test     # hoy: 11/11 en verde
+#   Levanta solo el backend con el perfil e2e (puerto 8081, base huertos_e2e, reloj fijo 31/10/2026 12:00)
+#   y Vite en 5174. Antes de cada caso restaura los datos con POST /api/publico/e2e/restaurar.
 ```
 
 - Cuenta de demostración: `lider.demo1` / `demo-huertos-2026` (también `lider.demo2`, `lider.demo3`).
-- Cuentas de prueba (solo en tests, `datos-prueba.sql`): `l1`…`l5` / `clave-prueba`.
+- Cuentas de prueba (tests y e2e, `backend/src/main/resources/e2e/datos-prueba.sql`): `l1`…`l5` / `clave-prueba`.
 - Si cambias `V1__esquema.sql` o `V2__demo.sql`, borra la base: `docker compose down -v && docker compose up -d`.
+- La base `huertos_e2e` la crea `docker/initdb/01-base-e2e.sql` solo en un volumen nuevo. Con un volumen anterior:
+  `docker compose exec postgres psql -U huertos -c "CREATE DATABASE huertos_e2e;"`.
 
 ## 2. Qué está hecho
 
@@ -40,12 +47,24 @@ cd backend && ./mvnw verify            # hoy: 48/48 en verde
 | HU-007 Modificar planta | ✅ | ✅ `/gestion/plantas` | P-016, P-017, P-018 |
 | HU-008 Registrar cultivo | ✅ | ✅ `/gestion/cultivos` | P-019, P-020 |
 | HU-009 Estado del cultivo | ✅ | ✅ `/gestion/cultivos` | P-021, P-022 |
-| HU-010 Mapa | ✅ `GET /api/publico/huertos` | ✅ `/` | ⏳ P-023, P-024 (Playwright) |
-| HU-011 Ficha pública | ✅ `GET /api/publico/huertos/{id}` | ✅ `/huertos/:id` | ⏳ P-025, P-026 (Playwright) |
+| HU-010 Mapa | ✅ `GET /api/publico/huertos` | ✅ `/` | P-023, P-024 (Playwright) |
+| HU-011 Ficha pública | ✅ `GET /api/publico/huertos/{id}` | ✅ `/huertos/:id` | P-025, P-026 (Playwright) |
+| HU-012 Recorrido 3D | — (usa la ficha) | ✅ `/huertos/:id/3d` | P-028 (Playwright); ⏳ P-027 manual en celular |
+| HU-013 Cultivos de una zona | — | ✅ panel de zona en 3D | P-029, P-030, P-031 (Playwright) |
+| HU-014 Registrar siembra | ✅ `POST /api/cultivos/{id}/siembras` | ✅ `/gestion/cultivos/:id/bitacora` | P-032 a P-037 |
+| HU-015 Condición lunar | ✅ en `GET /api/cultivos/{id}/bitacora` | ✅ sello en la bitácora | P-038, P-039, P-040 |
+| HU-019 Calendario lunar | ✅ `GET /api/publico/calendario-lunar` | ✅ `/calendario` | P-050 (⏳ ±1 h con REF-LUNA), P-051 |
+| HU-020 Filtro por actividad | ✅ parámetro `actividad` | ✅ `/calendario` | P-052, P-053, P-054 (API y Playwright) |
 
 Además:
-- Módulo `luna` listo: cálculo de fases con commons-suncalc, intervalos por puntos medios (RN-09), regla de
-  siembra (RN-06), tabla de actividades por fase (RN-10) y CAL-T para pruebas (`ConfigCalT`). Falta exponerlo por API.
+- Módulo `luna`: fases con commons-suncalc, intervalos por puntos medios (RN-09), regla de siembra (RN-06), tabla de
+  actividades por fase (RN-10), CAL-T para pruebas (`ConfigCalT`) y el calendario público.
+- Paquete `actividades`: `Actividad` + `ActividadVersion` (solo inserción), clave de envío UUID contra duplicados.
+- Escena 3D con three.js + @react-three/fiber (sin drei), en un paquete aparte que solo se descarga en `/huertos/:id/3d`
+  (248 KB gzip; el inicial pesa 108 KB gzip). Sin WebGL o si falla la carga: MSG-13 + lista de zonas.
+- Infraestructura e2e: `frontend/playwright.config.ts`, `frontend/e2e/` (fixtures `datos` y `consola`: un caso falla si
+  la consola del navegador registra un error no declarado), perfil Spring `e2e` y `RestauracionE2eController`
+  (solo existe con ese perfil).
 - Catálogo completo MSG-01 a MSG-23 en `comun/Mensaje.java` (textos exactos del doc 03).
 - Esquema completo en `V1__esquema.sql`, incluidas `actividad` y `actividad_version` (solo inserción, con trigger).
 - Interfaz rediseñada con el mundo **«La etiqueta de la planta seca»** (ver `DESIGN.md` y sección 5).
@@ -53,26 +72,8 @@ Además:
 
 ## 3. Qué falta, en orden (calendario del doc 02)
 
-### Bloque 9–10/11: 3D, siembras, condición lunar y calendario
-1. **HU-012 Recorrer el huerto en 3D** (frontend): instalar `three`, `@react-three/fiber`, `@react-three/drei`;
-   cargar la ruta con `lazy` (el paquete pesa). La escena se arma con `ficha.zonas[].geometria` (`x`, `z` = centro;
-   `ancho` en x, `largo` en z, `alto`). `OrbitControls`. Si no hay WebGL o falla la carga: MSG-13 + lista de zonas y
-   cultivos del mismo huerto (ErrorBoundary). Ruta `/huertos/:id/3d` (hoy es «en construcción» en `App.tsx`).
-2. **HU-013 Cultivos de una zona en 3D**: clic o toque en una zona → panel con sus cultivos y sello caliente,
-   fría o sin clasificar; zona sin cultivos → MSG-22. Datos ya disponibles en la ficha pública.
-3. **HU-014 Registrar una siembra** (backend + frontend):
-   - Entidades `Actividad` y `ActividadVersion` (tablas ya existen), `ServicioActividades.registrar` transaccional.
-   - Orden: cultivo ajeno → MSG-19 (403); `clave_envio` repetida → devuelve la existente (200); fecha futura →
-     MSG-08; foto inválida → MSG-07; error al guardar → rollback y MSG-11 (503).
-   - `POST /api/cultivos/{id}/siembras` (multipart + `claveEnvio`), `GET /api/cultivos/{id}/bitacora`.
-   - Frontend: `/gestion/cultivos/:id/bitacora`; la clave UUID se genera al abrir el formulario y se reutiliza.
-   - Pruebas P-032 a P-037 (P-037 con `@MockitoBean` del repositorio de fotos que falla).
-4. **HU-015 Condición lunar**: en la bitácora, `CalculadoraFase` + `ReglaSiembra` con la zona horaria del huerto
-   → MSG-15, MSG-16 o MSG-17. Pruebas P-038 a P-040 con `@Import(ConfigCalT.class)`.
-5. **HU-019 Calendario lunar**: `GET /api/publico/calendario-lunar?desde&dias&actividad` (30 días, fase del día a las
-   12:00 en America/Guayaquil, instantes de fases principales, rango ±12 meses → MSG-20). Frontend `/calendario`.
-   Pruebas P-050, P-051 con el cálculo real (sin CAL-T).
-6. **HU-020 Filtro por actividad**: `ActividadAgricola` ya define qué fase recomienda cada actividad. P-052 a P-054.
+### Bloque 9–10/11: 3D, siembras, condición lunar y calendario — ✅ hecho (03/11)
+Queda solo **P-027** (manual): recorrer el 3D de H1 en un celular Android de gama media y compararlo con el croquis CR1.
 
 ### Bloque 11/11: correcciones, historial y reto
 7. **HU-016 Corregir una siembra**: nueva versión `numero+1` con motivo (MSG-12), autoridad (MSG-03), foto opcional
@@ -82,8 +83,9 @@ Además:
    siembras elegibles → MSG-18. `GET /api/publico/huertos/{id}/reto`, ruta `/huertos/:id/reto`. P-047 a P-049.
 
 ### Bloque 12/11: integración, despliegue y documentos
-10. **Playwright** (ya instalado en `frontend`): P-023 a P-026, P-050 a P-055 contra la app levantada.
-11. **Pruebas manuales con evidencia** P-027 a P-031 (3D en celular Android) → capturas en `docs/evidencias/`.
+10. **Playwright**: falta P-055 (los demás casos de interfaz ya están en `frontend/e2e/`). Sumar al e2e los casos de
+    HU-016 a HU-018 que tengan criterio de interfaz.
+11. **Prueba manual con evidencia** P-027 (3D en celular Android) → capturas en `docs/evidencias/`.
 12. **Registrar resultados** en las tablas de ejecución de `docs/04_Casos_de_prueba_I1_v1.2.md`.
 13. **Dockerfile** multietapa (node → maven → JRE 21) y **CI** `.github/workflows/ci.yml` (backend `mvn verify`,
     frontend `npm run build`, e2e).
@@ -91,9 +93,9 @@ Además:
 15. **Documentos**:
     - Doc 05 §6: completar el catálogo MSG-02 a MSG-23 (el PDF original solo trae MSG-01).
     - Doc 06: paquete `consulta` (ficha y lista pública), `GET /api/publico/huertos` devuelve conteos, CAL-T sustituye
-      `CalculadoraFase` (no la fuente de efemérides), zona `Pacific/Galapagos`, base local en 5433.
+      `CalculadoraFase` (no la fuente de efemérides), zona `Pacific/Galapagos`, base local en 5433, paquete
+      `actividades`, perfil `e2e`, three.js sin drei.
     - Listado de herramientas y tecnologías con versiones; README; informe `Proyecto-Version1-nombreEquipo.pdf`.
-16. **Primer commit**: todavía no hay ningún commit en el repositorio.
 
 ## 4. Pendientes que dependen del cliente o del equipo
 
@@ -131,3 +133,7 @@ node .claude/skills/taste-skill/scripts/inspect.mjs http://localhost:5173/<ruta>
 - La zona horaria se asigna sola: Galápagos → `Pacific/Galapagos`; el resto → `America/Guayaquil`.
 - Los datos de prueba fijan E1 «Plantae probatoria» y los cultivos sembrados el 30/10 (para que P-021 muestre una
   fecha nueva con el reloj fijo).
+- H1 de prueba tiene además las zonas C1 (camino), CE1 (cerca) y B1 (bodega) para comparar el 3D con el croquis.
+- Siembra: la fecha y hora se escriben en la hora local del huerto; el servidor las convierte con su zona horaria.
+- Calendario: la fase de cada día es la vigente a las 12:00 de America/Guayaquil; horas en formato de 24 h.
+- Señal en 3D: el sello de cada cultivo lleva texto («Caliente», «Fría», «Sin clasificar»), nunca solo color.

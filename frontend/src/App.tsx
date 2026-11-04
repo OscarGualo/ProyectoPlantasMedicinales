@@ -15,10 +15,7 @@ const enrutador = createBrowserRouter([
       { path: '/huertos/:id', lazy: async () => ({ Component: (await import('./paginas/FichaHuerto')).FichaHuerto }) },
       {
         path: '/huertos/:id/3d',
-        lazy: async () => {
-          const { EnConstruccion } = await import('./paginas/Simples')
-          return { Component: () => <EnConstruccion titulo="Recorrido 3D del huerto" /> }
-        },
+        lazy: async () => ({ Component: (await import('./paginas/Recorrido3D')).Recorrido3D }),
       },
       {
         path: '/huertos/:id/reto',
@@ -27,13 +24,7 @@ const enrutador = createBrowserRouter([
           return { Component: () => <EnConstruccion titulo="Reto Documentación lunar" /> }
         },
       },
-      {
-        path: '/calendario',
-        lazy: async () => {
-          const { EnConstruccion } = await import('./paginas/Simples')
-          return { Component: () => <EnConstruccion titulo="Calendario lunar" /> }
-        },
-      },
+      { path: '/calendario', lazy: async () => ({ Component: (await import('./paginas/Calendario')).Calendario }) },
       { path: '/ingresar', lazy: async () => ({ Component: (await import('./paginas/Ingresar')).Ingresar }) },
       {
         element: <RutaLider />,
@@ -56,10 +47,7 @@ const enrutador = createBrowserRouter([
               },
               {
                 path: 'cultivos/:id/bitacora',
-                lazy: async () => {
-                  const { EnConstruccion } = await import('./paginas/Simples')
-                  return { Component: () => <EnConstruccion titulo="Bitácora de siembras" /> }
-                },
+                lazy: async () => ({ Component: (await import('./paginas/gestion/Bitacora')).Bitacora }),
               },
             ],
           },

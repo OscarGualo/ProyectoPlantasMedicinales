@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState, type FormEvent } from 'react'
 import { Link } from 'react-router'
-import { CircleNotch, Plant, Plus } from '@phosphor-icons/react'
+import { ArrowRight, CircleNotch, Plant, Plus } from '@phosphor-icons/react'
 import { api, mensajeDe } from '../../api/cliente'
 import { ESTADOS_CULTIVO, type Cultivo, type EstadoCultivo, type Planta, type Zona } from '../../api/tipos'
 import { AvisoError, AvisoExito, Cargando, Vacio } from '../../componentes/Estado'
@@ -177,6 +177,10 @@ function FilaCultivo({ cultivo, alCambiar }: { cultivo: Cultivo; alCambiar: (c: 
           Zona {cultivo.zona} · actualizado {formatoFecha.format(new Date(cultivo.actualizadoEn))}
         </span>
         <SenalClasificacion clasificacion={cultivo.clasificacion} />
+        <Link className="enlace-accion" to={`/gestion/cultivos/${cultivo.id}/bitacora`}>
+          Bitácora de siembras
+          <ArrowRight size={16} weight="bold" aria-hidden="true" />
+        </Link>
         <AvisoError>{envio.error}</AvisoError>
         <AvisoExito>{envio.exito}</AvisoExito>
       </div>

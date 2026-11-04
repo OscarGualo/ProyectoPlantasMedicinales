@@ -10,6 +10,8 @@ services:
       - "5433:5432"   # 5433 en el host para no chocar con un PostgreSQL local
     volumes:
       - datos-postgres:/var/lib/postgresql/data
+      # Crea la base huertos_e2e de las pruebas en navegador (solo al crear el volumen por primera vez).
+      - ./docker/initdb:/docker-entrypoint-initdb.d:ro
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-huertos} -d huertos"]
       interval: 5s

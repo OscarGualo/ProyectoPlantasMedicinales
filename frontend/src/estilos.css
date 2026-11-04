@@ -1008,13 +1008,13 @@ img {
 
 .boton-secundario {
   background: transparent;
-  color: var(--accion);
+  color: var(--enlace); /* 6.3:1 sobre la mesa; el verde acción daba 4.3:1 */
 }
 
 @media (hover: hover) and (pointer: fine) {
   .boton-secundario:hover:not(:disabled) {
     background: var(--banda);
-    color: var(--accion);
+    color: var(--enlace);
   }
 }
 
@@ -1570,5 +1570,409 @@ textarea.control {
 @keyframes fundir {
   from {
     opacity: 0;
+  }
+}
+
+/* ======================================================================
+ * Bloque 9–10/11: recorrido 3D, bitácora de siembras y calendario lunar.
+ * Heredan el mundo «La etiqueta de la planta seca» (DESIGN.md).
+ * ====================================================================== */
+
+/* Campo de la bolsa más bajo para pantallas de trabajo y consulta */
+.bolsa-compacta {
+  padding-top: var(--e-6);
+  padding-bottom: var(--e-6);
+}
+
+.bolsa-compacta h1 {
+  font-size: var(--t-2);
+}
+
+.bolsa-compacta .bajada {
+  margin-top: var(--e-3);
+}
+
+.bolsa-compacta .acciones {
+  margin-top: var(--e-4);
+}
+
+/* ---------- Recorrido 3D (HU-012, HU-013) ---------- */
+.recorrido {
+  display: grid;
+  gap: var(--e-5);
+  margin-top: var(--e-5);
+}
+
+@media (min-width: 900px) {
+  .recorrido {
+    grid-template-columns: minmax(0, 1.7fr) minmax(280px, 1fr);
+    align-items: start;
+  }
+}
+
+.escena {
+  position: relative;
+  height: min(62dvh, 560px);
+  min-height: 340px;
+  padding: var(--e-2);
+  background: var(--papel);
+}
+
+.escena-lienzo {
+  width: 100%;
+  height: 100%;
+  background: var(--banda);
+  touch-action: none; /* los gestos de la escena no desplazan la página */
+}
+
+.escena-fallo {
+  height: 100%;
+  overflow-y: auto;
+  padding: var(--e-3);
+}
+
+.recorrido-panel h2 {
+  margin: 0 0 var(--e-3);
+  font-size: var(--t-entrada);
+  font-stretch: var(--ancho-sello);
+}
+
+.recorrido-panel > h2:not(:first-child) {
+  margin-top: var(--e-6);
+}
+
+.zonas-botones {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: var(--e-2);
+}
+
+.zona-boton {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  min-height: 56px;
+  padding: var(--e-2) var(--e-3);
+  border: 2px solid transparent;
+  border-radius: var(--radio-control);
+  background: var(--papel);
+  color: var(--tinta);
+  font: inherit;
+  font-size: var(--t-nota);
+  text-align: left;
+  cursor: pointer;
+  transition: transform var(--m-presion) var(--curva-salida), background-color var(--m-rapido) ease;
+}
+
+.zona-boton:active {
+  transform: scale(0.97);
+}
+
+.zona-boton-codigo {
+  font-stretch: var(--ancho-titulo);
+  font-weight: 800;
+  font-size: var(--t-entrada);
+  line-height: 1;
+}
+
+.zona-boton[aria-pressed='true'] {
+  background: var(--accion);
+  border-color: var(--accion);
+  color: var(--sobre-accion);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .zona-boton[aria-pressed='false']:hover {
+    background: var(--banda);
+  }
+}
+
+.panel-zona {
+  margin-top: var(--e-4);
+  padding: var(--e-4);
+  background: var(--papel);
+  min-height: 96px;
+}
+
+.panel-zona h3 {
+  margin-bottom: var(--e-3);
+}
+
+/* Cambio de zona: fundido breve, sin desplazamiento (se usa seguido) */
+.panel-zona-contenido {
+  animation: fundir var(--m-rapido) var(--curva-salida);
+}
+
+.leyenda {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--e-2);
+}
+
+.leyenda li {
+  display: flex;
+  align-items: center;
+  gap: var(--e-2);
+}
+
+.leyenda-muestra {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  border: 2px solid var(--tinta-suave);
+}
+
+.muestra-camino {
+  background: var(--papel);
+}
+
+.muestra-cerca {
+  background: var(--bolsa);
+}
+
+.muestra-bodega {
+  background: var(--tinta-suave);
+}
+
+.lista-zonas {
+  list-style: none;
+  margin: var(--e-3) 0 0;
+  padding: 0;
+  display: grid;
+  gap: var(--e-4);
+}
+
+.lista-zonas h3 {
+  margin-bottom: var(--e-2);
+}
+
+/* ---------- Bitácora de siembras (HU-014, HU-015) ---------- */
+.enlace-accion {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--e-1);
+  min-height: 44px;
+  font-weight: 700;
+  color: var(--enlace);
+  text-decoration: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .enlace-accion:hover {
+    text-decoration: underline;
+  }
+}
+
+.siembras {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--e-4);
+}
+
+.siembra {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  background: var(--banda);
+}
+
+@media (min-width: 640px) {
+  .siembra {
+    grid-template-columns: 200px minmax(0, 1fr);
+  }
+}
+
+.siembra-foto {
+  width: 100%;
+  height: 100%;
+  min-height: 180px;
+  max-height: 260px;
+  object-fit: cover;
+  background: var(--banda-fuerte);
+}
+
+.siembra-cuerpo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--e-3);
+  padding: var(--e-4) var(--e-5);
+  background: var(--papel);
+}
+
+.siembra-cuerpo .cabeza {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--e-3);
+}
+
+.siembra-cuerpo h3 {
+  font-size: var(--t-entrada);
+}
+
+.condicion {
+  margin: 0;
+  font-weight: 600;
+}
+
+.sello-lunar-conforme {
+  color: var(--exito);
+}
+
+.sello-lunar-no_conforme {
+  color: var(--sello-caliente);
+}
+
+.sello-lunar-pendiente {
+  color: var(--sello-neutro);
+}
+
+/* ---------- Calendario lunar (HU-019, HU-020) ---------- */
+.controles-calendario {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--e-4);
+}
+
+.controles-calendario > .campo {
+  flex: 1 1 240px;
+}
+
+.ir-a {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--e-2);
+  flex: 1 1 260px;
+}
+
+.ir-a .campo {
+  flex: 1;
+}
+
+.dias {
+  list-style: none;
+  margin: var(--e-4) 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 2px;
+  background: var(--banda);
+}
+
+.dia {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-areas: 'fecha fecha' 'glifo fase' 'sello sello';
+  align-items: center;
+  gap: var(--e-1) var(--e-2);
+  min-height: 92px;
+  padding: var(--e-3);
+  background: var(--papel);
+}
+
+.dia-fecha {
+  grid-area: fecha;
+  font-weight: 700;
+  font-size: var(--t-nota);
+}
+
+.dia .glifo-luna {
+  grid-area: glifo;
+}
+
+.dia-fase {
+  grid-area: fase;
+  font-size: var(--t-nota);
+  color: var(--tinta-suave);
+}
+
+/* Día recomendado: tono y sello con texto, nunca solo color. Sin animación: el filtro se usa seguido. */
+.dia-resaltado {
+  background: var(--exito-fondo);
+}
+
+.dia-resaltado .dia-fase {
+  color: var(--tinta);
+  font-weight: 600;
+}
+
+.sello-recomendado {
+  grid-area: sello;
+  color: var(--exito);
+}
+
+.glifo-luna {
+  flex-shrink: 0;
+  display: block;
+}
+
+.eventos {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--e-3);
+}
+
+@media (min-width: 720px) {
+  .eventos {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  }
+}
+
+.evento {
+  display: flex;
+  flex-direction: column;
+  gap: var(--e-1);
+  padding: var(--e-4) var(--e-5);
+}
+
+.evento strong {
+  font-stretch: var(--ancho-titulo);
+  font-weight: 800;
+  font-size: var(--t-entrada);
+}
+
+.fases-actividades {
+  display: grid;
+  gap: 2px;
+  background: var(--banda);
+}
+
+@media (min-width: 720px) {
+  .fases-actividades {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.fases-actividades section {
+  padding: var(--e-4) var(--e-5);
+  background: var(--papel);
+}
+
+.fases-actividades h3 {
+  display: flex;
+  align-items: center;
+  gap: var(--e-2);
+  margin-bottom: var(--e-2);
+}
+
+.fases-actividades ul {
+  margin: 0;
+  padding-left: 1.1em;
+}
+
+.fases-actividades li {
+  margin: var(--e-1) 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .zona-boton:active {
+    transform: none;
   }
 }

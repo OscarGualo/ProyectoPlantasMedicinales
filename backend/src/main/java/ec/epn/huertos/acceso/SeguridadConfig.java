@@ -49,7 +49,9 @@ public class SeguridadConfig {
                 .csrf(csrf -> csrf
                         .csrfTokenRepository(tokens)
                         // La SPA envía en X-XSRF-TOKEN el mismo valor que lee de la cookie XSRF-TOKEN.
-                        .csrfTokenRequestHandler(new CsrfTokenRequestAttributeHandler()))
+                        .csrfTokenRequestHandler(new CsrfTokenRequestAttributeHandler())
+                        // Solo existe con el perfil e2e (RestauracionE2eController); fuera de él responde 404.
+                        .ignoringRequestMatchers("/api/publico/e2e/**"))
                 .addFilterAfter(new CargarTokenCsrf(), BasicAuthenticationFilter.class)
                 .securityContext(c -> c.securityContextRepository(contextos))
                 .httpBasic(AbstractHttpConfigurer::disable)

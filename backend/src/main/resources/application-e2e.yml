@@ -1,0 +1,13 @@
+# Perfil de pruebas en navegador (Playwright, frontend/e2e). No se usa en ningún entorno real.
+# Base propia (huertos_e2e) para no tocar los datos de desarrollo, reloj fijo del doc 04 y datos del doc 05 §7,
+# restaurables con POST /api/publico/e2e/restaurar.
+server:
+  port: 8081
+
+spring:
+  datasource:
+    url: ${DB_URL_E2E:jdbc:postgresql://localhost:5433/huertos_e2e}
+
+huertos:
+  reloj:
+    fijo: 2026-10-31T12:00:00-05:00

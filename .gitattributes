@@ -1,2 +1,4 @@
-/mvnw text eol=lf
+# Los scripts de shell deben conservar LF aunque se clonen en Windows (Docker y CI corren en Linux).
+backend/mvnw text eol=lf
+*.sh text eol=lf
 *.cmd text eol=crlf

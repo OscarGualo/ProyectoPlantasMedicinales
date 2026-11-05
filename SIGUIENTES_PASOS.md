@@ -102,7 +102,8 @@ responsive/Android va **al final**.
 ### Despliegue
 5. **Hosting** con plan gratuito + PostgreSQL administrada (pendiente de elección del equipo). La imagen ya existe:
    variables `DB_URL`, `DB_USER`, `DB_PASSWORD`, `DEMO_PASSWORD`, `PORT`; abrirla unos minutos antes de la demo.
-6. Subir el repositorio a GitHub para que corra el CI (todavía no hay remoto configurado).
+6. ✅ Repositorio en GitHub (05/11): https://github.com/OscarGualo/ProyectoPlantasMedicinales — revisar que el CI
+   (pestaña *Actions*) quede en verde. El README explica Docker y el despliegue paso a paso.
 
 ### Al final: celular y responsive
 7. **P-027** (manual): recorrer el 3D de H1 en un celular Android de gama media y compararlo con el croquis CR1 →

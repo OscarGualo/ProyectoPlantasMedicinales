@@ -1,6 +1,6 @@
 # Estado de la iteración 1 y siguientes pasos
 
-> Archivo de continuidad: léelo antes de retomar el trabajo. Actualizado el **03/11/2026**.
+> Archivo de continuidad: léelo antes de retomar el trabajo. Actualizado el **04/11/2026**.
 > Entrega de la versión 1: **viernes 13/11/2026, 09:00** (doc 02).
 
 ## 1. Cómo retomar en 2 minutos
@@ -20,12 +20,15 @@ npm install
 npm run dev
 
 # Pruebas del backend (requiere Docker Desktop abierto)
-cd backend && ./mvnw verify            # hoy: 63 pruebas, 0 fallos, 1 omitida (P-050 contra REF-LUNA)
+cd backend && ./mvnw verify            # hoy: 79 pruebas, 0 fallos, 1 omitida (P-050 contra REF-LUNA)
 
 # Pruebas de navegador (Playwright; requiere el contenedor de la base arriba)
-cd frontend && npx playwright test     # hoy: 11/11 en verde
-#   Levanta solo el backend con el perfil e2e (puerto 8081, base huertos_e2e, reloj fijo 31/10/2026 12:00)
-#   y Vite en 5174. Antes de cada caso restaura los datos con POST /api/publico/e2e/restaurar.
+cd frontend && npx playwright test     # hoy: 12/12 en verde (incluye P-055)
+#   Levanta solo el backend con el perfil e2e (puerto 8081, base huertos_e2e, reloj fijo 31/10/2026 12:00,
+#   CAL-T en 10–14/10/2026) y Vite en 5174. Antes de cada caso restaura los datos (POST /api/publico/e2e/restaurar).
+
+# Imagen única (doc 06 §14): compila el frontend y lo sirve desde el backend
+docker build -t huertos-medicinales .
 ```
 
 - Cuenta de demostración: `lider.demo1` / `demo-huertos-2026` (también `lider.demo2`, `lider.demo3`).
@@ -53,13 +56,24 @@ cd frontend && npx playwright test     # hoy: 11/11 en verde
 | HU-013 Cultivos de una zona | — | ✅ panel de zona en 3D | P-029, P-030, P-031 (Playwright) |
 | HU-014 Registrar siembra | ✅ `POST /api/cultivos/{id}/siembras` | ✅ `/gestion/cultivos/:id/bitacora` | P-032 a P-037 |
 | HU-015 Condición lunar | ✅ en `GET /api/cultivos/{id}/bitacora` | ✅ sello en la bitácora | P-038, P-039, P-040 |
+| HU-016 Corregir siembra | ✅ `POST /api/siembras/{id}/correcciones` | ✅ «Corregir» en la bitácora | P-041 a P-044 |
+| HU-017 Historial | ✅ `GET /api/siembras/{id}/historial` | ✅ «Historial» en la bitácora | P-045, P-046 |
+| HU-018 Reto Documentación lunar | ✅ `GET /api/publico/huertos/{id}/reto` | ✅ `/huertos/:id/reto` | P-047, P-048, P-049 (+ unitarias) |
 | HU-019 Calendario lunar | ✅ `GET /api/publico/calendario-lunar` | ✅ `/calendario` | P-050 (⏳ ±1 h con REF-LUNA), P-051 |
 | HU-020 Filtro por actividad | ✅ parámetro `actividad` | ✅ `/calendario` | P-052, P-053, P-054 (API y Playwright) |
+| Recorrido integrado | — | — | **P-055** (Playwright, `e2e/recorrido-integrado.spec.ts`) |
+
+**Las 20 historias de la iteración 1 están implementadas.** El primer incremento queda completo en funcionalidad;
+lo que falta es verificación manual, despliegue y documentos (sección 3).
 
 Además:
 - Módulo `luna`: fases con commons-suncalc, intervalos por puntos medios (RN-09), regla de siembra (RN-06), tabla de
   actividades por fase (RN-10), CAL-T para pruebas (`ConfigCalT`) y el calendario público.
-- Paquete `actividades`: `Actividad` + `ActividadVersion` (solo inserción), clave de envío UUID contra duplicados.
+- Paquete `actividades`: `Actividad` + `ActividadVersion` (solo inserción), clave de envío UUID contra duplicados,
+  corrección (versión `numero+1` que copia técnica y descripción) e historial.
+- Paquete `retos`: `ElegibilidadInsignia` (dominio, prueba unitaria) + `ServicioRetos`; usa `actividades`, nunca al revés.
+- Empaquetado: `Dockerfile` multietapa (node 22 → JDK 21 → JRE 21, usuario sin privilegios, `COOKIE_SECURE=true`),
+  `.dockerignore` y `.github/workflows/ci.yml` (backend `verify`, frontend `build`, imagen). Probada en local.
 - Escena 3D con three.js + @react-three/fiber (sin drei), en un paquete aparte que solo se descarga en `/huertos/:id/3d`
   (248 KB gzip; el inicial pesa 108 KB gzip). Sin WebGL o si falla la carga: MSG-13 + lista de zonas.
 - Infraestructura e2e: `frontend/playwright.config.ts`, `frontend/e2e/` (fixtures `datos` y `consola`: un caso falla si
@@ -70,32 +84,30 @@ Además:
 - Interfaz rediseñada con el mundo **«La etiqueta de la planta seca»** (ver `DESIGN.md` y sección 5).
 - `PRODUCT.md` (contexto de producto) y `DESIGN.md` + `.impeccable/design.json` (sistema de diseño).
 
-## 3. Qué falta, en orden (calendario del doc 02)
+## 3. Qué falta, en orden
 
-### Bloque 9–10/11: 3D, siembras, condición lunar y calendario — ✅ hecho (03/11)
-Queda solo **P-027** (manual): recorrer el 3D de H1 en un celular Android de gama media y compararlo con el croquis CR1.
+Funcionalidad completa (bloques 9–10/11 y 11/11 hechos el 03 y 04/11). Por indicación del usuario, todo lo
+responsive/Android va **al final**.
 
-### Bloque 11/11: correcciones, historial y reto
-7. **HU-016 Corregir una siembra**: nueva versión `numero+1` con motivo (MSG-12), autoridad (MSG-03), foto opcional
-   (MSG-07). P-041 a P-044.
-8. **HU-017 Historial**: versiones de la más reciente a la más antigua; sin correcciones → MSG-23. P-045, P-046.
-9. **HU-018 Reto Documentación lunar**: insignia calculada al consultar con la versión vigente (RN-08); sin
-   siembras elegibles → MSG-18. `GET /api/publico/huertos/{id}/reto`, ruta `/huertos/:id/reto`. P-047 a P-049.
+### Siguiente: documentos y registro de resultados (12/11)
+1. **Registrar resultados** en las tablas de ejecución de `docs/04_Casos_de_prueba_I1_v1.2.md` (fecha, responsable,
+   versión y navegador, resultado, aprobado) con la salida de `./mvnw verify` y `npx playwright test`.
+2. **Doc 05 §6**: completar el catálogo MSG-02 a MSG-23 (el PDF original solo trae MSG-01; los textos están en
+   `comun/Mensaje.java`).
+3. **Doc 06**: paquetes `consulta`, `actividades` y `retos`; `GET /api/publico/huertos` devuelve conteos; CAL-T
+   sustituye `CalculadoraFase` (no la fuente de efemérides) y en el perfil e2e solo para 10–14/10/2026; zona
+   `Pacific/Galapagos`; base local en 5433; perfil `e2e`; three.js sin drei; §16 con versiones exactas.
+4. README (hecho en lo técnico) e informe `Proyecto-Version1-nombreEquipo.pdf`.
 
-### Bloque 12/11: integración, despliegue y documentos
-10. **Playwright**: falta P-055 (los demás casos de interfaz ya están en `frontend/e2e/`). Sumar al e2e los casos de
-    HU-016 a HU-018 que tengan criterio de interfaz.
-11. **Prueba manual con evidencia** P-027 (3D en celular Android) → capturas en `docs/evidencias/`.
-12. **Registrar resultados** en las tablas de ejecución de `docs/04_Casos_de_prueba_I1_v1.2.md`.
-13. **Dockerfile** multietapa (node → maven → JRE 21) y **CI** `.github/workflows/ci.yml` (backend `mvn verify`,
-    frontend `npm run build`, e2e).
-14. **Hosting** con plan gratuito + PostgreSQL administrada; `COOKIE_SECURE=true`, `DEMO_PASSWORD` por variable.
-15. **Documentos**:
-    - Doc 05 §6: completar el catálogo MSG-02 a MSG-23 (el PDF original solo trae MSG-01).
-    - Doc 06: paquete `consulta` (ficha y lista pública), `GET /api/publico/huertos` devuelve conteos, CAL-T sustituye
-      `CalculadoraFase` (no la fuente de efemérides), zona `Pacific/Galapagos`, base local en 5433, paquete
-      `actividades`, perfil `e2e`, three.js sin drei.
-    - Listado de herramientas y tecnologías con versiones; README; informe `Proyecto-Version1-nombreEquipo.pdf`.
+### Despliegue
+5. **Hosting** con plan gratuito + PostgreSQL administrada (pendiente de elección del equipo). La imagen ya existe:
+   variables `DB_URL`, `DB_USER`, `DB_PASSWORD`, `DEMO_PASSWORD`, `PORT`; abrirla unos minutos antes de la demo.
+6. Subir el repositorio a GitHub para que corra el CI (todavía no hay remoto configurado).
+
+### Al final: celular y responsive
+7. **P-027** (manual): recorrer el 3D de H1 en un celular Android de gama media y compararlo con el croquis CR1 →
+   capturas en `docs/evidencias/`.
+8. Pulido responsive de las pantallas nuevas (bitácora con corrección e historial, reto) a 390 px.
 
 ## 4. Pendientes que dependen del cliente o del equipo
 
@@ -137,3 +149,10 @@ node .claude/skills/taste-skill/scripts/inspect.mjs http://localhost:5173/<ruta>
 - Siembra: la fecha y hora se escriben en la hora local del huerto; el servidor las convierte con su zona horaria.
 - Calendario: la fase de cada día es la vigente a las 12:00 de America/Guayaquil; horas en formato de 24 h.
 - Señal en 3D: el sello de cada cultivo lleva texto («Caliente», «Fría», «Sin clasificar»), nunca solo color.
+- Corrección (HU-016): se corrigen fecha y fotografía; técnica y descripción se copian de la versión vigente. La foto
+  es opcional; sin foto nueva se conserva la vigente. Fecha futura → MSG-08, como en el registro.
+- Historial (HU-017): con una sola versión devuelve esa versión **y** MSG-23 (estado 200).
+- Reto (HU-018): la insignia se calcula sobre los huertos **publicados** de la comunidad; la sustenta la siembra
+  elegible más reciente por fecha del hecho. Huerto no publicado → MSG-14.
+- P-055 en e2e: el perfil `e2e` usa CAL-T solo en 10–14/10/2026 (`ConfigCalTE2e`), porque con efemérides reales el
+  10/10/2026 es luna oscura y la insignia del recorrido no aparecería. El calendario e2e sigue con fases reales.

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState, type RefObject } from 'react'
 import { ErrorApi, mensajeDe } from '../../api/cliente'
 
 const DURACION_EXITO_MS = 4000
@@ -7,7 +7,7 @@ const DURACION_EXITO_MS = 4000
  * Estado de un envío de formulario. Si el servidor señala un campo, el error se muestra debajo de ese campo
  * y el foco se mueve a él; si no, se muestra como aviso general. El aviso de éxito se retira solo.
  */
-export function useEnvio() {
+export function useEnvio(ambito?: RefObject<HTMLElement | null>) {
   const [enviando, setEnviando] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [campo, setCampo] = useState<string | null>(null)
@@ -34,14 +34,15 @@ export function useEnvio() {
       if (nombre) {
         // Tras un envío fallido, el foco va al primer campo inválido.
         requestAnimationFrame(() =>
-          document.querySelector<HTMLElement>(`[data-campo="${nombre}"]`)?.focus(),
+          // Con varios formularios en la página, se busca dentro del propio (ámbito).
+          (ambito?.current ?? document).querySelector<HTMLElement>(`[data-campo="${nombre}"]`)?.focus(),
         )
       }
       return null
     } finally {
       setEnviando(false)
     }
-  }, [])
+  }, [ambito])
 
   /** Error para mostrar debajo de un campo concreto. */
   const errorDe = useCallback((...nombres: string[]) => (campo && nombres.includes(campo) ? error : null), [campo, error])

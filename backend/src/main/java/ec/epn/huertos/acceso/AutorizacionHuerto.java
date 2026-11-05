@@ -55,6 +55,25 @@ public class AutorizacionHuerto {
         return huertoId;
     }
 
+    /**
+     * Huerto de la siembra si el líder actual lo gestiona; si no, MSG-03 (HU-016 CA-03, HU-017). Una siembra
+     * inexistente responde igual, para no revelar las de otros huertos.
+     */
+    public Long verificarLiderDeActividad(Long actividadId) {
+        Long huertoId = jdbc.sql("""
+                        SELECT c.huerto_id FROM actividad a JOIN cultivo c ON c.id = a.cultivo_id WHERE a.id = :id""")
+                .param("id", actividadId)
+                .query(Long.class)
+                .optional()
+                .orElse(null);
+        if (huertoId == null) {
+            UsuarioActual.requerido();
+            throw ErrorNegocio.de(Mensaje.MSG_03);
+        }
+        verificarLider(huertoId);
+        return huertoId;
+    }
+
     private Long huertoDeCultivo(Long cultivoId) {
         return jdbc.sql("SELECT huerto_id FROM cultivo WHERE id = :id")
                 .param("id", cultivoId)

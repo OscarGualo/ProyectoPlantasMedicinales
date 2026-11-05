@@ -19,6 +19,10 @@ public final class SiembraDtos {
     public record SiembraSolicitud(String fechaHecho, String tecnica, String descripcion, String claveEnvio) {
     }
 
+    /** Corrección de una siembra (HU-016): fecha opcional en la hora local del huerto y motivo obligatorio. */
+    public record CorreccionSolicitud(String fechaHecho, String motivo) {
+    }
+
     /** Condición lunar de la siembra con la fase en texto para mostrarla (HU-015). */
     public record CondicionVista(CondicionLunar.Resultado resultado, String fase, String codigo, String mensaje,
                                  String regla) {
@@ -34,12 +38,30 @@ public final class SiembraDtos {
      *
      * @param fechaHechoLocal fecha y hora del hecho en la zona del huerto, para mostrarla tal como se registró
      */
-    public record SiembraVista(Long id, Long cultivoId, int version, Instant fechaHecho, String fechaHechoLocal,
+    public record SiembraVista(Long id, Long cultivoId, int version, boolean corregida, Instant fechaHecho,
+                               String fechaHechoLocal,
                                Instant registradaEn, String autor, Tecnica tecnica, String tecnicaEtiqueta,
                                String descripcion, String fotoUrl, CondicionVista condicion) {
     }
 
     /** Bitácora de un cultivo: su vista, la zona horaria del huerto y las siembras vigentes. */
     public record BitacoraVista(CultivoVista cultivo, String zonaHoraria, List<SiembraVista> siembras) {
+    }
+
+    /**
+     * Una versión del historial (HU-017 CA-01). {@code creadaEn} es la fecha del registro en la versión 1 y la de
+     * la corrección en las demás; {@code motivo} solo existe en las correcciones.
+     */
+    public record VersionVista(int numero, Instant fechaHecho, String fechaHechoLocal, String tecnicaEtiqueta,
+                               String descripcion, String fotoUrl, String autor, Instant creadaEn, String motivo,
+                               CondicionVista condicion) {
+    }
+
+    /**
+     * Historial de una siembra: la vigente y sus versiones de la más reciente a la más antigua. Sin correcciones,
+     * {@code mensaje} lleva MSG-23 (CA-02).
+     */
+    public record HistorialVista(SiembraVista siembra, String zonaHoraria, List<VersionVista> versiones,
+                                 String mensaje) {
     }
 }

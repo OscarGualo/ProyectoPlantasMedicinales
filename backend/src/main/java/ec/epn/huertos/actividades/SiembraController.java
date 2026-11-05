@@ -2,6 +2,8 @@ package ec.epn.huertos.actividades;
 
 import ec.epn.huertos.actividades.ServicioActividades.Registro;
 import ec.epn.huertos.actividades.SiembraDtos.BitacoraVista;
+import ec.epn.huertos.actividades.SiembraDtos.CorreccionSolicitud;
+import ec.epn.huertos.actividades.SiembraDtos.HistorialVista;
 import ec.epn.huertos.actividades.SiembraDtos.SiembraSolicitud;
 import ec.epn.huertos.actividades.SiembraDtos.SiembraVista;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-/** Registro y bitácora de siembras (doc 06 §9). */
+/** Registro, bitácora, corrección e historial de siembras (doc 06 §9). */
 @RestController
 @RequiredArgsConstructor
 class SiembraController {
@@ -41,5 +43,18 @@ class SiembraController {
     @GetMapping("/api/cultivos/{id}/bitacora")
     BitacoraVista bitacora(@PathVariable Long id) {
         return servicio.bitacora(id);
+    }
+
+    /** HU-016: 201 con la siembra en su nueva versión vigente. */
+    @PostMapping(path = "/api/siembras/{id}/correcciones", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    ResponseEntity<SiembraVista> corregir(@PathVariable Long id, @ModelAttribute CorreccionSolicitud solicitud,
+                                          @RequestPart(name = "foto", required = false) MultipartFile foto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(servicio.corregir(id, solicitud, foto));
+    }
+
+    /** HU-017: versiones de la siembra, de la más reciente a la más antigua. */
+    @GetMapping("/api/siembras/{id}/historial")
+    HistorialVista historial(@PathVariable Long id) {
+        return servicio.historial(id);
     }
 }

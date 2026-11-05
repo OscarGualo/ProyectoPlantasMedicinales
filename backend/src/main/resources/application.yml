@@ -25,6 +25,8 @@ spring:
       max-request-size: 7MB
 
 server:
+  # Los servicios de hosting suelen asignar el puerto en la variable PORT.
+  port: ${PORT:8080}
   error:
     include-message: never
     include-stacktrace: never

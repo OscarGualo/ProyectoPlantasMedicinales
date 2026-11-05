@@ -17,13 +17,7 @@ const enrutador = createBrowserRouter([
         path: '/huertos/:id/3d',
         lazy: async () => ({ Component: (await import('./paginas/Recorrido3D')).Recorrido3D }),
       },
-      {
-        path: '/huertos/:id/reto',
-        lazy: async () => {
-          const { EnConstruccion } = await import('./paginas/Simples')
-          return { Component: () => <EnConstruccion titulo="Reto Documentación lunar" /> }
-        },
-      },
+      { path: '/huertos/:id/reto', lazy: async () => ({ Component: (await import('./paginas/Reto')).Reto }) },
       { path: '/calendario', lazy: async () => ({ Component: (await import('./paginas/Calendario')).Calendario }) },
       { path: '/ingresar', lazy: async () => ({ Component: (await import('./paginas/Ingresar')).Ingresar }) },
       {

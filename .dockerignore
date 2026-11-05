@@ -1,0 +1,17 @@
+.git
+.github
+.idea
+.vscode
+.claude
+.impeccable
+.taste-skill
+docs
+docker
+**/node_modules
+frontend/dist
+frontend/test-results
+frontend/playwright-report
+backend/target
+backend/src/main/resources/static
+.env
+*.env.local

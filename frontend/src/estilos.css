@@ -1976,3 +1976,168 @@ textarea.control {
     transform: none;
   }
 }
+
+/* ===================================================================================================================
+   Bloque 11/11: corrección e historial de siembras (HU-016, HU-017) y reto Documentación lunar (HU-018)
+   =================================================================================================================== */
+
+.acciones-siembra {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--e-2);
+}
+
+/* El panel ocupa todo el ancho de la etiqueta, debajo de la foto y el cuerpo. */
+.siembra-panel {
+  grid-column: 1 / -1;
+  padding: var(--e-4) var(--e-5) var(--e-5);
+  background: var(--banda);
+  animation: aparecer var(--m-entrada) var(--curva-salida);
+}
+
+.siembra-panel h4 {
+  margin: 0;
+  font-stretch: var(--ancho-titulo);
+  font-weight: 800;
+  font-size: var(--t-entrada);
+}
+
+.correccion {
+  display: grid;
+  gap: var(--e-3);
+}
+
+.historial {
+  display: grid;
+  gap: var(--e-3);
+}
+
+.versiones {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--e-3);
+}
+
+.version {
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr);
+  gap: var(--e-4);
+  padding: var(--e-3);
+  background: var(--papel);
+}
+
+.version img {
+  width: 96px;
+  height: 96px;
+  object-fit: cover;
+  background: var(--banda-fuerte);
+}
+
+.version .cabeza {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--e-3);
+  margin-bottom: var(--e-2);
+}
+
+@media (min-width: 768px) {
+  .version .campos {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* ---------- Reto ---------- */
+.reto {
+  display: grid;
+  gap: var(--e-5);
+  margin-top: var(--e-5);
+}
+
+@media (min-width: 900px) {
+  .reto {
+    grid-template-columns: minmax(0, 1.3fr) minmax(280px, 1fr);
+    align-items: stretch; /* las dos etiquetas comparten el borde inferior */
+  }
+}
+
+.reto-estado,
+.reto-practica {
+  display: grid;
+  gap: var(--e-4);
+  padding: var(--e-5) var(--e-6);
+}
+
+.reto-estado h2,
+.reto-practica h2 {
+  margin: 0;
+}
+
+.reto-estado,
+.reto-practica {
+  align-content: start;
+}
+
+.reto-practica p {
+  margin: 0;
+}
+
+/* La insignia es un sello de tinta: forma y texto, nunca solo color (ui-ux-pro-max). */
+.sello-insignia {
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 2px;
+  width: 188px;
+  height: 188px;
+  margin: 0;
+  padding: var(--e-5);
+  border-width: 3px;
+  border-radius: 50%;
+  color: var(--exito);
+  text-align: center;
+  box-shadow: inset 0 0 0 5px var(--papel), inset 0 0 0 7px currentColor;
+  transform: rotate(-8deg);
+}
+
+.sello-insignia span {
+  font-size: var(--t-entrada);
+  line-height: 1.05;
+}
+
+.sello-insignia small {
+  font-size: var(--t-nota);
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.reto-sustento {
+  display: grid;
+  gap: var(--e-3);
+  margin: 0;
+  background: var(--banda);
+}
+
+@media (min-width: 640px) {
+  .reto-sustento {
+    grid-template-columns: 200px minmax(0, 1fr);
+  }
+}
+
+.reto-sustento img {
+  width: 100%;
+  height: 100%;
+  min-height: 160px;
+  max-height: 220px;
+  object-fit: cover;
+  background: var(--banda-fuerte);
+}
+
+.reto-sustento figcaption {
+  display: grid;
+  align-content: start;
+  gap: var(--e-1);
+  padding: var(--e-3) var(--e-4);
+}

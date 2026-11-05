@@ -69,4 +69,23 @@ public class ActividadVersion {
         v.creadaEn = ahora;
         return v;
     }
+
+    /**
+     * Corrección (RN-07, HU-016): versión siguiente con la fecha y la foto indicadas y el motivo. Técnica y
+     * descripción se conservan de la versión vigente; la anterior no se toca.
+     */
+    static ActividadVersion correccion(ActividadVersion vigente, Instant fechaHecho, Long fotoId, String motivo,
+                                       Long autorId, Instant ahora) {
+        ActividadVersion v = new ActividadVersion();
+        v.actividadId = vigente.actividadId;
+        v.numero = vigente.numero + 1;
+        v.fechaHecho = fechaHecho;
+        v.tecnica = vigente.tecnica;
+        v.descripcion = vigente.descripcion;
+        v.fotoId = fotoId;
+        v.motivo = motivo;
+        v.autorId = autorId;
+        v.creadaEn = ahora;
+        return v;
+    }
 }

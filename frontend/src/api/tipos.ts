@@ -153,6 +153,8 @@ export interface Siembra {
   id: number
   cultivoId: number
   version: number
+  /** Verdadero si la vigente es una corrección (versión mayor que 1). */
+  corregida: boolean
   fechaHecho: string
   /** Fecha y hora del hecho en la zona del huerto, `yyyy-MM-ddTHH:mm`. */
   fechaHechoLocal: string
@@ -169,6 +171,55 @@ export interface Bitacora {
   cultivo: Cultivo
   zonaHoraria: string
   siembras: Siembra[]
+}
+
+// ---------- Corrección e historial (HU-016, HU-017) ----------
+
+export interface VersionSiembra {
+  numero: number
+  fechaHecho: string
+  fechaHechoLocal: string
+  tecnicaEtiqueta: string
+  descripcion: string | null
+  fotoUrl: string
+  autor: string
+  /** Fecha del registro (versión 1) o de la corrección. */
+  creadaEn: string
+  motivo: string | null
+  condicion: CondicionLunar
+}
+
+export interface Historial {
+  siembra: Siembra
+  zonaHoraria: string
+  versiones: VersionSiembra[]
+  /** MSG-23 cuando la siembra nunca se corrigió. */
+  mensaje: string | null
+}
+
+// ---------- Reto Documentación lunar (HU-018) ----------
+
+export interface SustentoInsignia {
+  siembraId: number
+  planta: string
+  zona: string
+  fechaHechoLocal: string
+  fotoUrl: string
+  fase: string | null
+  condicion: string
+}
+
+export interface Reto {
+  huertoId: number
+  huerto: string
+  comunidad: string
+  reto: string
+  explicacion: string
+  fuente: string
+  alcance: string
+  insignia: { nombre: string; sustento: SustentoInsignia } | null
+  codigo: string | null
+  mensaje: string | null
 }
 
 // ---------- Calendario lunar (HU-019, HU-020) ----------

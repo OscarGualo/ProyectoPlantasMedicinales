@@ -19,9 +19,11 @@ La documentación del proyecto está en [`docs/`](docs/):
 
 ```text
 backend/    Spring Boot 4 (Java 21): API REST, seguridad, reglas de negocio y cálculo lunar
-frontend/   React 19 + Vite + TypeScript: mapa (Leaflet), ficha pública y pantallas de gestión
+frontend/   React 19 + Vite + TypeScript: mapa (Leaflet), ficha, 3D (three.js), calendario, reto y gestión
 docs/       Documentos 01 a 06 y evidencias de pruebas
-docker-compose.yml   PostgreSQL local
+docker-compose.yml   PostgreSQL local (bases huertos y huertos_e2e)
+Dockerfile           imagen única: compila el frontend y lo sirve desde el backend
+.github/workflows/   CI: pruebas del backend, build del frontend e imagen
 ```
 
 ## Requisitos
@@ -50,7 +52,7 @@ que se crea la base**; sin esa variable nadie puede ingresar. Para empezar de ce
 `docker compose down -v && docker compose up -d`.
 
 Variables de entorno: `DB_URL`, `DB_USER`, `DB_PASSWORD`, `DEMO_PASSWORD`, `COOKIE_SECURE` (true en el
-hosting). Las credenciales reales nunca se guardan en el repositorio.
+hosting) y `PORT` (8080 por defecto). Las credenciales reales nunca se guardan en el repositorio.
 
 ## Pruebas
 
@@ -59,9 +61,31 @@ cd backend
 ./mvnw verify                        # unitarias + integración (requiere Docker en ejecución)
 ```
 
+```bash
+cd frontend
+npx playwright install chromium      # solo la primera vez
+npx playwright test                  # recorridos en navegador: P-023 a P-031, P-052 a P-055
+```
+
+Playwright levanta solo el backend con el perfil `e2e` (puerto 8081, base `huertos_e2e`, reloj fijo en
+31/10/2026 12:00 y CAL-T para los días 10 a 14/10/2026) y Vite en el puerto 5174. Antes de cada caso restaura
+los datos del documento 05 §7. Requiere el contenedor de la base en ejecución (`docker compose up -d`); si el
+volumen se creó antes de existir `huertos_e2e`:
+`docker compose exec postgres psql -U huertos -c "CREATE DATABASE huertos_e2e;"`.
+
 Cada prueba automática lleva el identificador de su caso del documento 04 en el nombre, por ejemplo
 `P-032 Registro de una siembra con fotografía`. El reporte de cobertura queda en
 `backend/target/site/jacoco/index.html`.
+
+## Imagen para el despliegue
+
+```bash
+docker build -t huertos-medicinales .
+docker run -p 8080:8080   -e DB_URL=jdbc:postgresql://<servidor>:5432/<base> -e DB_USER=<usuario> -e DB_PASSWORD=<clave>   -e DEMO_PASSWORD=<clave-demo> huertos-medicinales
+```
+
+La imagen trae `COOKIE_SECURE=true` (la cookie de sesión solo viaja por HTTPS). Para probarla en local contra
+el contenedor de compose, agrega `-e COOKIE_SECURE=false` y usa `host.docker.internal:5433` como servidor.
 
 ## Forma de trabajo
 

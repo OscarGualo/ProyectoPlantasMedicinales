@@ -11,8 +11,8 @@ docker compose up -d
 
 # 2. Backend en http://localhost:8080 (carga datos de demostración con esta contraseña)
 cd backend
-DEMO_PASSWORD=demo-huertos-2026 ./mvnw spring-boot:run
-#   PowerShell: $env:DEMO_PASSWORD="demo-huertos-2026"; .\mvnw.cmd spring-boot:run
+DEMO_PASSWORD=<tu-clave-demo> ./mvnw spring-boot:run
+#   PowerShell: $env:DEMO_PASSWORD="<tu-clave-demo>"; .\mvnw.cmd spring-boot:run
 
 # 3. Frontend en http://localhost:5173
 cd frontend
@@ -31,7 +31,7 @@ cd frontend && npx playwright test     # hoy: 12/12 en verde (incluye P-055)
 docker build -t huertos-medicinales .
 ```
 
-- Cuenta de demostración: `lider.demo1` / `demo-huertos-2026` (también `lider.demo2`, `lider.demo3`).
+- Cuenta de demostración: `lider.demo1` / `<tu-clave-demo>` (también `lider.demo2`, `lider.demo3`).
 - Cuentas de prueba (tests y e2e, `backend/src/main/resources/e2e/datos-prueba.sql`): `l1`…`l5` / `clave-prueba`.
 - Si cambias `V1__esquema.sql` o `V2__demo.sql`, borra la base: `docker compose down -v && docker compose up -d`.
 - La base `huertos_e2e` la crea `docker/initdb/01-base-e2e.sql` solo en un volumen nuevo. Con un volumen anterior:

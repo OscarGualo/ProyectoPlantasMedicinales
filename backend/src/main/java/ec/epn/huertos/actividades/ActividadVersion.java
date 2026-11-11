@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Immutable;
 
 import java.time.Instant;
+import java.util.UUID;
 
 /**
  * Versión de una actividad (RN-07). Solo se inserta: la base lo garantiza con un disparador y la entidad es
@@ -50,6 +51,12 @@ public class ActividadVersion {
 
     private String motivo;
 
+    @Column(name = "clave_correccion")
+    private UUID claveCorreccion;
+
+    @Column(name = "huella_correccion", length = 64)
+    private String huellaCorreccion;
+
     @Column(name = "autor_id", nullable = false)
     private Long autorId;
 
@@ -75,7 +82,7 @@ public class ActividadVersion {
      * descripción se conservan de la versión vigente; la anterior no se toca.
      */
     static ActividadVersion correccion(ActividadVersion vigente, Instant fechaHecho, Long fotoId, String motivo,
-                                       Long autorId, Instant ahora) {
+                                       UUID clave, String huella, Long autorId, Instant ahora) {
         ActividadVersion v = new ActividadVersion();
         v.actividadId = vigente.actividadId;
         v.numero = vigente.numero + 1;
@@ -84,6 +91,8 @@ public class ActividadVersion {
         v.descripcion = vigente.descripcion;
         v.fotoId = fotoId;
         v.motivo = motivo;
+        v.claveCorreccion = clave;
+        v.huellaCorreccion = huella;
         v.autorId = autorId;
         v.creadaEn = ahora;
         return v;

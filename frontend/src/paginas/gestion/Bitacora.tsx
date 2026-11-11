@@ -289,7 +289,8 @@ function EtiquetaSiembra({
       {modo && (
         <div id={idPanel} className="siembra-panel">
           {modo === 'corregir' ? (
-            <FormularioCorreccion siembra={siembra} alCancelar={() => alCambiarModo(null)} alCorregir={alCorregir} />
+              <FormularioCorreccion key={siembra.version} siembra={siembra}
+                                    alCancelar={() => alCambiarModo(null)} alCorregir={alCorregir} />
           ) : (
             <HistorialSiembra siembraId={siembra.id} version={siembra.version} />
           )}
@@ -313,6 +314,7 @@ function FormularioCorreccion({
   alCorregir: () => void
 }) {
   const [fechaInicial, horaInicial] = siembra.fechaHechoLocal.split('T')
+  const [clave] = useState(nuevaClave)
   const [fecha, setFecha] = useState(fechaInicial)
   const [hora, setHora] = useState(horaInicial)
   const [motivo, setMotivo] = useState('')
@@ -331,6 +333,8 @@ function FormularioCorreccion({
     const datos = new FormData()
     datos.append('fechaHecho', fecha && hora ? `${fecha}T${hora}` : '')
     datos.append('motivo', motivo)
+    datos.append('versionBase', String(siembra.version))
+    datos.append('claveEnvio', clave)
     if (foto) datos.append('foto', foto)
     const r = await envio.enviar(
       () => api.post<Siembra>(`/api/siembras/${siembra.id}/correcciones`, datos),

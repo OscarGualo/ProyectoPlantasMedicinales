@@ -137,7 +137,7 @@ public class ServicioActividades {
      * (MSG-08 si es futura) y fotografía opcional (MSG-07). Si algo falla, la versión vigente queda igual.
      */
     @Transactional
-    public SiembraVista corregir(Long actividadId, CorreccionSolicitud s, MultipartFile foto) {
+    public Registro corregir(Long actividadId, CorreccionSolicitud s, MultipartFile foto) {
         Long huertoId = autorizacion.verificarLiderDeActividad(actividadId);
         LiderSesion lider = UsuarioActual.requerido();
         String motivo = limpio(s == null ? null : s.motivo());
@@ -147,32 +147,42 @@ public class ServicioActividades {
         if (motivo.length() > MOTIVO_MAXIMO) {
             throw new SolicitudInvalida("El motivo supera los " + MOTIVO_MAXIMO + " caracteres");
         }
+        if (s.versionBase() == null || s.versionBase() < 1) {
+            throw ErrorNegocio.campoObligatorio("Versión base", "versionBase");
+        }
+        UUID clave = clave(s.claveEnvio());
+        LocalDateTime fechaLocal = limpio(s.fechaHecho()) == null ? null : fechaLocal(s.fechaHecho());
+        ImagenValidada imagen = ServicioFotos.presente(foto) ? fotos.validar(foto) : null;
+        String huella = HuellaEnvio.de(actividadId.toString(), s.versionBase().toString(), motivo,
+                fechaLocal == null ? null : fechaLocal.toString(), imagen == null ? null : imagen.sha256());
         ZoneId zona = zonaDe(huertoId);
+        Actividad a = actividades.bloquear(actividadId).orElseThrow(() -> ErrorNegocio.de(Mensaje.MSG_03));
+        var repetida = versiones.findByActividadIdAndClaveCorreccion(actividadId, clave);
+        if (repetida.isPresent()) {
+            ActividadVersion v = repetida.get();
+            if (!Objects.equals(v.getAutorId(), lider.id()) || !huella.equals(v.getHuellaCorreccion())) {
+                throw ErrorNegocio.de(Mensaje.MSG_24);
+            }
+            return new Registro(vista(a, v, zona, nombres(List.of(v.getAutorId()))), false);
+        }
         ActividadVersion vigente = versiones.vigente(actividadId);
-        Instant fecha = s.fechaHecho() == null || s.fechaHecho().isBlank()
-                ? vigente.getFechaHecho()
-                : fechaHecho(s.fechaHecho(), zona);
+        if (s.versionBase() != vigente.getNumero()) {
+            throw ErrorNegocio.de(Mensaje.MSG_25);
+        }
+        Instant fecha = fechaLocal == null ? vigente.getFechaHecho() : fechaLocal.atZone(zona).toInstant();
         Instant ahora = reloj.instant();
         if (fecha.isAfter(ahora)) {
             throw ErrorNegocio.enCampo(Mensaje.MSG_08, "fechaHecho");
         }
-        Long fotoId = vigente.getFotoId();
-        if (ServicioFotos.presente(foto)) {
-            ImagenValidada imagen = fotos.validar(foto);
-            try {
-                fotoId = fotos.guardar(imagen).getId();
-            } catch (DataAccessException e) {
-                throw ErrorNegocio.de(Mensaje.MSG_11);
-            }
-        }
+        Long fotoId = imagen == null ? vigente.getFotoId() : guardarFoto(imagen);
+        ActividadVersion v;
         try {
-            versiones.saveAndFlush(ActividadVersion.correccion(vigente, fecha, fotoId, motivo, lider.id(), ahora));
-        } catch (DataIntegrityViolationException e) {
-            // Otra corrección simultánea tomó el mismo número de versión: se pide recargar y reintentar.
-            throw new SolicitudInvalida("La siembra cambió mientras la corregías; recarga e inténtalo de nuevo");
+            v = versiones.saveAndFlush(ActividadVersion.correccion(vigente, fecha, fotoId, motivo, clave, huella,
+                    lider.id(), ahora));
+        } catch (DataAccessException e) {
+            throw ErrorNegocio.de(Mensaje.MSG_27);
         }
-        Actividad a = actividades.findById(actividadId).orElseThrow(() -> ErrorNegocio.de(Mensaje.MSG_03));
-        return vista(a, zona);
+        return new Registro(vista(a, v, zona, nombres(List.of(v.getAutorId()))), true);
     }
 
     /** HU-017: versiones de la más reciente a la más antigua; sin correcciones, MSG-23 (CA-02). */

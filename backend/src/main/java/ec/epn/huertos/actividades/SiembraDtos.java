@@ -20,8 +20,7 @@ public final class SiembraDtos {
     }
 
     /** Corrección de una siembra (HU-016): fecha opcional en la hora local del huerto y motivo obligatorio. */
-    public record CorreccionSolicitud(String fechaHecho, String motivo) {
-    }
+    public record CorreccionSolicitud(String fechaHecho, String motivo, Integer versionBase, String claveEnvio) {    }
 
     /** Condición lunar de la siembra con la fase en texto para mostrarla (HU-015). */
     public record CondicionVista(CondicionLunar.Resultado resultado, String fase, String codigo, String mensaje,

@@ -27,7 +27,7 @@ import ec.epn.huertos.luna.CondicionLunar;
 import ec.epn.huertos.luna.ReglaSiembra;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataAccessException;
-import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -66,6 +66,7 @@ public class ServicioActividades {
     private final CalculadoraFase calculadoraFase;
     private final ReglaSiembra reglaSiembra;
     private final Clock reloj;
+    private final JdbcClient jdbc;
 
     /** Resultado del registro: {@code creada} es falso cuando el envío repetía una clave ya registrada. */
     public record Registro(SiembraVista siembra, boolean creada) {
@@ -87,49 +88,49 @@ public class ServicioActividades {
     public Registro registrar(Long cultivoId, SiembraSolicitud s, MultipartFile foto) {
         Long huertoId = autorizacion.verificarCultivoPropio(cultivoId);
         LiderSesion lider = UsuarioActual.requerido();
-        UUID clave = clave(s);
-
-        var existente = actividades.findByClaveEnvio(clave);
-        if (existente.isPresent()) {
-            if (!Objects.equals(existente.get().getCultivoId(), cultivoId)) {
-                throw new SolicitudInvalida("La clave de envío pertenece a otra siembra");
-            }
-            return new Registro(vista(existente.get(), zonaDe(huertoId)), false);
-        }
-
+        UUID clave = clave(s.claveEnvio());
         ZoneId zona = zonaDe(huertoId);
-        Instant fechaHecho = fechaHecho(s.fechaHecho(), zona);
+        LocalDateTime fechaLocal = fechaLocal(s.fechaHecho());
+        Instant fechaHecho = fechaLocal.atZone(zona).toInstant();
         Tecnica tecnica = Tecnica.desde(s.tecnica());
         if (!ServicioFotos.presente(foto)) {
             throw ErrorNegocio.campoObligatorio("Fotografía", "foto");
         }
+        ImagenValidada imagen = fotos.validar(foto);
+        String descripcion = limpio(s.descripcion());
+        String huella = HuellaEnvio.de(cultivoId.toString(), fechaLocal.toString(), tecnica.name(), descripcion,
+                imagen.sha256());
+
+        // Serializa la clave incluso antes de que exista la fila. PostgreSQL libera el bloqueo al cerrar la transacción.
+        jdbc.sql("SELECT 1 FROM pg_advisory_xact_lock(hashtextextended(:clave, 0))")
+                .param("clave", clave.toString()).query(Integer.class).single();
+        var existente = actividades.findByClaveEnvio(clave);
+        if (existente.isPresent()) {
+            Actividad a = existente.get();
+            if (!Objects.equals(a.getCultivoId(), cultivoId) || !Objects.equals(a.getAutorId(), lider.id())
+                    || !huella.equals(a.getHuellaEnvio())) {
+                throw ErrorNegocio.de(Mensaje.MSG_24);
+            }
+            ActividadVersion original = versiones.findByActividadIdAndNumero(a.getId(), 1).orElseThrow();
+            return new Registro(vista(a, original, zona, nombres(List.of(original.getAutorId()))), false);
+        }
+
         Instant ahora = reloj.instant();
         if (fechaHecho.isAfter(ahora)) {
             throw ErrorNegocio.enCampo(Mensaje.MSG_08, "fechaHecho");
         }
-        ImagenValidada imagen = fotos.validar(foto);
-
-        Long fotoId;
+        Long fotoId = guardarFoto(imagen);
+        Actividad a;
+        ActividadVersion v;
         try {
-            fotoId = fotos.guardar(imagen).getId();
+            a = actividades.save(Actividad.siembra(cultivoId, clave, huella, lider.id(), ahora));
+            v = versiones.saveAndFlush(ActividadVersion.primera(a.getId(), fechaHecho, tecnica, descripcion, fotoId,
+                    lider.id(), ahora));
         } catch (DataAccessException e) {
-            // Sin evidencia no hay siembra: se revierte toda la transacción (HU-014 CA-06).
-            throw ErrorNegocio.de(Mensaje.MSG_11);
+            // Excepción durante la escritura: el proxy revierte la transacción antes de contestar.
+            throw ErrorNegocio.de(Mensaje.MSG_27);
         }
-        Actividad a = actividades.save(Actividad.siembra(cultivoId, clave, lider.id(), ahora));
-        versiones.save(ActividadVersion.primera(a.getId(), fechaHecho, tecnica, limpio(s.descripcion()), fotoId,
-                lider.id(), ahora));
-        return new Registro(vista(a, zona), true);
-    }
-
-    /** Siembra ya registrada con esa clave, para responder un reenvío concurrente (HU-014 CA-02). */
-    @Transactional(readOnly = true)
-    public SiembraVista porClave(Long cultivoId, String claveEnvio) {
-        Long huertoId = autorizacion.verificarCultivoPropio(cultivoId);
-        Actividad a = actividades.findByClaveEnvio(UUID.fromString(claveEnvio))
-                .filter(x -> Objects.equals(x.getCultivoId(), cultivoId))
-                .orElseThrow(() -> new SolicitudInvalida("Clave de envío desconocida"));
-        return vista(a, zonaDe(huertoId));
+        return new Registro(vista(a, v, zona, nombres(List.of(v.getAutorId()))), true);
     }
 
     /**

@@ -236,11 +236,6 @@ public class ServicioActividades {
         return new BitacoraVista(cultivos.vista(cultivoId), zona.getId(), siembras);
     }
 
-    private SiembraVista vista(Actividad a, ZoneId zona) {
-        ActividadVersion v = versiones.vigente(a.getId());
-        return vista(a, v, zona, nombres(List.of(v.getAutorId())));
-    }
-
     private SiembraVista vista(Actividad a, ActividadVersion v, ZoneId zona, Map<Long, String> autores) {
         CondicionVista condicion = CondicionVista.de(condicion(v, zona));
         return new SiembraVista(a.getId(), a.getCultivoId(), v.getNumero(), v.getNumero() > 1, v.getFechaHecho(),
@@ -255,7 +250,8 @@ public class ServicioActividades {
     }
 
     private static String local(Instant instante, ZoneId zona) {
-        return FECHA_LOCAL.format(LocalDateTime.ofInstant(instante, zona));
+        LocalDateTime local = LocalDateTime.ofInstant(instante, zona);
+        return local.getSecond() == 0 && local.getNano() == 0 ? FECHA_LOCAL.format(local) : local.toString();
     }
 
     private Map<Long, String> nombres(List<Long> ids) {

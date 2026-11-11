@@ -132,8 +132,10 @@ class SiembraPruebaIntegracion extends PruebaIntegracion {
                         .value("La fecha y hora de la actividad no pueden ser posteriores al momento actual."));
         assertThat(siembrasDe(1)).isZero();
 
-        // Valor límite: un minuto antes del reloj fijado (31/10/2026 12:00).
-        sembrar(l1, 1, "2026-10-31T11:59", foto("F1.jpg", ImagenesPrueba.f1())).andExpect(status().isCreated());
+        // El instante del reloj está incluido. Un segundo posterior se rechaza.
+        sembrar(l1, 1, "2026-10-31T12:00", foto("F1.jpg", ImagenesPrueba.f1())).andExpect(status().isCreated());
+        sembrar(l1, 1, "2026-10-31T12:00:01", foto("F1.jpg", ImagenesPrueba.f1()))
+                .andExpect(status().isBadRequest()).andExpect(jsonPath("$.codigo").value("MSG-08"));
         assertThat(siembrasDe(1)).isEqualTo(1);
     }
 

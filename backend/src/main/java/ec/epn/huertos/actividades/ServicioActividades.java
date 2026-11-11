@@ -263,24 +263,32 @@ public class ServicioActividades {
         return huertos.findById(huertoId).map(Huerto::zona).orElseThrow(() -> ErrorNegocio.de(Mensaje.MSG_19));
     }
 
-    private static UUID clave(SiembraSolicitud s) {
-        if (s == null || s.claveEnvio() == null || s.claveEnvio().isBlank()) {
-            return UUID.randomUUID();
+    private Long guardarFoto(ImagenValidada imagen) {
+        try {
+            return fotos.guardar(imagen).getId();
+        } catch (DataAccessException e) {
+            throw ErrorNegocio.de(Mensaje.MSG_11);
+        }
+    }
+
+    private static UUID clave(String valor) {
+        if (valor == null || valor.isBlank()) {
+            throw ErrorNegocio.campoObligatorio("Identificador de envío", "claveEnvio");
         }
         try {
-            return UUID.fromString(s.claveEnvio().trim());
+            return UUID.fromString(valor.trim());
         } catch (IllegalArgumentException e) {
             throw new SolicitudInvalida("Clave de envío no válida");
         }
     }
 
     /** La fecha y hora se ingresan en la hora local del huerto (AD-10) y se guardan como instante en UTC. */
-    private static Instant fechaHecho(String texto, ZoneId zona) {
+    private static LocalDateTime fechaLocal(String texto) {
         if (texto == null || texto.isBlank()) {
             throw ErrorNegocio.campoObligatorio("Fecha y hora", "fechaHecho");
         }
         try {
-            return LocalDateTime.parse(texto.trim(), FECHA_LOCAL).atZone(zona).toInstant();
+            return LocalDateTime.parse(texto.trim(), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
         } catch (DateTimeParseException e) {
             throw ErrorNegocio.campoObligatorio("Fecha y hora", "fechaHecho");
         }

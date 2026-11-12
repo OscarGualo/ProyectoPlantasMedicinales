@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.Duration;
-
 @RestController
 @RequiredArgsConstructor
 class FotoController {
@@ -21,8 +19,7 @@ class FotoController {
         Foto f = servicio.visible(id);
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(f.getTipoMime()))
-                .cacheControl(CacheControl.maxAge(Duration.ofHours(1)).cachePrivate())
-                .eTag(f.getSha256())
+                .cacheControl(CacheControl.noStore())
                 .body(f.getContenido());
     }
 }

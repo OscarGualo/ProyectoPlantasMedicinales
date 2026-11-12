@@ -56,7 +56,7 @@ public class ServicioFotos {
     }
 
     /**
-     * Foto visible para quien la solicita: de plantas o siembras de huertos publicados, o del huerto del líder
+     * Foto visible para quien la solicita: de plantas o siembras vigentes de huertos publicados, o del huerto del líder
      * de la sesión. Las demás responden como no encontradas (doc 06 §9).
      */
     @Transactional(readOnly = true)
@@ -71,7 +71,10 @@ public class ServicioFotos {
                               JOIN actividad a ON a.id = v.actividad_id
                               JOIN cultivo c ON c.id = a.cultivo_id
                               JOIN huerto h ON h.id = c.huerto_id
-                             WHERE v.foto_id = :id AND (h.publicado OR h.lider_id = :usuario))
+                             WHERE v.foto_id = :id
+                               AND (h.lider_id = :usuario OR (
+                                    h.publicado AND v.numero = (SELECT MAX(otra.numero)
+                                        FROM actividad_version otra WHERE otra.actividad_id = v.actividad_id))))
                         """)
                 .param("id", id)
                 .param("usuario", usuario)

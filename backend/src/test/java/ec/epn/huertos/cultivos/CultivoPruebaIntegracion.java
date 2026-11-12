@@ -65,6 +65,10 @@ class CultivoPruebaIntegracion extends PruebaIntegracion {
                 .andExpect(jsonPath("$.codigo").value("MSG-09"))
                 .andExpect(jsonPath("$.mensaje").value("La zona seleccionada no pertenece a este huerto."));
 
+        registrar(l1, 2, 1)
+                .andExpect(status().isForbidden())
+                .andExpect(jsonPath("$.codigo").value("MSG-03"))
+                .andExpect(jsonPath("$.campo").value("plantaId"));
         assertThat(cultivos()).isEqualTo(antes);
     }
 

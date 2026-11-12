@@ -24,6 +24,7 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.security.web.context.SecurityContextRepository;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.csrf.CsrfException;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -40,11 +41,16 @@ import java.io.IOException;
 public class SeguridadConfig {
 
     @Bean
-    SecurityFilterChain cadenaSeguridad(HttpSecurity http, JsonMapper json,
-                                        SecurityContextRepository contextos) throws Exception {
+    CookieCsrfTokenRepository repositorioCsrf() {
         CookieCsrfTokenRepository tokens = CookieCsrfTokenRepository.withHttpOnlyFalse();
         tokens.setCookieCustomizer(c -> c.path("/").sameSite("Lax"));
+        return tokens;
+    }
 
+    @Bean
+    SecurityFilterChain cadenaSeguridad(HttpSecurity http, JsonMapper json,
+                                        SecurityContextRepository contextos,
+                                        CookieCsrfTokenRepository tokens) throws Exception {
         http
                 .csrf(csrf -> csrf
                         .csrfTokenRepository(tokens)
@@ -68,9 +74,12 @@ public class SeguridadConfig {
                         // Sin sesión válida: MSG-02 (HU-002, CA-02).
                         .authenticationEntryPoint((req, res, ex) -> escribir(res, json, Mensaje.MSG_02))
                         // Una solicitud reenviada tras cerrar sesión suele fallar primero en el CSRF:
-                        // si no hay sesión autenticada se informa MSG-02; si la hay, MSG-03.
-                        .accessDeniedHandler((req, res, ex) -> escribir(res, json,
-                                UsuarioActual.opcional().isPresent() ? Mensaje.MSG_03 : Mensaje.MSG_02)));
+                        // sin sesión se informa MSG-02. Con sesión se distingue el fallo del token.
+                        .accessDeniedHandler((req, res, ex) -> {
+                            Mensaje mensaje = UsuarioActual.opcional().isEmpty() ? Mensaje.MSG_02
+                                    : ex instanceof CsrfException ? Mensaje.MSG_26 : Mensaje.MSG_03;
+                            escribir(res, json, mensaje);
+                        }));
         return http.build();
     }
 

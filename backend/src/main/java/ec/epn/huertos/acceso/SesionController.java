@@ -15,6 +15,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.context.SecurityContextRepository;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,6 +34,7 @@ class SesionController {
     private final AuthenticationManager autenticacion;
     private final SecurityContextRepository contextos;
     private final AutorizacionHuerto autorizacion;
+    private final CookieCsrfTokenRepository tokens;
 
     record Credenciales(String usuario, String contrasena) {
     }
@@ -72,18 +74,24 @@ class SesionController {
         contexto.setAuthentication(auth);
         SecurityContextHolder.setContext(contexto);
         contextos.saveContext(contexto, req, res);
+        renovarToken(req, res);
         return sesionDe((LiderSesion) auth.getPrincipal());
     }
 
     /** Cierra la sesión en el servidor: las solicitudes posteriores con esa sesión se rechazan (HU-002 CA-02). */
     @DeleteMapping
-    ResponseEntity<Void> cerrar(HttpServletRequest req) {
+    ResponseEntity<Void> cerrar(HttpServletRequest req, HttpServletResponse res) {
         HttpSession sesion = req.getSession(false);
         if (sesion != null) {
             sesion.invalidate();
         }
         SecurityContextHolder.clearContext();
+        renovarToken(req, res);
         return ResponseEntity.noContent().build();
+    }
+
+    private void renovarToken(HttpServletRequest req, HttpServletResponse res) {
+        tokens.saveToken(tokens.generateToken(req), req, res);
     }
 
     private Sesion sesionDe(LiderSesion lider) {

@@ -38,17 +38,21 @@ public class Actividad {
     @Column(name = "clave_envio", nullable = false, updatable = false, unique = true)
     private UUID claveEnvio;
 
+    @Column(name = "huella_envio", length = 64, updatable = false)
+    private String huellaEnvio;
+
     @Column(name = "autor_id", nullable = false, updatable = false)
     private Long autorId;
 
     @Column(name = "registrada_en", nullable = false, updatable = false)
     private Instant registradaEn;
 
-    static Actividad siembra(Long cultivoId, UUID claveEnvio, Long autorId, Instant ahora) {
+    static Actividad siembra(Long cultivoId, UUID claveEnvio, String huellaEnvio, Long autorId, Instant ahora) {
         Actividad a = new Actividad();
         a.cultivoId = cultivoId;
         a.tipo = SIEMBRA;
         a.claveEnvio = claveEnvio;
+        a.huellaEnvio = huellaEnvio;
         a.autorId = autorId;
         a.registradaEn = ahora;
         return a;

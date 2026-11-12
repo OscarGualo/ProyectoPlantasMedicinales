@@ -81,7 +81,8 @@ class RetoPruebaIntegracion extends PruebaIntegracion {
         corregir(mvc, l1, a3, "2026-10-14T08:00", "Fecha registrada por error", null)
                 .andExpect(status().isCreated());
         reto(1).andExpect(jsonPath("$.insignia").doesNotExist()).andExpect(jsonPath("$.mensaje").value(MSG18));
-        corregir(mvc, l1, a1, "2026-10-10T08:00", "Se recupera la fecha original", null)
+        corregir(mvc, l1, a1, "2026-10-10T08:00", "Se recupera la fecha original", null, 2,
+                java.util.UUID.randomUUID().toString())
                 .andExpect(status().isCreated());
         reto(1).andExpect(jsonPath("$.insignia.sustento.siembraId").value(a1));
     }

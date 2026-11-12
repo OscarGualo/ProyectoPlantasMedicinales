@@ -7,7 +7,6 @@ import ec.epn.huertos.actividades.SiembraDtos.HistorialVista;
 import ec.epn.huertos.actividades.SiembraDtos.SiembraSolicitud;
 import ec.epn.huertos.actividades.SiembraDtos.SiembraVista;
 import lombok.RequiredArgsConstructor;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -30,13 +29,8 @@ class SiembraController {
     @PostMapping(path = "/api/cultivos/{id}/siembras", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     ResponseEntity<SiembraVista> registrar(@PathVariable Long id, @ModelAttribute SiembraSolicitud solicitud,
                                            @RequestPart(name = "foto", required = false) MultipartFile foto) {
-        try {
-            Registro r = servicio.registrar(id, solicitud, foto);
-            return ResponseEntity.status(r.creada() ? HttpStatus.CREATED : HttpStatus.OK).body(r.siembra());
-        } catch (DataIntegrityViolationException e) {
-            // Dos envíos simultáneos con la misma clave: el segundo choca con la restricción única y recibe el primero.
-            return ResponseEntity.ok(servicio.porClave(id, solicitud.claveEnvio()));
-        }
+        Registro r = servicio.registrar(id, solicitud, foto);
+        return ResponseEntity.status(r.creada() ? HttpStatus.CREATED : HttpStatus.OK).body(r.siembra());
     }
 
     /** HU-014 y HU-015: siembras vigentes del cultivo con su condición lunar. */
@@ -45,11 +39,12 @@ class SiembraController {
         return servicio.bitacora(id);
     }
 
-    /** HU-016: 201 con la siembra en su nueva versión vigente. */
+    /** HU-016: 201 para una versión nueva, 200 al repetir una corrección confirmada. */
     @PostMapping(path = "/api/siembras/{id}/correcciones", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     ResponseEntity<SiembraVista> corregir(@PathVariable Long id, @ModelAttribute CorreccionSolicitud solicitud,
                                           @RequestPart(name = "foto", required = false) MultipartFile foto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(servicio.corregir(id, solicitud, foto));
+        Registro r = servicio.corregir(id, solicitud, foto);
+        return ResponseEntity.status(r.creada() ? HttpStatus.CREATED : HttpStatus.OK).body(r.siembra());
     }
 
     /** HU-017: versiones de la siembra, de la más reciente a la más antigua. */

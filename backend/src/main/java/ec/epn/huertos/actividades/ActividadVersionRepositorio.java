@@ -4,6 +4,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 public interface ActividadVersionRepositorio extends JpaRepository<ActividadVersion, Long> {
 
@@ -20,6 +22,10 @@ public interface ActividadVersionRepositorio extends JpaRepository<ActividadVers
              WHERE v.actividadId = :actividadId
                AND v.numero = (SELECT MAX(v2.numero) FROM ActividadVersion v2 WHERE v2.actividadId = :actividadId)""")
     ActividadVersion vigente(Long actividadId);
+
+    Optional<ActividadVersion> findByActividadIdAndClaveCorreccion(Long actividadId, UUID claveCorreccion);
+
+    Optional<ActividadVersion> findByActividadIdAndNumero(Long actividadId, int numero);
 
     /** Todas las versiones de una actividad, de la más reciente a la más antigua (HU-017). */
     List<ActividadVersion> findByActividadIdOrderByNumeroDesc(Long actividadId);

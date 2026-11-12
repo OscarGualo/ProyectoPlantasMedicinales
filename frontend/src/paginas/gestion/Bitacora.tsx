@@ -71,7 +71,7 @@ export function Bitacora() {
           Siembras registradas
         </h2>
         {datos.siembras.length === 0 ? (
-          <Vacio titulo="Aún no hay siembras registradas">
+          <Vacio titulo="Aún no hay siembras registradas" vineta="regadera">
             Registra la primera con su fecha, técnica y una fotografía como evidencia.
           </Vacio>
         ) : (

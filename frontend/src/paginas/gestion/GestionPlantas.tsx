@@ -76,7 +76,7 @@ export function GestionPlantas() {
         <AvisoExito>{guardada}</AvisoExito>
 
         {plantas.length === 0 ? (
-          <Vacio titulo="Aún no registras plantas">
+          <Vacio titulo="Aún no registras plantas" vineta="maceta">
             Registra la primera ficha con su nombre, familia y la fuente de la información.
           </Vacio>
         ) : (

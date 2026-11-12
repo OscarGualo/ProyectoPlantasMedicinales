@@ -48,7 +48,7 @@ export function GestionCultivos() {
   return (
     <>
       {datos.plantas.length === 0 ? (
-        <Vacio titulo="Primero registra una planta">
+        <Vacio titulo="Primero registra una planta" vineta="maceta">
           Cada cultivo es una planta sembrada en una zona del huerto. <Link to="/gestion/plantas">Registrar planta</Link>
         </Vacio>
       ) : (
@@ -65,7 +65,7 @@ export function GestionCultivos() {
           Cultivos del huerto
         </h2>
         {datos.cultivos.length === 0 ? (
-          <Vacio titulo="Aún no registras cultivos" />
+          <Vacio titulo="Aún no registras cultivos" vineta="semillas" />
         ) : (
           <ul className="lista-gestion">
             {datos.cultivos.map((c) => (

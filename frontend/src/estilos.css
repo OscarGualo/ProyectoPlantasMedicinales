@@ -39,6 +39,7 @@
   --info-fondo: #e2ecf5;
   --anillo: #0f5c2d;
   --campo-borde: #8fa996;      /* controles de formulario: los campos sí llevan línea */
+  --papel-lamina: #f1f5f1;     /* papel de las ilustraciones grabadas; igual en ambos modos (la lámina es un objeto) */
 
   /* Tipografía: una familia, dos anchos */
   --f: 'Archivo Variable', 'Archivo', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
@@ -495,6 +496,71 @@ img {
 
 .bolsa-con-ventana {
   padding-bottom: calc(var(--e-8) + 120px);
+}
+
+/* ---------- Lámina viva: ilustración grabada sobre el campo verde ---------- */
+.lamina-viva {
+  margin: 0;
+}
+
+.lamina-viva-papel {
+  position: relative;
+  padding: var(--e-2);
+  background: var(--papel-lamina);
+  clip-path: polygon(
+    var(--chaflan) 0, calc(100% - var(--chaflan)) 0, 100% var(--chaflan), 100% calc(100% - var(--chaflan)),
+    calc(100% - var(--chaflan)) 100%, var(--chaflan) 100%, 0 calc(100% - var(--chaflan)), 0 var(--chaflan)
+  );
+}
+
+.lamina-viva img,
+.lamina-viva video {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.lamina-viva figcaption {
+  margin-top: var(--e-3);
+  font-size: var(--t-nota);
+  line-height: 1.4;
+  color: var(--sobre-bolsa);
+  max-width: 42ch;
+}
+
+/* Pausa del video: 44 px, sobre el papel, siempre visible (WCAG 2.2.2) */
+.lamina-viva-pausa {
+  position: absolute;
+  right: var(--e-3);
+  bottom: var(--e-3);
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: var(--radio-control);
+  background: var(--bolsa);
+  color: var(--sobre-bolsa);
+  cursor: pointer;
+  transition: transform var(--m-presion) var(--curva-salida);
+}
+
+.lamina-viva-pausa:active {
+  transform: scale(0.97);
+}
+
+@media (min-width: 900px) {
+  .bolsa-con-heroe {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 360px);
+    gap: var(--e-7);
+    align-items: start;
+  }
+
+  .heroe-inicio {
+    --orden: 2;
+    margin-top: var(--e-2);
+  }
 }
 
 .volver {
@@ -1153,6 +1219,36 @@ img {
   margin: 0;
 }
 
+.vacio-texto {
+  display: grid;
+  gap: var(--e-2);
+}
+
+/* Con viñeta grabada: la viñeta es un recorte de papel troquelado, como una lámina pequeña */
+.vacio-ilustrado {
+  flex-direction: row;
+  align-items: center;
+  gap: var(--e-5);
+}
+
+.vineta {
+  flex: none;
+  width: 104px;
+  height: 104px;
+  background: var(--papel-lamina);
+  clip-path: polygon(
+    8px 0, calc(100% - 8px) 0, 100% 8px, 100% calc(100% - 8px),
+    calc(100% - 8px) 100%, 8px 100%, 0 calc(100% - 8px), 0 8px
+  );
+}
+
+@media (max-width: 479px) {
+  .vacio-ilustrado {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
 .esqueleto {
   display: block;
   background: var(--banda-fuerte);
@@ -1500,6 +1596,39 @@ textarea.control {
 .ingreso h1 {
   font-size: var(--t-2);
   margin-bottom: var(--e-3);
+}
+
+/* La lámina del kit de herbario acompaña al formulario solo en pantallas anchas; en el celular, el formulario
+   va primero y solo. */
+.ingreso-lamina {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .ingreso-ilustrado {
+    max-width: 920px;
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr);
+    align-items: center;
+    gap: var(--e-6);
+  }
+
+  .ingreso-lamina {
+    display: block;
+    margin: 0;
+    padding: var(--e-2);
+    background: var(--papel-lamina);
+    clip-path: polygon(
+      var(--chaflan) 0, calc(100% - var(--chaflan)) 0, 100% var(--chaflan), 100% calc(100% - var(--chaflan)),
+      calc(100% - var(--chaflan)) 100%, var(--chaflan) 100%, 0 calc(100% - var(--chaflan)), 0 var(--chaflan)
+    );
+  }
+
+  .ingreso-lamina img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
 }
 
 /* ---------- Utilidades ---------- */
@@ -1926,10 +2055,61 @@ textarea.control {
 }
 
 .evento {
-  display: flex;
-  flex-direction: column;
-  gap: var(--e-1);
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  column-gap: var(--e-4);
+  row-gap: var(--e-1);
+  align-items: center;
   padding: var(--e-4) var(--e-5);
+}
+
+.evento .grabado-luna {
+  grid-row: 1 / span 2;
+}
+
+/* Grabado de luna: el círculo recorta el papel del grabado, así el disco se asienta en cualquier modo */
+.grabado-luna {
+  display: block;
+  flex-shrink: 0;
+  clip-path: circle(44.5%);
+}
+
+.reto-pendiente {
+  display: grid;
+  justify-items: start;
+  gap: var(--e-4);
+}
+
+.fases-actividades .grabado-luna {
+  margin: 0 0 var(--e-3) -6px;
+}
+
+/* Cabecera del calendario: el huerto de noche entra como lámina a la derecha del campo verde */
+.noche-huerto {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: var(--e-5);
+  aspect-ratio: 1200 / 514;
+  object-fit: cover;
+  clip-path: polygon(
+    var(--chaflan) 0, calc(100% - var(--chaflan)) 0, 100% var(--chaflan), 100% calc(100% - var(--chaflan)),
+    calc(100% - var(--chaflan)) 100%, var(--chaflan) 100%, 0 calc(100% - var(--chaflan)), 0 var(--chaflan)
+  );
+}
+
+@media (min-width: 900px) {
+  .bolsa-con-noche {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 560px);
+    gap: var(--e-7);
+    align-items: center;
+  }
+
+  .noche-huerto {
+    margin-top: 0;
+  }
 }
 
 .evento strong {

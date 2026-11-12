@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router'
 import { CalendarDots, Leaf, MapTrifold, Plant, SignIn, SignOut } from '@phosphor-icons/react'
 import { useSesion } from '../sesion/ContextoSesion'
-import { CREDITO_LAMINAS } from '../datos/laminas'
+import { CREDITO_IA, CREDITO_LAMINAS } from '../datos/laminas'
 
 /**
  * Estructura común: barra plana en el verde de la bolsa (marca, tres destinos, sesión). En celulares la
@@ -92,7 +92,7 @@ export function Diseno() {
             <a href="https://commons.wikimedia.org/wiki/Category:K%C3%B6hler%27s_Medizinal-Pflanzen">
               Wikimedia Commons
             </a>
-            . Mapa: © colaboradores de OpenStreetMap.
+            . {CREDITO_IA}. Mapa: © colaboradores de OpenStreetMap.
           </p>
         </div>
       </footer>

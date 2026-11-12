@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState, type FormEvent } from 'react'
 import { ArrowLeft, ArrowRight, X } from '@phosphor-icons/react'
 import { api, mensajeDe } from '../api/cliente'
-import type { CalendarioLunar, FaseLunar } from '../api/tipos'
+import type { CalendarioLunar, EventoFase, FaseLunar } from '../api/tipos'
 import { AvisoError, Cargando } from '../componentes/Estado'
 import { Campo } from '../componentes/Campo'
 
@@ -11,6 +11,24 @@ const NOMBRE_FASE: Record<FaseLunar, string> = {
   LUNA_CRECIENTE: 'Luna creciente',
   LUNA_LLENA: 'Luna llena',
   LUNA_MENGUANTE: 'Luna menguante',
+}
+
+// Grabados de las cuatro fases (public/arte/luna, generados con IA y acreditados): decorativos, el texto nombra la fase.
+const GRABADO_FASE: Record<FaseLunar, string> = {
+  LUNA_OSCURA: '/arte/luna/nueva.webp',
+  LUNA_CRECIENTE: '/arte/luna/creciente.webp',
+  LUNA_LLENA: '/arte/luna/llena.webp',
+  LUNA_MENGUANTE: '/arte/luna/menguante.webp',
+}
+const GRABADO_EVENTO: Record<EventoFase['fase'], string> = {
+  LUNA_NUEVA: GRABADO_FASE.LUNA_OSCURA,
+  CUARTO_CRECIENTE: GRABADO_FASE.LUNA_CRECIENTE,
+  LUNA_LLENA: GRABADO_FASE.LUNA_LLENA,
+  CUARTO_MENGUANTE: GRABADO_FASE.LUNA_MENGUANTE,
+}
+
+function GrabadoLuna({ src, tamano }: { src: string; tamano: number }) {
+  return <img className="grabado-luna" src={src} alt="" width={tamano} height={tamano} loading="lazy" decoding="async" />
 }
 
 const formatoDia = new Intl.DateTimeFormat('es-EC', { weekday: 'short', day: 'numeric', month: 'short', timeZone: 'UTC' })
@@ -72,12 +90,25 @@ export function Calendario() {
 
   return (
     <>
-      <section className="bolsa bolsa-compacta" aria-labelledby="titulo-calendario">
-        <h1 id="titulo-calendario">Calendario lunar</h1>
-        <p className="bajada">
-          La fase de cada día y lo que la práctica recomienda hacer en el huerto. Elige una actividad para ver sus
-          días.
-        </p>
+      <section className="bolsa bolsa-compacta bolsa-con-noche" aria-labelledby="titulo-calendario">
+        <div className="bolsa-texto">
+          <h1 id="titulo-calendario">Calendario lunar</h1>
+          <p className="bajada">
+            La fase de cada día y lo que la práctica recomienda hacer en el huerto. Elige una actividad para ver sus
+            días.
+          </p>
+        </div>
+        <img
+          className="noche-huerto"
+          src="/arte/luna/huerto-de-noche.webp"
+          srcSet="/arte/luna/huerto-de-noche-672.webp 672w, /arte/luna/huerto-de-noche.webp 1200w"
+          sizes="(min-width: 900px) 560px, 100vw"
+          alt=""
+          width={1200}
+          height={514}
+          decoding="async"
+          fetchPriority="high"
+        />
       </section>
 
       <AvisoError>{error}</AvisoError>
@@ -151,6 +182,7 @@ export function Calendario() {
           <ul className="eventos">
             {datos.fasesPrincipales.map((e) => (
               <li key={e.instante} className="etiqueta evento">
+                <GrabadoLuna src={GRABADO_EVENTO[e.fase]} tamano={56} />
                 <strong>{e.etiqueta.charAt(0).toUpperCase() + e.etiqueta.slice(1)}</strong>
                 <span>{inicial(formatoLargo.format(new Date(e.instante)))}</span>
               </li>
@@ -161,10 +193,8 @@ export function Calendario() {
           <div className="etiqueta fases-actividades">
             {FASES.map((f) => (
               <section key={f} aria-label={NOMBRE_FASE[f]}>
-                <h3>
-                  <GlifoLuna fase={f} />
-                  {NOMBRE_FASE[f]}
-                </h3>
+                <GrabadoLuna src={GRABADO_FASE[f]} tamano={88} />
+                <h3>{NOMBRE_FASE[f]}</h3>
                 <ul>
                   {datos.actividadesPorFase[f].map((a) => (
                     <li key={a}>{a}</li>

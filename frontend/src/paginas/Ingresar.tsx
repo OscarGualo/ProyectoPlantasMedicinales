@@ -35,7 +35,19 @@ export function Ingresar() {
   }
 
   return (
-    <div className="ingreso revelar">
+    <div className="ingreso ingreso-ilustrado revelar">
+      <figure className="ingreso-lamina" aria-hidden="true">
+        <img
+          src="/arte/ingreso/kit-herbario.webp"
+          srcSet="/arte/ingreso/kit-herbario-440.webp 440w, /arte/ingreso/kit-herbario.webp 880w"
+          sizes="(min-width: 1180px) 420px, 40vw"
+          alt=""
+          width={880}
+          height={1168}
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
       <section className="etiqueta">
         <h1>Ingreso de líderes</h1>
         <p className="secundario">

@@ -26,6 +26,7 @@ colors:
   info: "#1d3d5c"
   info-fondo: "#e2ecf5"
   campo-borde: "#8fa996"
+  papel-lamina: "#f1f5f1"
 typography:
   display:
     fontFamily: "Archivo Variable, system-ui, sans-serif"
@@ -210,6 +211,27 @@ celular, barra inferior en papel con el destino activo en banda y franja superio
 ### Lámina botánica
 Lámina de colección abierta que ilustra la **especie**, con pie que lo dice y enlace a la fuente; nunca se presenta
 como foto del huerto. La fotografía propia del líder siempre tiene prioridad.
+
+### Ilustración generada (ampliación del 12/11/2026)
+Para que las pantallas no sean solo texto, el mundo admite **ilustraciones grabadas generadas con IA** (Higgsfield)
+con estas reglas:
+- **Un solo estilo:** grabado en cobre coloreado a mano, al estilo de Köhler (1887), sobre el papel claro
+  `papel-lamina` (`#f1f5f1`, igual en ambos modos: la lámina es un objeto físico). Cada generación usa la lámina real
+  de *Matricaria* como referencia de estilo.
+- **Honestidad:** cada imagen dice en su pie «ilustración generada con IA» (o se acredita en el pie de página si es
+  decorativa) y figura en `frontend/public/laminas/credits.json` con `ia: true` y el trabajo de origen. Nunca se
+  presenta como lámina histórica ni como foto de un huerto; la foto del líder sigue teniendo prioridad.
+- **Revisión botánica a mano** antes de publicar: nombre científico bien escrito y sin familia, firma ni texto
+  inventado. Las láminas que fallan se regeneran, no se retocan.
+- **Dónde:** láminas de especie (catálogo `laminaDe`), lámina del inicio (solo escritorio), lámina del ingreso (solo
+  ≥ 768 px), cabecera del calendario, grabados de las cuatro fases lunares, viñetas de los estados vacíos (`Vacio`
+  con `vineta`).
+- **Forma:** siempre sobre papel troquelado (chaflán de 12 px, 8 px en viñetas) o recortadas en círculo (lunas).
+  Sin sombras, sin degradados, sin vidrio.
+- **Movimiento:** la «lámina viva» (video corto en bucle, mudo) solo con póster fijo, botón de pausa de 44 px y sin
+  reproducción con `prefers-reduced-motion`.
+- **Peso:** WebP, ≤ 180 KB a tamaño completo, con versión de la mitad del ancho en `srcset`, `width`/`height`
+  declarados.
 
 ## Do's and Don'ts
 

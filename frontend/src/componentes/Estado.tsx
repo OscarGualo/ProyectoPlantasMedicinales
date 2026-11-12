@@ -35,13 +35,30 @@ export function AvisoInfo({ children }: { children: ReactNode }) {
   )
 }
 
-/** Estado vacío con una indicación de qué hacer a continuación. */
-export function Vacio({ titulo, children, icono }: { titulo: string; children?: ReactNode; icono?: ReactNode }) {
+/** Viñetas grabadas de los estados vacíos (public/arte/vacios, generadas con IA y acreditadas). */
+export type Vineta = 'maceta' | 'semillas' | 'mapa' | 'lupa' | 'regadera'
+
+/**
+ * Estado vacío con una indicación de qué hacer a continuación. Con `vineta`, la acompaña una viñeta grabada en
+ * lugar del ícono; es decorativa (alt vacío) porque el título ya dice lo que pasa.
+ */
+export function Vacio({ titulo, children, icono, vineta }: {
+  titulo: string
+  children?: ReactNode
+  icono?: ReactNode
+  vineta?: Vineta
+}) {
   return (
-    <div className="vacio">
-      {icono ?? <Plant size={32} weight="duotone" aria-hidden="true" />}
-      <strong>{titulo}</strong>
-      {children && <p>{children}</p>}
+    <div className={`vacio${vineta ? ' vacio-ilustrado' : ''}`}>
+      {vineta ? (
+        <img className="vineta" src={`/arte/vacios/${vineta}.webp`} alt="" width={240} height={240} decoding="async" />
+      ) : (
+        (icono ?? <Plant size={32} weight="duotone" aria-hidden="true" />)
+      )}
+      <div className="vacio-texto">
+        <strong>{titulo}</strong>
+        {children && <p>{children}</p>}
+      </div>
     </div>
   )
 }

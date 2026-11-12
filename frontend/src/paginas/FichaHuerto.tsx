@@ -105,7 +105,7 @@ export function FichaHuerto() {
             </div>
             <figcaption>
               Láminas de especies que crecen en este huerto:{' '}
-              {laminasHuerto.map(({ planta }) => planta.nombreComun).join(', ')} (Köhler, 1887)
+              {laminasHuerto.map(({ planta, lamina }) => `${planta.nombreComun} (${lamina.autoria})`).join(', ')}
             </figcaption>
           </figure>
         )}
@@ -127,7 +127,7 @@ export function FichaHuerto() {
 
       <h2 id="titulo-plantas">Plantas medicinales</h2>
       {ficha.plantas.length === 0 ? (
-        <Vacio titulo="Este huerto aún no registra plantas" />
+        <Vacio titulo="Este huerto aún no registra plantas" vineta="maceta" />
       ) : (
         <ul className="plantas" aria-labelledby="titulo-plantas">
           {ficha.plantas.map((p, i) => (
@@ -138,7 +138,7 @@ export function FichaHuerto() {
 
       <h2 id="titulo-cultivos">Qué crece en cada zona</h2>
       {cultivosPorZona.length === 0 ? (
-        <Vacio titulo="Este huerto aún no registra cultivos" />
+        <Vacio titulo="Este huerto aún no registra cultivos" vineta="semillas" />
       ) : (
         <div className="etiqueta zonas revelar">
           {cultivosPorZona.map(([zona, cultivos]) => (
@@ -190,7 +190,7 @@ function EtiquetaPlanta({ planta, orden }: { planta: Planta; orden: number }) {
           <figure className="planta-figura">
             <img src={lamina.src} alt={lamina.pie} loading="lazy" decoding="async" width={600} height={800} />
             <figcaption>
-              {lamina.pie} (Köhler, 1887). <a href={lamina.fuente}>Fuente</a>
+              {lamina.pie} ({lamina.autoria}).{lamina.fuente && <> <a href={lamina.fuente}>Fuente</a></>}
             </figcaption>
           </figure>
         ) : null}

@@ -17,7 +17,7 @@ export function Gestion() {
 
   if (!huerto) {
     return (
-      <Vacio titulo="Tu cuenta no tiene un huerto asignado">
+      <Vacio titulo="Tu cuenta no tiene un huerto asignado" vineta="lupa">
         Comunícate con el Ministerio de Salud Pública para que te asignen tu huerto.
       </Vacio>
     )

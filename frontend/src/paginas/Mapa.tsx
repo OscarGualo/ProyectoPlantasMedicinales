@@ -7,6 +7,7 @@ import { ArrowRight } from '@phosphor-icons/react'
 import { api, mensajeDe } from '../api/cliente'
 import type { ResumenHuerto } from '../api/tipos'
 import { AvisoError, Esqueleto, Vacio } from '../componentes/Estado'
+import { LaminaViva, useCoincide } from '../componentes/LaminaViva'
 
 // Marcador con forma de etiqueta colgante y una hoja: vectorial, sin imágenes que descargar.
 const HOJA_SVG =
@@ -39,10 +40,13 @@ export function Mapa() {
 
   const provincias = useMemo(() => new Set(huertos?.map((h) => h.provincia).filter(Boolean)).size, [huertos])
   const plantas = useMemo(() => huertos?.reduce((s, h) => s + h.plantas, 0) ?? 0, [huertos])
+  // La lámina del inicio solo entra en escritorio: en el celular el mapa debe quedar a la vista (contenido primero).
+  const escritorio = useCoincide('(min-width: 900px)')
 
   return (
     <>
-      <section className="bolsa bolsa-con-ventana" aria-labelledby="titulo-inicio">
+      <section className={`bolsa bolsa-con-ventana${escritorio ? ' bolsa-con-heroe' : ''}`} aria-labelledby="titulo-inicio">
+        <div className="bolsa-texto">
         <h1 id="titulo-inicio">Huertos medicinales del Ecuador</h1>
         <p className="bajada">
           Cada huerto comunitario, con sus plantas, su fuente y lo que siembra según la luna. Elige uno en el mapa para
@@ -68,6 +72,19 @@ export function Mapa() {
             !error && <Esqueleto alto={52} ancho={320} estilo={{ opacity: 0.25 }} />
           )}
         </div>
+        </div>
+        {escritorio && (
+          <LaminaViva
+            className="heroe-inicio revelar"
+            src="/arte/heroe/herbario-andino.webp"
+            srcSet="/arte/heroe/herbario-andino-448.webp 448w, /arte/heroe/herbario-andino.webp 896w"
+            sizes="(min-width: 1180px) 380px, 32vw"
+            ancho={896}
+            alto={1120}
+            alt="Ramillete de plantas medicinales andinas atado con cordel: manzanilla, ruda, toronjil, hierba luisa y una hoja de sábila"
+            pie="Herbario andino: manzanilla, ruda, toronjil, hierba luisa y sábila (ilustración generada con IA)."
+          />
+        )}
       </section>
 
       <div className="ventana-mapa" data-testid="mapa">
@@ -109,7 +126,7 @@ export function Mapa() {
         </div>
       )}
       {huertos?.length === 0 && (
-        <Vacio titulo="Todavía no hay huertos publicados">
+        <Vacio titulo="Todavía no hay huertos publicados" vineta="semillas">
           Cuando los líderes publiquen sus huertos, aparecerán aquí y en el mapa.
         </Vacio>
       )}

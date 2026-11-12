@@ -64,5 +64,185 @@
   "credit": "\"Köhler's Medizinal-Pflanzen in naturgetreuen Abbildungen mit kurz erläuterndem Texte (Pla…\" by Brandt, Wilhelm; Gürke, M.; Köhler, F. E.; Pabst, G.; Schel…, public domain, via Wikimedia Commons",
   "notes": [],
   "saved": "2026-11-03T06:06:48.937Z"
+ },
+ {
+  "file": "frontend/public/laminas/cymbopogon-citratus.webp",
+  "media": "image",
+  "ia": true,
+  "title": "Lámina de la especie Cymbopogon citratus (hierba luisa)",
+  "creator": "Ilustración generada con IA (Higgsfield, modelo GPT Image 2.6) a partir del estilo de la lámina de Matricaria de Köhler (1887)",
+  "date": "2026-11-12",
+  "license": "generada para el proyecto",
+  "creditRequired": true,
+  "higgsfieldJob": "7714bd31-bce9-417d-896c-ea41cefdfc21",
+  "credit": "Ilustración generada con IA en el estilo de Köhler (1887); no es una lámina histórica ni una foto del huerto",
+  "notes": [
+   "Revisada a mano: nombre científico correcto y sin familia ni firma inventadas."
+  ]
+ },
+ {
+  "file": "frontend/public/laminas/aloe-vera.webp",
+  "media": "image",
+  "ia": true,
+  "title": "Lámina de la especie Aloe vera (sábila)",
+  "creator": "Ilustración generada con IA (Higgsfield, modelo GPT Image 2.6) a partir del estilo de la lámina de Matricaria de Köhler (1887)",
+  "date": "2026-11-12",
+  "license": "generada para el proyecto",
+  "creditRequired": true,
+  "higgsfieldJob": "997e1597-3e11-421b-bc7f-c3f0d801bbf3",
+  "credit": "Ilustración generada con IA en el estilo de Köhler (1887); no es una lámina histórica ni una foto del huerto",
+  "notes": [
+   "Revisada a mano: nombre científico correcto y sin familia ni firma inventadas."
+  ]
+ },
+ {
+  "file": "frontend/public/laminas/mentha-spicata.webp",
+  "media": "image",
+  "ia": true,
+  "title": "Lámina de la especie Mentha spicata (menta)",
+  "creator": "Ilustración generada con IA (Higgsfield, modelo GPT Image 2.6) a partir del estilo de la lámina de Matricaria de Köhler (1887)",
+  "date": "2026-11-12",
+  "license": "generada para el proyecto",
+  "creditRequired": true,
+  "higgsfieldJob": "c3cd9e0d-3d0b-43c1-afac-ccc853453639",
+  "credit": "Ilustración generada con IA en el estilo de Köhler (1887); no es una lámina histórica ni una foto del huerto",
+  "notes": [
+   "Revisada a mano: nombre científico correcto y sin familia ni firma inventadas."
+  ]
+ },
+ {
+  "file": "frontend/public/laminas/origanum-vulgare.webp",
+  "media": "image",
+  "ia": true,
+  "title": "Lámina de la especie Origanum vulgare (orégano)",
+  "creator": "Ilustración generada con IA (Higgsfield, modelo GPT Image 2.6) a partir del estilo de la lámina de Matricaria de Köhler (1887)",
+  "date": "2026-11-12",
+  "license": "generada para el proyecto",
+  "creditRequired": true,
+  "higgsfieldJob": "022396ca-5bbe-456d-a441-b158db16ee7b",
+  "credit": "Ilustración generada con IA en el estilo de Köhler (1887); no es una lámina histórica ni una foto del huerto",
+  "notes": [
+   "Revisada a mano: nombre científico correcto y sin familia ni firma inventadas."
+  ]
+ },
+ {
+  "file": "frontend/public/laminas/plantago-major.webp",
+  "media": "image",
+  "ia": true,
+  "title": "Lámina de la especie Plantago major (llantén)",
+  "creator": "Ilustración generada con IA (Higgsfield, modelo GPT Image 2.6) a partir del estilo de la lámina de Matricaria de Köhler (1887)",
+  "date": "2026-11-12",
+  "license": "generada para el proyecto",
+  "creditRequired": true,
+  "higgsfieldJob": "6c719a54-6eab-485f-b03b-eba491251cfe",
+  "credit": "Ilustración generada con IA en el estilo de Köhler (1887); no es una lámina histórica ni una foto del huerto",
+  "notes": [
+   "Revisada a mano: nombre científico correcto y sin familia ni firma inventadas."
+  ]
+ },
+ {
+  "file": "frontend/public/laminas/urtica-dioica.webp",
+  "media": "image",
+  "ia": true,
+  "title": "Lámina de la especie Urtica dioica (ortiga)",
+  "creator": "Ilustración generada con IA (Higgsfield, modelo GPT Image 2.6) a partir del estilo de la lámina de Matricaria de Köhler (1887)",
+  "date": "2026-11-12",
+  "license": "generada para el proyecto",
+  "creditRequired": true,
+  "higgsfieldJob": "c6113d9d-9d28-4e78-8bbe-f1f0a2cff079",
+  "credit": "Ilustración generada con IA en el estilo de Köhler (1887); no es una lámina histórica ni una foto del huerto",
+  "notes": [
+   "Revisada a mano: nombre científico correcto y sin familia ni firma inventadas."
+  ]
+ },
+ {
+  "file": "frontend/public/laminas/aloysia-citrodora.webp",
+  "media": "image",
+  "ia": true,
+  "title": "Lámina de la especie Aloysia citrodora (cedrón)",
+  "creator": "Ilustración generada con IA (Higgsfield, modelo GPT Image 2.6) a partir del estilo de la lámina de Matricaria de Köhler (1887)",
+  "date": "2026-11-12",
+  "license": "generada para el proyecto",
+  "creditRequired": true,
+  "higgsfieldJob": "3490351c-9f24-40b6-90aa-3660e0fe1da1",
+  "credit": "Ilustración generada con IA en el estilo de Köhler (1887); no es una lámina histórica ni una foto del huerto",
+  "notes": [
+   "Revisada a mano: nombre científico correcto y sin familia ni firma inventadas."
+  ]
+ },
+ {
+  "file": "frontend/public/arte/heroe/herbario-andino.webp",
+  "media": "image",
+  "ia": true,
+  "title": "Composición de herbario andino para el inicio",
+  "creator": "Ilustración generada con IA (Higgsfield, modelo GPT Image 2.6) a partir del estilo de la lámina de Matricaria de Köhler (1887)",
+  "date": "2026-11-12",
+  "license": "generada para el proyecto",
+  "creditRequired": true,
+  "higgsfieldJob": "2b946a8e-e5fa-48af-9102-2549bb7824ce",
+  "credit": "Ilustración generada con IA en el estilo de Köhler (1887); no es una lámina histórica ni una foto del huerto",
+  "notes": [
+   "Revisada a mano: nombre científico correcto y sin familia ni firma inventadas."
+  ]
+ },
+ {
+  "file": "frontend/public/arte/ingreso/kit-herbario.webp",
+  "media": "image",
+  "ia": true,
+  "title": "Kit de herbario para la pantalla de ingreso",
+  "creator": "Ilustración generada con IA (Higgsfield, modelo GPT Image 2.6) a partir del estilo de la lámina de Matricaria de Köhler (1887)",
+  "date": "2026-11-12",
+  "license": "generada para el proyecto",
+  "creditRequired": true,
+  "higgsfieldJob": "d8dfcbdb-591e-4829-a52c-dbaedf496c98",
+  "credit": "Ilustración generada con IA en el estilo de Köhler (1887); no es una lámina histórica ni una foto del huerto",
+  "notes": [
+   "Revisada a mano: nombre científico correcto y sin familia ni firma inventadas."
+  ]
+ },
+ {
+  "file": "frontend/public/arte/luna/huerto-de-noche.webp",
+  "media": "image",
+  "ia": true,
+  "title": "Huerto andino bajo la luna llena (cabecera del calendario)",
+  "creator": "Ilustración generada con IA (Higgsfield, modelo GPT Image 2.6) a partir del estilo de la lámina de Matricaria de Köhler (1887)",
+  "date": "2026-11-12",
+  "license": "generada para el proyecto",
+  "creditRequired": true,
+  "higgsfieldJob": "28d57815-f5cf-491f-99b8-1a5134f8fea1",
+  "credit": "Ilustración generada con IA en el estilo de Köhler (1887); no es una lámina histórica ni una foto del huerto",
+  "notes": [
+   "Revisada a mano: nombre científico correcto y sin familia ni firma inventadas."
+  ]
+ },
+ {
+  "file": "frontend/public/arte/luna/*.webp",
+  "media": "image",
+  "ia": true,
+  "title": "Fases lunares grabadas: nueva, creciente, llena, menguante",
+  "creator": "Ilustración generada con IA (Higgsfield, modelo GPT Image 2.6) a partir del estilo de la lámina de Matricaria de Köhler (1887)",
+  "date": "2026-11-12",
+  "license": "generada para el proyecto",
+  "creditRequired": true,
+  "higgsfieldJob": "b3ddb5cf-db9c-4057-ba11-78908227e2d6",
+  "credit": "Ilustración generada con IA en el estilo de Köhler (1887); no es una lámina histórica ni una foto del huerto",
+  "notes": [
+   "Revisada a mano: nombre científico correcto y sin familia ni firma inventadas."
+  ]
+ },
+ {
+  "file": "frontend/public/arte/vacios/*.webp",
+  "media": "image",
+  "ia": true,
+  "title": "Viñetas de estados vacíos: maceta, semillas, mapa, lupa, regadera",
+  "creator": "Ilustración generada con IA (Higgsfield, modelo GPT Image 2.6) a partir del estilo de la lámina de Matricaria de Köhler (1887)",
+  "date": "2026-11-12",
+  "license": "generada para el proyecto",
+  "creditRequired": true,
+  "higgsfieldJob": "c2c7a8ee-e0fe-4166-b8ab-8e1a117fdb43",
+  "credit": "Ilustración generada con IA en el estilo de Köhler (1887); no es una lámina histórica ni una foto del huerto",
+  "notes": [
+   "Revisada a mano: nombre científico correcto y sin familia ni firma inventadas."
+  ]
  }
 ]

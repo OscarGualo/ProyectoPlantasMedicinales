@@ -79,7 +79,19 @@ export function Reto() {
               </figure>
             </>
           ) : (
-            <AvisoInfo>{reto.mensaje}</AvisoInfo>
+            <div className="reto-pendiente">
+              {/* Decorativa: la luna creciente que la siembra está esperando. */}
+              <img
+                className="grabado-luna"
+                src="/arte/luna/creciente.webp"
+                alt=""
+                width={120}
+                height={120}
+                loading="lazy"
+                decoding="async"
+              />
+              <AvisoInfo>{reto.mensaje}</AvisoInfo>
+            </div>
           )}
         </section>
 

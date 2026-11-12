@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maqueta A · Ficha del huerto</title><link rel="stylesheet" href="a.css">
+<style>
+  /* Evolución 4: cada planta como pliego de herbario; la etiqueta va en la esquina inferior derecha, como en el pliego real */
+  .pliegos { display: grid; gap: 16px; }
+  @media (min-width: 720px) { .pliegos { grid-template-columns: repeat(2, 1fr); } }
+  .pliego { position: relative; background: var(--papel-lamina); padding: 16px 16px 0; display: grid; }
+  .pliego img { width: 72%; height: 380px; object-fit: contain; object-position: left top; mix-blend-mode: multiply; }
+  .pliego .sello-redondo { position: absolute; top: 20px; right: 20px; background: var(--papel-lamina); }
+  .pliego .rotulo { justify-self: end; width: min(320px, 86%); margin: -64px 0 16px; background: var(--papel); border: 2px solid var(--tinta); padding: 12px 14px; position: relative; }
+  .pliego .rotulo h3 { font-size: 1.6rem; }
+  .pliego .rotulo dl { display: grid; grid-template-columns: auto 1fr; gap: 2px 12px; margin: 8px 0 0; font-size: .9375rem; }
+  .pliego .rotulo dt { color: var(--tinta-suave); } .pliego .rotulo dd { margin: 0; font-weight: 600; }
+  .pliego .credito { font-size: .8rem; color: var(--tinta-suave); padding: 0 0 12px; font-style: italic; }
+  .zonas { display: grid; gap: 2px; background: var(--banda); }
+  @media (min-width: 720px) { .zonas { grid-template-columns: repeat(3, 1fr); } }
+  .zona { background: var(--papel); padding: 16px 20px; }
+  .zona b { font-stretch: 62%; font-size: 2rem; display: block; }
+  .zona li { margin: 6px 0; list-style: none; } .zona ul { padding: 0; margin: 8px 0 0; }
+</style></head>
+<body>
+<p class="nota-maqueta">Maqueta A · ficha del huerto · evolución: pliegos de herbario, latín en serif, botón 3D con vista previa</p>
+<header class="barra"><div class="envoltura"><span class="marca">Huertos Medicinales</span>
+<nav class="nav"><span>Mapa</span><span>Calendario <span class="largo">lunar</span></span><span>Ingresar</span></nav></div></header>
+
+<section class="bolsa"><div class="envoltura dos iguales">
+  <div>
+    <h1 style="font-size:clamp(2.375rem,4.6vw,4.5rem)">Huerto demostrativo Sumak Kawsay</h1>
+    <p class="bajada">Huerto de demostración preparado por el equipo a partir de un croquis provisional.</p>
+    <div class="conteos"><span><b>4</b>plantas</span><span><b>4</b>cultivos</span><span><b>3</b>zonas sembradas</span></div>
+    <p style="margin-top:24px;display:flex;gap:12px;flex-wrap:wrap">
+      <span style="background:var(--sobre-bolsa);color:var(--bolsa);padding:12px 20px;font-weight:700">Recorrer en 3D</span>
+      <span style="border:2px solid var(--sobre-bolsa);padding:10px 18px;font-weight:700">Reto Documentación lunar</span></p>
+  </div>
+  <figure style="margin:0">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+      <div class="papel"><img src="../../../../frontend/public/laminas/cymbopogon-citratus-440.webp" style="aspect-ratio:5/7;object-fit:cover" alt=""></div>
+      <div class="papel"><img src="../../../../frontend/public/laminas/matricaria-chamomilla.jpg" style="aspect-ratio:5/7;object-fit:cover" alt=""></div>
+      <div class="papel"><img src="../../../../frontend/public/laminas/ruta-graveolens.jpg" style="aspect-ratio:5/7;object-fit:cover" alt=""></div>
+    </div>
+    <figcaption class="pie">Láminas de especies de este huerto: hierba luisa (ilustración generada con IA), manzanilla y ruda (Köhler, 1887).</figcaption>
+  </figure>
+</div></section>
+
+<div class="envoltura">
+  <section class="seccion"><h2>Etiqueta del huerto</h2>
+    <dl class="campos c4 etiqueta"><div><dt>Comunidad</dt><dd>Sumak Kawsay</dd></div><div><dt>Provincia</dt><dd>Pichincha</dd></div><div><dt>Parroquia</dt><dd>Tumbaco</dd></div><div><dt>Superficie</dt><dd>80 m²</dd></div>
+    <div><dt>Diseño</dt><dd>en tierra: camellones</dd></div><div><dt>Cerca</dt><dd>cerca viva</dd></div><div><dt>Suelo</dt><dd>margoso</dd></div><div><dt>Fuente de agua</dt><dd>canal</dd></div></dl>
+  </section>
+
+  <section class="seccion"><h2>Plantas medicinales</h2>
+    <div class="pliegos">
+      <article class="pliego etiqueta">
+        <span class="sello-redondo caliente">Caliente</span>
+        <img src="../../../../frontend/public/laminas/matricaria-chamomilla.jpg" alt="Lámina de la especie Matricaria chamomilla">
+        <div class="rotulo"><h3>Manzanilla</h3><span class="cientifico">Matricaria chamomilla</span>
+          <dl><dt>Familia</dt><dd>Asteraceae</dd><dt>Ciclo</dt><dd>Sin indicar</dd><dt>Fuente</dt><dd>Demostración del equipo (sin validar)</dd></dl></div>
+        <p class="credito">Lámina de la especie (Köhler, 1887). Fuente</p>
+      </article>
+      <article class="pliego etiqueta">
+        <span class="sello-redondo neutro">Sin clasificar</span>
+        <img src="../../../../frontend/public/laminas/cymbopogon-citratus.webp" alt="Lámina de la especie Cymbopogon citratus">
+        <div class="rotulo"><h3>Hierba luisa</h3><span class="cientifico">Cymbopogon citratus</span>
+          <dl><dt>Familia</dt><dd>Poaceae</dd><dt>Ciclo</dt><dd>Sin indicar</dd><dt>Fuente</dt><dd>Demostración del equipo (sin validar)</dd></dl></div>
+        <p class="credito">Lámina de la especie (ilustración generada con IA)</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="seccion"><h2>Qué crece en cada zona</h2>
+    <div class="zonas etiqueta">
+      <div class="zona"><b>Z1</b>Un cultivo<ul><li>Manzanilla <span class="sello caliente">Caliente</span> <span class="sello fria">en crecimiento</span></li></ul></div>
+      <div class="zona"><b>Z2</b>2 cultivos<ul><li>Ruda <span class="sello caliente">Caliente</span> <span class="sello fria">en crecimiento</span></li><li>Toronjil <span class="sello fria">Fría</span> <span class="sello ambar">sembrado</span></li></ul></div>
+      <div class="zona"><b>Z4</b>Un cultivo<ul><li>Hierba luisa <span class="sello neutro">Sin clasificar</span> <span class="sello ambar">sembrado</span></li></ul></div>
+    </div>
+  </section>
+</div>
+<footer class="pie-pagina"><div class="envoltura">Huertos Medicinales Comunitarios · maqueta</div></footer>
+</body></html>

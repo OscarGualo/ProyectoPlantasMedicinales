@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maqueta A · Inicio</title><link rel="stylesheet" href="a.css"></head>
+<body>
+<p class="nota-maqueta">Maqueta A · «La etiqueta de la planta seca», evolucionada · datos reales de la demostración · no es la app</p>
+<header class="barra"><div class="envoltura"><span class="marca">Huertos Medicinales</span>
+<nav class="nav"><span class="activo">Mapa</span><span>Calendario <span class="largo">lunar</span></span><span>Ingresar</span></nav></div></header>
+
+<section class="bolsa" style="padding-bottom:192px"><div class="envoltura dos">
+  <div>
+    <h1>Huertos medicinales del Ecuador</h1>
+    <p class="bajada">Cada huerto comunitario, con sus plantas, su fuente y lo que siembra según la luna. Elige uno en el mapa para leer su etiqueta.</p>
+    <div class="conteos"><span><b>3</b>huertos publicados</span><span><b>3</b>provincias</span><span><b>4</b>plantas registradas</span></div>
+  </div>
+  <figure style="margin:0">
+    <div class="papel"><img src="../../../../frontend/public/arte/heroe/herbario-andino.webp" width="896" height="1120" alt="Ramillete de plantas medicinales andinas"></div>
+    <figcaption class="pie">Herbario andino (ilustración generada con IA). <b>En la app:</b> lámina viva, 5 s de vaivén con botón de pausa (A-01).</figcaption>
+  </figure>
+</div></section>
+
+<div class="envoltura">
+  <div class="mapa etiqueta">[ Mapa Leaflet del Ecuador: igual que hoy, con los marcadores de etiqueta colgante ]</div>
+
+  <section class="seccion">
+    <h2>Huertos publicados</h2>
+    <div class="lista">
+      <article class="etiqueta huerto">
+        <!-- Evolución: la etiqueta del huerto muestra la tira de láminas de sus especies -->
+        <div class="tira">
+          <img src="../../../../frontend/public/laminas/matricaria-chamomilla.jpg" alt="">
+          <img src="../../../../frontend/public/laminas/ruta-graveolens.jpg" alt="">
+          <img src="../../../../frontend/public/laminas/cymbopogon-citratus-440.webp" alt="">
+        </div>
+        <div class="cabeza"><h3>Huerto demostrativo Sumak Kawsay</h3><p style="margin:6px 0 0">Comunidad demostrativa Sumak Kawsay</p></div>
+        <dl class="campos"><div><dt>Provincia</dt><dd>Pichincha</dd></div><div><dt>Parroquia</dt><dd>Tumbaco</dd></div><div><dt>Plantas</dt><dd>4</dd></div><div><dt>Cultivos</dt><dd>4</dd></div></dl>
+      </article>
+      <article class="etiqueta huerto">
+        <!-- Sin plantas registradas: en lugar de la tira de láminas, la viñeta de semillas (no se inventan especies) -->
+        <div class="tira" style="grid-template-columns:1fr;background:var(--papel-lamina)"><img src="../../../../frontend/public/arte/vacios/semillas.webp" style="object-fit:contain" alt=""></div>
+        <div class="cabeza"><h3>Huerto familiar demostrativo Hampi</h3><p style="margin:6px 0 0">Familia demostrativa Hampi · aún no registra plantas</p></div>
+        <dl class="campos"><div><dt>Provincia</dt><dd>Imbabura</dd></div><div><dt>Parroquia</dt><dd>Otavalo</dd></div><div><dt>Plantas</dt><dd>0</dd></div><div><dt>Cultivos</dt><dd>0</dd></div></dl>
+      </article>
+      <article class="etiqueta huerto">
+        <div class="tira" style="grid-template-columns:1fr;background:var(--papel-lamina)"><img src="../../../../frontend/public/arte/vacios/semillas.webp" style="object-fit:contain" alt=""></div>
+        <div class="cabeza"><h3>Huerto barrial demostrativo Jambi Muyu</h3><p style="margin:6px 0 0">Barrio demostrativo Jambi Muyu · aún no registra plantas</p></div>
+        <dl class="campos"><div><dt>Provincia</dt><dd>Azuay</dd></div><div><dt>Parroquia</dt><dd>Cuenca</dd></div><div><dt>Plantas</dt><dd>0</dd></div><div><dt>Cultivos</dt><dd>0</dd></div></dl>
+      </article>
+    </div>
+  </section>
+
+  <section class="seccion">
+    <h2>Las especies del catálogo</h2>
+    <p style="max-width:60ch;margin:-4px 0 20px">Evolución: un «cajón de especímenes» con cada lámina al mismo tamaño. Lleva a una ficha de especie (posible pantalla nueva, fuera de la versión 1).</p>
+    <div class="cajon">
+      <figure><div class="papel"><img src="../../../../frontend/public/laminas/matricaria-chamomilla.jpg" alt=""></div><figcaption><b>Manzanilla</b><span class="cientifico">Matricaria chamomilla</span></figcaption></figure>
+      <figure><div class="papel"><img src="../../../../frontend/public/laminas/ruta-graveolens.jpg" alt=""></div><figcaption><b>Ruda</b><span class="cientifico">Ruta graveolens</span></figcaption></figure>
+      <figure><div class="papel"><img src="../../../../frontend/public/laminas/melissa-officinalis.jpg" alt=""></div><figcaption><b>Toronjil</b><span class="cientifico">Melissa officinalis</span></figcaption></figure>
+      <figure><div class="papel"><img src="../../../../frontend/public/laminas/cymbopogon-citratus-440.webp" alt=""></div><figcaption><b>Hierba luisa</b><span class="cientifico">Cymbopogon citratus</span></figcaption></figure>
+      <figure><div class="papel"><img src="../../../../frontend/public/laminas/aloe-vera-440.webp" alt=""></div><figcaption><b>Sábila</b><span class="cientifico">Aloe vera</span></figcaption></figure>
+      <figure><div class="papel"><img src="../../../../frontend/public/laminas/urtica-dioica-440.webp" alt=""></div><figcaption><b>Ortiga</b><span class="cientifico">Urtica dioica</span></figcaption></figure>
+    </div>
+  </section>
+</div>
+<footer class="pie-pagina"><div class="envoltura"><p class="titulo" style="font-size:clamp(2rem,6vw,4.5rem);margin:0 0 16px">Huertos Medicinales Comunitarios</p>Láminas: Köhler (1887), dominio público, e ilustraciones generadas con IA en su estilo.</div></footer>
+</body></html>

@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maqueta B · Ficha del huerto</title><link rel="stylesheet" href="b.css">
+<style>
+  .plantas { display: grid; gap: 20px; }
+  @media (min-width: 720px) { .plantas { grid-template-columns: repeat(2, 1fr); } }
+  .planta { display: grid; grid-template-columns: 150px 1fr; }
+  .planta img { width: 100%; height: 100%; object-fit: cover; border-right: 3px solid var(--tinta); background: var(--crudo); }
+  .planta .cuerpo { padding: 16px; }
+  .planta h3 { font-size: 1.8rem; }
+  .planta .sin-figura { display: grid; place-items: center; border-right: 3px solid var(--tinta); background: var(--maiz); font-family: var(--display); font-weight: 800; font-size: 4rem; }
+  .zonas { display: grid; gap: 20px; }
+  @media (min-width: 720px) { .zonas { grid-template-columns: repeat(3, 1fr); } }
+  .zona { padding: 18px; }
+  .zona .codigo { font-family: var(--display); font-weight: 800; font-size: 3.5rem; line-height: 1; }
+  .zona ul { padding: 0; margin: 10px 0 0; list-style: none; } .zona li { margin: 10px 0; }
+  @media (max-width: 560px) { .planta { grid-template-columns: 1fr; } .planta img { height: 220px; border-right: 0; border-bottom: 3px solid var(--tinta); } }
+</style></head>
+<body>
+<p class="nota-maqueta">Maqueta B · ficha del huerto · capítulo verde chakra, plantas como carteles con linograbado</p>
+<header class="barra"><div class="envoltura"><span class="marca">Huertos Medicinales</span>
+<nav class="nav"><span>Mapa</span><span>Calendario <span class="largo">lunar</span></span><span>Ingresar</span></nav></div></header>
+
+<section class="capitulo cap-chakra"><div class="envoltura dos">
+  <div>
+    <p style="margin:0 0 10px;font-weight:700">Comunidad demostrativa Sumak Kawsay · Tumbaco, Pichincha</p>
+    <h1 class="gigante" style="font-size:clamp(2.6rem,7vw,5.5rem)">Huerto demostrativo Sumak Kawsay</h1>
+    <p class="bajada">Huerto de demostración preparado por el equipo a partir de un croquis provisional.</p>
+    <p style="margin-top:24px;display:flex;gap:10px;flex-wrap:wrap"><span class="boton boton-claro">Recorrer en 3D</span><span class="boton-borde">Reto Documentación lunar</span></p>
+  </div>
+  <div class="cifras" style="justify-content:flex-start;align-self:end">
+    <span class="cifra"><b style="background:var(--maiz);color:var(--tinta)">4</b>plantas</span>
+    <span class="cifra"><b style="background:var(--maiz);color:var(--tinta)">4</b>cultivos</span>
+    <span class="cifra"><b style="background:var(--maiz);color:var(--tinta)">3</b>zonas sembradas</span>
+  </div>
+</div></section>
+
+<section class="capitulo"><div class="envoltura">
+  <h2 class="seccion-titulo">El huerto</h2>
+  <dl class="campos c4 cartel" style="border-top:3px solid var(--tinta)"><div><dt>Superficie</dt><dd>80 m²</dd></div><div><dt>Diseño</dt><dd>en tierra: camellones</dd></div><div><dt>Cerca</dt><dd>cerca viva</dd></div><div><dt>Suelo</dt><dd>margoso</dd></div>
+  <div><dt>Fuente de agua</dt><dd>canal</dd></div><div><dt>Riego</dt><dd>regadera</dd></div><div><dt>Abono</dt><dd>compost</dd></div><div><dt>Hora del huerto</dt><dd>Ecuador continental (UTC-5)</dd></div></dl>
+</div></section>
+
+<section class="capitulo" style="padding-top:0"><div class="envoltura">
+  <h2 class="seccion-titulo">Plantas medicinales</h2>
+  <div class="plantas">
+    <article class="cartel planta"><img src="../recursos/b02-manzanilla.webp" alt="Linograbado de la especie Matricaria chamomilla">
+      <div class="cuerpo"><span class="ficha-sello s-caliente">Caliente</span><h3 style="margin-top:10px">Manzanilla</h3><p class="cientifico" style="margin:4px 0 0">Matricaria chamomilla · Asteraceae</p>
+      <p style="font-size:.95rem">Ficha de demostración: el contenido y la clasificación deben ser validados por el líder del huerto.</p><p style="font-size:.85rem;margin:0">Linograbado de la especie (ilustración generada con IA)</p></div></article>
+    <article class="cartel planta"><div class="sin-figura" aria-hidden="true">R</div>
+      <div class="cuerpo"><span class="ficha-sello s-caliente">Caliente</span><h3 style="margin-top:10px">Ruda</h3><p class="cientifico" style="margin:4px 0 0">Ruta graveolens · Rutaceae</p>
+      <p style="font-size:.95rem">Sin linograbado aún: la inicial en un campo de color ocupa su lugar (B-04 lo completaría).</p></div></article>
+  </div>
+</div></section>
+
+<section class="capitulo cap-maiz"><div class="envoltura">
+  <h2 class="seccion-titulo">Qué crece en cada zona</h2>
+  <div class="zonas">
+    <div class="cartel zona"><span class="codigo">Z1</span><ul><li><b>Manzanilla</b><br><span class="ficha-sello s-caliente">Caliente</span> <span class="ficha-sello s-borde">en crecimiento</span></li></ul></div>
+    <div class="cartel zona"><span class="codigo">Z2</span><ul><li><b>Ruda</b><br><span class="ficha-sello s-caliente">Caliente</span> <span class="ficha-sello s-borde">en crecimiento</span></li><li><b>Toronjil</b><br><span class="ficha-sello s-fria">Fría</span> <span class="ficha-sello s-ambar">sembrado</span></li></ul></div>
+    <div class="cartel zona"><span class="codigo">Z4</span><ul><li><b>Hierba luisa</b><br><span class="ficha-sello s-neutro">Sin clasificar</span> <span class="ficha-sello s-ambar">sembrado</span></li></ul></div>
+  </div>
+</div></section>
+<footer class="pie-pagina"><div class="envoltura">Huertos Medicinales Comunitarios · maqueta</div></footer>
+</body></html>

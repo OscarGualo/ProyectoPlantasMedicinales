@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maqueta B · Calendario lunar</title><link rel="stylesheet" href="b.css">
+<style>
+  .dias { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 8px; }
+  .dia { background: var(--papel); border: 3px solid var(--tinta); border-radius: 14px; padding: 10px; min-height: 92px; font-size: .9rem; }
+  .dia b { display: block; font-family: var(--display); font-size: 1.05rem; }
+  .luna { display: inline-block; width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--tinta); vertical-align: -3px; margin-right: 5px; }
+  .oscura { background: var(--tinta); } .creciente { background: linear-gradient(90deg, var(--tinta) 50%, var(--maiz) 50%); } .llena { background: var(--maiz); }
+  .dia.recomendado { background: var(--maiz); }
+  .dia.evento { background: var(--anil); color: var(--papel); border-color: var(--anil); }
+  .dia.evento .luna { border-color: var(--papel); }
+  .fases { display: grid; gap: 20px; }
+  @media (min-width: 720px) { .fases { grid-template-columns: repeat(4, 1fr); } }
+  .fase { padding: 18px; }
+  .fase .disco { width: 72px; height: 72px; border-radius: 50%; border: 3px solid var(--tinta); margin-bottom: 12px; }
+  .fase h3 { font-size: 1.6rem; }
+  .fase ul { margin: 8px 0 0; padding-left: 1.1em; }
+  @media (max-width: 600px) { .dias { grid-template-columns: repeat(2, 1fr); } }
+</style></head>
+<body>
+<p class="nota-maqueta">Maqueta B · calendario · capítulo añil (noche de siembra), días como fichas; días recomendados en maíz</p>
+<header class="barra"><div class="envoltura"><span class="marca">Huertos Medicinales</span>
+<nav class="nav"><span>Mapa</span><span class="activo">Calendario <span class="largo">lunar</span></span><span>Ingresar</span></nav></div></header>
+
+<section class="capitulo cap-anil" style="padding-bottom:0"><div class="envoltura">
+  <h1 class="gigante" style="font-size:clamp(2.6rem,8vw,6rem)">Calendario lunar</h1>
+  <p class="bajada">La fase de cada día y lo que la práctica recomienda hacer en el huerto.</p>
+  <img class="grabado" style="margin-top:28px;border-color:var(--papel);border-bottom:0" src="../recursos/b03-calendario.webp" alt="">
+</div></section>
+
+<section class="capitulo"><div class="envoltura">
+  <p style="margin:0 0 16px;display:flex;gap:8px;flex-wrap:wrap;align-items:center"><b>Actividad:</b>
+    <span class="ficha-sello s-borde">Todas</span><span class="ficha-sello" style="background:var(--tinta)">Siembra y ritual de siembra</span><span class="ficha-sello s-borde">Cosecha de semillas y raíces</span><span class="ficha-sello s-borde">Preparación de la tierra</span></p>
+  <h2 class="seccion-titulo" style="font-size:2.2rem">Del lun, 9 nov al dom, 22 nov</h2>
+  <div class="dias">
+    <div class="dia evento"><b>Lun 9</b><span class="luna oscura"></span>Luna nueva · 02:04</div>
+    <div class="dia"><b>Mar 10</b><span class="luna oscura"></span>oscura</div>
+    <div class="dia"><b>Mié 11</b><span class="luna oscura"></span>oscura</div>
+    <div class="dia"><b>Jue 12</b><span class="luna oscura"></span>oscura</div>
+    <div class="dia recomendado"><b>Vie 13</b><span class="luna creciente"></span>creciente · <b style="display:inline;font-size:.85rem">sembrar</b></div>
+    <div class="dia recomendado"><b>Sáb 14</b><span class="luna creciente"></span>creciente</div>
+    <div class="dia recomendado"><b>Dom 15</b><span class="luna creciente"></span>creciente</div>
+    <div class="dia recomendado"><b>Lun 16</b><span class="luna creciente"></span>creciente</div>
+    <div class="dia evento"><b>Mar 17</b><span class="luna creciente"></span>Cuarto creciente · 06:50</div>
+    <div class="dia recomendado"><b>Mié 18</b><span class="luna creciente"></span>creciente</div>
+    <div class="dia recomendado"><b>Jue 19</b><span class="luna creciente"></span>creciente</div>
+    <div class="dia recomendado"><b>Vie 20</b><span class="luna creciente"></span>creciente</div>
+    <div class="dia recomendado"><b>Sáb 21</b><span class="luna llena"></span>llena</div>
+    <div class="dia recomendado"><b>Dom 22</b><span class="luna llena"></span>llena</div>
+  </div>
+</div></section>
+
+<section class="capitulo cap-tierra"><div class="envoltura">
+  <h2 class="seccion-titulo">Qué hacer en cada fase</h2>
+  <div class="fases">
+    <div class="cartel fase"><div class="disco" style="background:var(--tinta)"></div><h3>Luna oscura</h3><ul><li>Preparación de la tierra</li><li>Elaboración de abono</li><li>Deshierbe</li><li>Control de plagas</li></ul></div>
+    <div class="cartel fase"><div class="disco" style="background:linear-gradient(90deg,var(--tinta) 50%,var(--maiz) 50%)"></div><h3>Luna creciente</h3><ul><li>Siembra y ritual de siembra</li><li>Trasplante y resiembra</li><li>Cosecha de hojas, flores y frutos</li></ul></div>
+    <div class="cartel fase"><div class="disco" style="background:var(--maiz)"></div><h3>Luna llena</h3><ul><li>Siembra y ritual de siembra</li><li>Cosecha de hojas, flores y frutos</li><li>Baños rituales</li></ul></div>
+    <div class="cartel fase"><div class="disco" style="background:linear-gradient(90deg,var(--maiz) 50%,var(--tinta) 50%)"></div><h3>Luna menguante</h3><ul><li>Cosecha de semillas y raíces</li></ul></div>
+  </div>
+  <p style="font-size:.9rem;margin-top:16px">Fuente: Definición del proyecto; MSP (2017), lineamientos de huertos medicinales, Anexo 4.</p>
+</div></section>
+<footer class="pie-pagina"><div class="envoltura">Huertos Medicinales Comunitarios · maqueta</div></footer>
+</body></html>

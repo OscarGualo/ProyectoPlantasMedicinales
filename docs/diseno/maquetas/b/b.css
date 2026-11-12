@@ -1,0 +1,64 @@
+/* Maqueta B · «Minga: el cartel comunitario». Solo para comparar: no es código de la app. */
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Public+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+
+:root {
+  /* Capítulos de color tomados de la chakra: maíz, tierra, añil (noche de siembra), chakra (hoja) */
+  --crudo: #eadfc8; --papel: #f6f0e3; --tinta: #1d1611; --tinta-suave: #4a3b2f;
+  --maiz: #e1ac10; --tierra: #472913; --anil: #1f3a5f; --chakra: #2f5a2e;
+  --caliente: #a12a0c; --fria: #1d5c3a; --neutro: #5b524a; --ambar: #7a4a0c;
+  --m: clamp(16px, 4vw, 40px);
+  --display: 'Bricolage Grotesque', system-ui, sans-serif; --texto: 'Public Sans', system-ui, sans-serif;
+}
+* { box-sizing: border-box; }
+body { margin: 0; font-family: var(--texto); color: var(--tinta); background: var(--crudo); line-height: 1.55; }
+.envoltura { max-width: 1180px; margin: 0 auto; padding: 0 var(--m); }
+h1, h2, h3, .titulo { font-family: var(--display); font-weight: 800; letter-spacing: -0.03em; line-height: 0.95; margin: 0; }
+.cientifico { font-style: italic; }
+/* Barra: tinta negra, como el filo del taco de grabado */
+.barra { background: var(--tinta); color: var(--papel); }
+.barra .envoltura { display: flex; align-items: center; justify-content: space-between; height: 60px; }
+.marca { font-family: var(--display); font-weight: 800; font-size: 1.2rem; letter-spacing: -0.02em; }
+.nav { display: flex; gap: 8px; font-weight: 700; font-size: .95rem; }
+.nav span { padding: 8px 14px; border-radius: 999px; }
+.nav .activo { background: var(--maiz); color: var(--tinta); }
+.nav span span { padding: 0; }
+/* Capítulos de color: cada sección es un cartel plano, de borde a borde */
+.capitulo { padding: 56px 0; }
+.cap-maiz { background: var(--maiz); color: var(--tinta); }
+.cap-tierra { background: var(--tierra); color: var(--papel); }
+.cap-anil { background: var(--anil); color: var(--papel); }
+.cap-chakra { background: var(--chakra); color: var(--papel); }
+.cap-crudo { background: var(--crudo); }
+.dos { display: grid; gap: 32px; }
+@media (min-width: 900px) { .dos { grid-template-columns: 1.1fr 0.9fr; align-items: center; } }
+.gigante { font-size: clamp(3rem, 10vw, 7.5rem); }
+.bajada { font-size: 1.2rem; max-width: 40ch; margin: 20px 0 0; font-weight: 400; }
+/* Cifras como sellos de goma: círculo de tinta */
+.cifras { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 28px; }
+.cifra { display: flex; align-items: center; gap: 10px; font-weight: 700; }
+.cifra b { width: 64px; height: 64px; border-radius: 50%; background: var(--tinta); color: var(--maiz); display: grid; place-items: center; font-family: var(--display); font-size: 2rem; }
+.grabado { display: block; width: 100%; height: auto; border: 3px solid var(--tinta); }
+.pie { font-size: .9rem; margin-top: 8px; }
+.boton { display: inline-block; background: var(--tinta); color: var(--papel); padding: 14px 22px; border-radius: 999px; font-weight: 700; }
+.boton-claro { background: var(--papel); color: var(--tinta); }
+.boton-borde { border: 3px solid currentColor; padding: 11px 19px; border-radius: 999px; font-weight: 700; }
+/* Tarjeta: papel con borde de tinta grueso y esquina inferior «cortada a gubia» */
+.cartel { background: var(--papel); border: 3px solid var(--tinta); color: var(--tinta); }
+.campos { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0; margin: 0; border-top: 3px solid var(--tinta); }
+@media (min-width: 720px) { .campos.c4 { grid-template-columns: repeat(4, 1fr); } }
+.campos div { padding: 12px 16px; border-right: 3px solid var(--tinta); border-bottom: 3px solid var(--tinta); }
+.campos dt { font-size: .85rem; font-weight: 700; text-transform: none; color: var(--tinta-suave); }
+.campos dd { margin: 2px 0 0; font-weight: 600; }
+.seccion-titulo { font-size: clamp(2rem, 5vw, 3.5rem); margin-bottom: 24px; }
+.ficha-sello { display: inline-block; padding: 4px 12px; border-radius: 999px; font-weight: 700; font-size: .85rem; color: var(--papel); }
+.s-caliente { background: var(--caliente); } .s-fria { background: var(--fria); } .s-neutro { background: var(--neutro); } .s-ambar { background: var(--ambar); }
+.s-borde { background: transparent; color: var(--tinta); border: 2px solid var(--tinta); }
+.lista { display: grid; gap: 20px; }
+@media (min-width: 720px) { .lista { grid-template-columns: repeat(3, 1fr); } }
+.huerto .cabeza { padding: 18px; }
+.huerto .cabeza h3 { font-size: 1.9rem; }
+.huerto .franja { height: 14px; }
+.mapa { height: 400px; background: #d9cdb2; border: 3px solid var(--tinta); display: grid; place-items: center; font-weight: 700; color: var(--tinta-suave); text-align: center; padding: 16px; }
+.pie-pagina { background: var(--tinta); color: var(--papel); padding: 40px 0 56px; font-size: .95rem; }
+.nota-maqueta { background: #fff7d6; color: #3d2f00; font-size: .9rem; padding: 8px var(--m); text-align: center; margin: 0; }
+@media (max-width: 720px) { .nav { gap: 2px; font-size: .82rem; } .nav > span { padding: 6px 9px; } .nav span.largo { display: none; } }

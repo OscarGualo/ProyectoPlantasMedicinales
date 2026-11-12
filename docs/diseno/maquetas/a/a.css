@@ -1,0 +1,64 @@
+/* Maqueta A · «La etiqueta de la planta seca», evolucionada. Solo para comparar: no es código de la app. */
+@import url('https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,400..800;1,62..125,400&family=Newsreader:ital,opsz,wght@1,6..72,400;1,6..72,500&display=swap');
+
+:root {
+  --bolsa: #14532d; --sobre-bolsa: #f4f8f3; --papel: #f4f8f3; --papel-lamina: #f1f5f1; --fondo: #e7efe8;
+  --banda: #dde8de; --tinta: #0f2417; --tinta-suave: #2c4334; --accion: #15803d; --enlace: #0f5c2d;
+  --caliente: #b4320f; --fria: #046c4e; --neutro: #56605a; --ambar: #8a4b06; --ocre: #7a4a0c;
+  --chaflan: 12px; --m: clamp(16px, 4vw, 40px);
+  --f: 'Archivo', system-ui, sans-serif; --serif: 'Newsreader', Georgia, serif;
+}
+* { box-sizing: border-box; }
+body { margin: 0; font-family: var(--f); color: var(--tinta); background: var(--fondo); line-height: 1.55; }
+/* Evolución 1: grano de papel muy sutil (A-04), aquí simulado con un patrón SVG inline */
+body::before { content: ''; position: fixed; inset: 0; pointer-events: none; opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E"); }
+.envoltura { max-width: 1180px; margin: 0 auto; padding: 0 var(--m); }
+h1, h2, h3, .titulo { font-stretch: 62%; font-weight: 800; letter-spacing: -0.02em; line-height: 0.98; margin: 0; }
+.cientifico { font-family: var(--serif); font-style: italic; font-weight: 400; } /* Evolución 2: latín en serif itálica, como en el herbario */
+.barra { background: var(--bolsa); color: var(--sobre-bolsa); }
+.barra .envoltura { display: flex; align-items: center; justify-content: space-between; height: 60px; }
+.marca { font-stretch: 62%; font-weight: 800; font-size: 1.15rem; }
+.nav { display: flex; gap: 28px; font-weight: 600; font-size: .95rem; }
+.nav .activo { box-shadow: inset 0 -4px 0 var(--sobre-bolsa); padding-bottom: 6px; }
+.bolsa { background: var(--bolsa); color: var(--sobre-bolsa); padding: 48px 0 72px; }
+.bolsa h1 { font-size: clamp(2.375rem, 8vw, 5.6rem); max-width: 12ch; }
+.bajada { font-size: 1.125rem; max-width: 46ch; margin: 24px 0 0; }
+.conteos { display: flex; flex-wrap: wrap; gap: 16px 32px; margin-top: 28px; }
+.conteos b { font-stretch: 62%; font-size: 2.25rem; margin-right: 6px; }
+.dos { display: grid; gap: 40px; }
+@media (min-width: 900px) { .dos { grid-template-columns: 1fr 360px; align-items: start; } .dos.iguales { grid-template-columns: 1fr 1fr; } .dos.noche { grid-template-columns: 1fr minmax(0, 560px); align-items: center; } }
+.papel { background: var(--papel-lamina); padding: 8px;
+  clip-path: polygon(var(--chaflan) 0, calc(100% - var(--chaflan)) 0, 100% var(--chaflan), 100% calc(100% - var(--chaflan)), calc(100% - var(--chaflan)) 100%, var(--chaflan) 100%, 0 calc(100% - var(--chaflan)), 0 var(--chaflan)); }
+.papel img { display: block; width: 100%; height: auto; }
+.pie { font-size: .9375rem; margin-top: 10px; }
+.etiqueta { background: var(--papel);
+  clip-path: polygon(var(--chaflan) 0, calc(100% - var(--chaflan)) 0, 100% var(--chaflan), 100% calc(100% - var(--chaflan)), calc(100% - var(--chaflan)) 100%, var(--chaflan) 100%, 0 calc(100% - var(--chaflan)), 0 var(--chaflan)); }
+.campos { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; margin: 0; }
+@media (min-width: 720px) { .campos.c4 { grid-template-columns: repeat(4, 1fr); } }
+.campos div { background: var(--banda); padding: 12px 16px; }
+.campos dt { font-size: .9375rem; color: var(--tinta-suave); }
+.campos dd { margin: 2px 0 0; font-weight: 600; }
+.seccion { margin-top: 72px; }
+.seccion > h2 { font-size: clamp(1.75rem, 3.4vw, 2.25rem); margin-bottom: 16px; }
+.sello { display: inline-block; border: 2px solid currentColor; border-radius: 4px; padding: 0 6px; font-size: .8rem; font-weight: 700; transform: rotate(-2deg); }
+.sello-redondo { width: 76px; height: 76px; border-radius: 50%; display: grid; place-items: center; text-align: center; font-weight: 800; font-stretch: 75%; font-size: .85rem;
+  box-shadow: inset 0 0 0 3px var(--papel), inset 0 0 0 5px currentColor; border: 2px solid currentColor; transform: rotate(-12deg); }
+.caliente { color: var(--caliente); } .fria { color: var(--fria); } .neutro { color: var(--neutro); } .ambar { color: var(--ambar); }
+/* Evolución 3: cajón de especímenes en el inicio (láminas del catálogo en fila, mismo tamaño) */
+.cajon { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; }
+.cajon figure { margin: 0; }
+.cajon .papel img { aspect-ratio: 3/4; object-fit: cover; }
+.cajon figcaption { font-size: .9375rem; margin-top: 6px; }
+.cajon figcaption b { display: block; font-stretch: 62%; font-size: 1.1rem; }
+.mapa { margin-top: -120px; position: relative; height: 420px; background: #cfdcd1; display: grid; place-items: center; color: var(--tinta-suave); font-weight: 600; }
+.lista { display: grid; gap: 16px; }
+@media (min-width: 720px) { .lista { grid-template-columns: repeat(3, 1fr); } }
+.huerto { padding: 0; overflow: hidden; }
+.huerto .tira { display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: 120px; gap: 2px; height: 120px; overflow: hidden; }
+.huerto .tira img { display: block; width: 100%; height: 120px; object-fit: cover; object-position: center 30%; }
+.huerto .cabeza { padding: 16px; }
+.huerto .cabeza h3 { font-size: 1.75rem; }
+.pie-pagina { background: var(--bolsa); color: var(--sobre-bolsa); margin-top: 96px; padding: 40px 0 56px; font-size: .9375rem; }
+.nota-maqueta { background: #fff7d6; color: #3d2f00; font-size: .9rem; padding: 8px var(--m); text-align: center; }
+@media (max-width: 720px) { .nav { gap: 14px; font-size: .85rem; } .nav span.largo { display: none; } }

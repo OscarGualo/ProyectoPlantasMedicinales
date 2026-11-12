@@ -2,10 +2,13 @@ package ec.epn.huertos.luna;
 
 import com.jayway.jsonpath.JsonPath;
 import ec.epn.huertos.PruebaIntegracion;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.time.Duration;
+import java.time.Instant;
+import java.time.OffsetDateTime;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -47,9 +50,27 @@ class CalendarioPruebaIntegracion extends PruebaIntegracion {
     }
 
     @Test
-    @Disabled("Pendiente: el equipo debe registrar REF-LUNA (fases oficiales de noviembre de 2026) antes de ejecutar P-050")
     @DisplayName("P-050 Horas de las fases principales frente a REF-LUNA (tolerancia de una hora)")
-    void p050ReferenciaOficial() {
+    void p050ReferenciaOficial() throws Exception {
+        // USNO, Dates of Primary Phases of the Moon, año 2026, instantes en UT (doc 09).
+        Map<String, Instant> esperadas = Map.of(
+                "CUARTO_MENGUANTE", Instant.parse("2026-11-01T20:28:00Z"),
+                "LUNA_NUEVA", Instant.parse("2026-11-09T07:02:00Z"),
+                "CUARTO_CRECIENTE", Instant.parse("2026-11-17T11:48:00Z"),
+                "LUNA_LLENA", Instant.parse("2026-11-24T14:53:00Z"));
+        String json = mvc.perform(get(RUTA)).andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsString();
+        List<Map<String, String>> eventos = JsonPath.read(json, "$.fasesPrincipales");
+        Set<String> vistas = new HashSet<>();
+        for (var evento : eventos) {
+            String fase = evento.get("fase");
+            assertThat(esperadas).containsKey(fase);
+            assertThat(vistas.add(fase)).as("evento único: %s", fase).isTrue();
+            Instant calculado = OffsetDateTime.parse(evento.get("instante")).toInstant();
+            Duration diferencia = Duration.between(esperadas.get(fase), calculado).abs();
+            assertThat(diferencia).as("%s contra USNO", fase).isLessThanOrEqualTo(Duration.ofHours(1));
+        }
+        assertThat(vistas).containsExactlyInAnyOrderElementsOf(esperadas.keySet());
     }
 
     @Test

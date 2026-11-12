@@ -47,6 +47,31 @@ class LunaTest {
             Instant medio = t0.plus(Duration.ofDays(4));
             assertThat(servicio.faseEn(medio.minusSeconds(1), GYE)).contains(FaseLunar.LUNA_OSCURA);
             assertThat(servicio.faseEn(medio, GYE)).contains(FaseLunar.LUNA_CRECIENTE);
+            assertThat(servicio.faseEn(medio.plusSeconds(1), GYE)).contains(FaseLunar.LUNA_CRECIENTE);
+        }
+
+        @Test
+        @DisplayName("P-062 La ventana cubre ambos vecinos de la fase y el cambio es continuo")
+        void faseEntreEventos() {
+            Instant nueva = Instant.parse("2026-11-09T07:02:00Z");
+            var eventos = List.of(
+                    new EventoFase(FasePrincipal.LUNA_LLENA, Instant.parse("2026-10-26T04:12:00Z")),
+                    new EventoFase(FasePrincipal.CUARTO_MENGUANTE, Instant.parse("2026-11-01T20:28:00Z")),
+                    new EventoFase(FasePrincipal.LUNA_NUEVA, nueva),
+                    new EventoFase(FasePrincipal.CUARTO_CRECIENTE, Instant.parse("2026-11-17T11:48:00Z")));
+            var s = new ServicioFaseLunar((d, h) -> eventos.stream()
+                    .filter(e -> !e.instante().isBefore(d) && !e.instante().isAfter(h)).toList());
+            Instant medio = Instant.parse("2026-11-05T13:45:00Z");
+            assertThat(s.faseEn(medio.minusSeconds(1), GYE)).contains(FaseLunar.LUNA_MENGUANTE);
+            assertThat(s.faseEn(medio, GYE)).contains(FaseLunar.LUNA_OSCURA);
+            assertThat(s.faseEn(medio.plusSeconds(1), GYE)).contains(FaseLunar.LUNA_OSCURA);
+            var real = new ServicioFaseLunar(new EfemeridesSuncalc());
+            var galapagos = ZoneId.of("Pacific/Galapagos");
+            Instant inicio = Instant.parse("2026-11-01T00:00:00Z");
+            for (int hora = 0; hora < 30 * 24; hora++) {
+                Instant instante = inicio.plus(Duration.ofHours(hora));
+                assertThat(real.faseEn(instante, GYE)).isPresent().isEqualTo(real.faseEn(instante, galapagos));
+            }
         }
 
         @Test

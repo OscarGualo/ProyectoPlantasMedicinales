@@ -57,7 +57,7 @@ export function Recorrido3D() {
 
   const zona = ficha.zonas.find((z) => z.codigo === seleccionada) ?? null
   const cultivosDe = (codigo: string) => ficha.cultivos.filter((c) => c.zona === codigo)
-  const lista = <ListaZonas zonas={zonasCultivo} cultivosDe={cultivosDe} />
+  const lista = <ListaZonas zonas={zonasCultivo} cultivosDe={cultivosDe} zonaHoraria={ficha.zonaHoraria} />
 
   return (
     <>
@@ -120,7 +120,7 @@ export function Recorrido3D() {
                 {zona.tipo !== 'CULTIVO' ? (
                   <p className="secundario">{NOMBRE_TIPO[zona.tipo]} del huerto: aquí no se siembra.</p>
                 ) : (
-                  <CultivosZona cultivos={cultivosDe(zona.codigo)} />
+                  <CultivosZona cultivos={cultivosDe(zona.codigo)} zonaHoraria={ficha.zonaHoraria} />
                 )}
               </div>
             ) : (
@@ -148,8 +148,9 @@ export function Recorrido3D() {
   )
 }
 
-function CultivosZona({ cultivos }: { cultivos: Cultivo[] }) {
+function CultivosZona({ cultivos, zonaHoraria }: { cultivos: Cultivo[]; zonaHoraria: string }) {
   if (cultivos.length === 0) return <p className="aviso aviso-info">{MSG_22}</p>
+  const formato = new Intl.DateTimeFormat('es-EC', { dateStyle: 'short', timeStyle: 'short', timeZone: zonaHoraria })
   return (
     <ul className="lista-cultivos">
       {cultivos.map((c) => (
@@ -157,6 +158,7 @@ function CultivosZona({ cultivos }: { cultivos: Cultivo[] }) {
           <span className="nombre">{c.planta}</span>
           <SenalClasificacion clasificacion={c.clasificacion} />
           <SelloEstado estado={c.estado} etiqueta={c.estadoEtiqueta} />
+          <small>Actualizado: <time dateTime={c.actualizadoEn}>{formato.format(new Date(c.actualizadoEn))}</time></small>
         </li>
       ))}
     </ul>
@@ -173,7 +175,9 @@ function FalloEscena({ children }: { children: ReactNode }) {
   )
 }
 
-function ListaZonas({ zonas, cultivosDe }: { zonas: Zona[]; cultivosDe: (codigo: string) => Cultivo[] }) {
+function ListaZonas({ zonas, cultivosDe, zonaHoraria }: {
+  zonas: Zona[]; cultivosDe: (codigo: string) => Cultivo[]; zonaHoraria: string
+}) {
   return (
     <ul className="lista-zonas" aria-label="Zonas y cultivos del huerto">
       {zonas.map((z) => (
@@ -182,7 +186,7 @@ function ListaZonas({ zonas, cultivosDe }: { zonas: Zona[]; cultivosDe: (codigo:
             Zona {z.codigo}
             {z.nombre ? ` · ${z.nombre}` : ''}
           </h3>
-          <CultivosZona cultivos={cultivosDe(z.codigo)} />
+          <CultivosZona cultivos={cultivosDe(z.codigo)} zonaHoraria={zonaHoraria} />
         </li>
       ))}
     </ul>

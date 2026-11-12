@@ -35,6 +35,7 @@ test('P-029 Cultivos de una zona', async ({ page }) => {
   await expect(panel.getByRole('listitem')).toHaveCount(1)
   await expect(panel.getByRole('listitem').first()).toContainText('Planta de prueba')
   await expect(panel.getByRole('listitem').first()).toContainText('sembrado')
+  await expect(panel.locator('time')).toHaveAttribute('datetime', '2026-10-30T14:00:00Z')
 
   await page.getByRole('button', { name: /Z2/ }).click()
   await expect(panel.getByRole('heading', { name: /Zona Z2/ })).toBeVisible()

@@ -42,7 +42,7 @@ export default defineConfig({
       timeout: 240_000,
     },
     {
-      command: 'npx vite --port 5174 --strictPort',
+      command: 'node node_modules/vite/bin/vite.js --port 5174 --strictPort',
       url: 'http://localhost:5174',
       env: { HUERTOS_API: API },
       reuseExistingServer: !process.env.CI,

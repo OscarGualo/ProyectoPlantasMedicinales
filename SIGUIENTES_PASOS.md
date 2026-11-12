@@ -1,7 +1,34 @@
 # Estado de la iteración 1 y siguientes pasos
 
+> **Seguimiento de Mauricio — 11/11/2026.**
+> Esta rama incorpora la migración V3, los mensajes MSG-24 a MSG-27,
+> el manejo de BindException, la configuración alternativa de PostgreSQL
+> para pruebas, el permiso ejecutable de Maven y el flujo de CI.
+>
+> **Verificación local:** `mvnw verify` terminó con BUILD SUCCESS:
+> 79 pruebas contabilizadas, 78 aprobadas y una omitida, sin fallos ni
+> errores. Testcontainers inició PostgreSQL 17.11 y Flyway aplicó
+> V1, V2 y V3 en bases temporales nuevas.
+> La prueba omitida corresponde a P-050 contra la referencia lunar.
+>
+> **Pendiente:** comprobar la conservación de datos existentes de V2
+> al aplicar V3, reunir los aportes del equipo y verificar GitHub Actions
+> y la imagen Docker.
+>
+> El contenido histórico que sigue conserva el corte del 04/11/2026.
+> Sus resultados y pendientes deben interpretarse con esa fecha.
 > Archivo de continuidad: léelo antes de retomar el trabajo. Actualizado el **04/11/2026**.
 > Entrega de la versión 1: **viernes 13/11/2026, 09:00** (doc 02).
+
+
+> **Migración V2 a V3 verificada:** el ensayo conservó la siembra,
+> su versión inicial y su fotografía. Los cinco indicadores de comparación
+> devolvieron verdadero y se comprobaron las dos restricciones nuevas.
+> La salida está guardada como evidencia local en
+> `../verificacion-mauricio/resultado_v3.txt`.
+>
+> **Pendiente:** reunir los aportes del equipo y verificar GitHub Actions
+> y la imagen Docker.
 
 ## 1. Cómo retomar en 2 minutos
 

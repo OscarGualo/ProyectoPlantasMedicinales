@@ -1,4 +1,4 @@
-# Integración continua (doc 06 §13): compila y ejecuta todas las pruebas en cada pull request y en main.
+# Integración continua: pruebas y construcción del proyecto.
 name: CI
 
 on:
@@ -15,15 +15,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '21'
           cache: maven
-      # Testcontainers usa el Docker del runner para PostgreSQL efímero.
+          cache-dependency-path: backend/pom.xml
+
+      # Testcontainers usa Docker para crear PostgreSQL temporal.
       - name: Pruebas unitarias y de integración
         working-directory: backend
         run: ./mvnw -B verify
+
       - name: Reporte de pruebas y cobertura
         if: always()
         uses: actions/upload-artifact@v4
@@ -39,23 +43,72 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
           cache: npm
           cache-dependency-path: frontend/package-lock.json
+
       - name: Instalar dependencias
         working-directory: frontend
         run: npm ci
+
       - name: Compilar
         working-directory: frontend
         run: npm run build
 
+  navegador:
+    name: Recorridos Playwright
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+          cache-dependency-path: backend/pom.xml
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Iniciar PostgreSQL de pruebas
+        run: docker compose up -d --wait postgres
+
+      - name: Instalar dependencias y Chromium
+        working-directory: frontend
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium
+
+      - name: Ejecutar recorridos
+        working-directory: frontend
+        run: npx playwright test
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reporte-playwright
+          path: |
+            frontend/playwright-report/
+            frontend/test-results/
+          if-no-files-found: ignore
+
+      - name: Retirar PostgreSQL de pruebas
+        if: always()
+        run: docker compose down -v
+
   imagen:
     name: Imagen Docker
     runs-on: ubuntu-latest
-    needs: [backend, frontend]
+    needs: [backend, frontend, navegador]
     steps:
       - uses: actions/checkout@v4
+
       - name: Construir la imagen
         run: docker build -t huertos-medicinales:${{ github.sha }} .

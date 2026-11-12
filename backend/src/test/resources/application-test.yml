@@ -1,4 +1,11 @@
-# Entorno de prueba (doc 04, «Cómo ejecutar y registrar»): reloj fijado en 31/10/2026 12:00 America/Guayaquil.
+# Reloj de pruebas: 31/10/2026 a las 12:00 de America/Guayaquil.
+spring:
+  datasource:
+    # Conexión alternativa de pruebas. Testcontainers prevalece por defecto.
+    url: jdbc:postgresql://127.0.0.1:55432/huertos_test
+    username: huertos
+    password: huertos
+
 huertos:
   reloj:
     fijo: 2026-10-31T12:00:00-05:00

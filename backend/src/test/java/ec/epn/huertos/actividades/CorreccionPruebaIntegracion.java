@@ -43,7 +43,12 @@ public class CorreccionPruebaIntegracion extends PruebaIntegracion {
     }
 
     public static ResultActions corregir(MockMvc mvc, MockHttpSession s, long siembraId, String fecha, String motivo,
-                                  MockMultipartFile foto) throws Exception {
+                                         MockMultipartFile foto) throws Exception {
+        return corregir(mvc, s, siembraId, fecha, motivo, foto, 1, UUID.randomUUID().toString());
+    }
+
+    public static ResultActions corregir(MockMvc mvc, MockHttpSession s, long siembraId, String fecha, String motivo,
+                                         MockMultipartFile foto, int base, String clave) throws Exception {
         var req = multipart("/api/siembras/" + siembraId + "/correcciones");
         if (foto != null) {
             req.file(foto);
@@ -54,7 +59,8 @@ public class CorreccionPruebaIntegracion extends PruebaIntegracion {
         if (motivo != null) {
             req.param("motivo", motivo);
         }
-        return mvc.perform(req.session(s).with(csrf()));
+        return mvc.perform(req.param("versionBase", String.valueOf(base)).param("claveEnvio", clave)
+                .session(s).with(csrf()));
     }
 
     private ResultActions consultar(MockHttpSession s) throws Exception {

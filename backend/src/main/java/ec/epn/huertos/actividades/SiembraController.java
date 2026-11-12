@@ -39,11 +39,12 @@ class SiembraController {
         return servicio.bitacora(id);
     }
 
-    /** HU-016: 201 con la siembra en su nueva versión vigente. */
+    /** HU-016: 201 para una versión nueva, 200 al repetir una corrección confirmada. */
     @PostMapping(path = "/api/siembras/{id}/correcciones", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     ResponseEntity<SiembraVista> corregir(@PathVariable Long id, @ModelAttribute CorreccionSolicitud solicitud,
                                           @RequestPart(name = "foto", required = false) MultipartFile foto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(servicio.corregir(id, solicitud, foto));
+        Registro r = servicio.corregir(id, solicitud, foto);
+        return ResponseEntity.status(r.creada() ? HttpStatus.CREATED : HttpStatus.OK).body(r.siembra());
     }
 
     /** HU-017: versiones de la siembra, de la más reciente a la más antigua. */

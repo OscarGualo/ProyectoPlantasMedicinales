@@ -14,6 +14,7 @@ export function Diseno() {
   const { pathname } = useLocation()
   const principal = useRef<HTMLElement>(null)
   const primeraCarga = useRef(true)
+  const trabajo = pathname.startsWith('/gestion')
 
   // Al cambiar de pantalla, el foco va al contenido para los lectores de pantalla.
   useEffect(() => {
@@ -80,13 +81,16 @@ export function Diseno() {
         </main>
       </div>
 
-      <footer className="pie">
+      <footer className={`pie${trabajo ? ' pie-compacto' : ''}`}>
         <div className="pie-interior">
-          <p className="pie-nombre">Huertos Medicinales Comunitarios</p>
-          <p>
-            Aplicación educativa del Ministerio de Salud Pública del Ecuador. El contenido medicinal se atribuye a su
-            fuente y no reemplaza la atención de salud.
-          </p>
+          {/* En las pantallas de trabajo del líder el pie no compite con el formulario: solo créditos (auditoría §4.3) */}
+          {!trabajo && <p className="pie-nombre">Huertos Medicinales Comunitarios</p>}
+          {!trabajo && (
+            <p>
+              Aplicación educativa del Ministerio de Salud Pública del Ecuador. El contenido medicinal se atribuye a su
+              fuente y no reemplaza la atención de salud.
+            </p>
+          )}
           <p>
             Láminas botánicas: {CREDITO_LAMINAS}, vía{' '}
             <a href="https://commons.wikimedia.org/wiki/Category:K%C3%B6hler%27s_Medizinal-Pflanzen">

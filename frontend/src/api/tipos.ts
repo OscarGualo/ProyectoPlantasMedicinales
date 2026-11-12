@@ -24,6 +24,8 @@ export interface ResumenHuerto {
   longitud: number
   plantas: number
   cultivos: number
+  /** Especies del huerto en orden de registro (para mostrar sus láminas en la lista pública). */
+  especies: { nombreComun: string; nombreCientifico: string }[]
 }
 
 export interface HuertoGestion {

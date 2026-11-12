@@ -91,6 +91,17 @@ export function Reto() {
                 decoding="async"
               />
               <AvisoInfo>{reto.mensaje}</AvisoInfo>
+              {/* Qué falta, en pasos: lo mismo que dice la regla del reto (RN-08), dicho como acción */}
+              <h3 className="pasos-titulo">Cómo obtenerla</h3>
+              <ol className="pasos-reto">
+                <li>
+                  Busca los días de luna creciente o luna llena en el{' '}
+                  <Link to="/calendario">calendario lunar</Link>.
+                </li>
+                <li>Siembra en uno de esos días.</li>
+                <li>El líder del huerto registra la siembra en la bitácora, con una fotografía como evidencia.</li>
+                <li>La insignia aparece aquí sola al consultar el reto: no hay que pedirla.</li>
+              </ol>
             </div>
           )}
         </section>

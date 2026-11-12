@@ -9,6 +9,8 @@
  */
 
 @import '@fontsource-variable/archivo/wdth.css';
+/* Solo la itálica 400 (24 KB, latín): nombres científicos y pies de lámina. Se descarga cuando aparece en pantalla. */
+@import '@fontsource/newsreader/400-italic.css';
 
 /* ---------- Tokens ---------- */
 :root {
@@ -40,9 +42,13 @@
   --anillo: #0f5c2d;
   --campo-borde: #8fa996;      /* controles de formulario: los campos sí llevan línea */
   --papel-lamina: #f1f5f1;     /* papel de las ilustraciones grabadas; igual en ambos modos (la lámina es un objeto) */
+  /* Texto que va SOBRE el papel de lámina: fijo en ambos modos, porque ese papel no cambia */
+  --tinta-lamina: #0f2417;     /* 14.8:1 sobre papel-lamina */
+  --ocre: #7a4a0c;             /* nota de herbario: 6.8:1 sobre papel-lamina */
 
   /* Tipografía: una familia, dos anchos */
   --f: 'Archivo Variable', 'Archivo', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  --serif: 'Newsreader', Georgia, 'Times New Roman', serif;
   --ancho-titulo: 62%;
   --ancho-sello: 75%;
   /* Escala de seis pasos: display, encabezado, nombre, entrada, cuerpo, nota */
@@ -393,6 +399,43 @@ img {
 
 .pie a {
   color: var(--sobre-bolsa);
+}
+
+/* En las pantallas de trabajo del líder el pie no compite con el formulario: solo los créditos, en letra de nota */
+.pie-compacto {
+  padding-top: var(--e-5);
+  font-size: var(--t-nota);
+}
+
+.pie-compacto .pie-interior {
+  gap: var(--e-2);
+}
+
+/* ---------- Imágenes: fundido breve al cargar (componentes/Imagen.tsx) ---------- */
+.fundido {
+  opacity: 0;
+  transition: opacity 220ms var(--curva-salida);
+}
+
+.fundido[data-cargada] {
+  opacity: 1;
+}
+
+/* ---------- Grano de papel: casi imperceptible, solo en el papel y la bolsa (DESIGN.md) ---------- */
+:root {
+  --grano: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23g)'/%3E%3C/svg%3E");
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --grano: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23g)'/%3E%3C/svg%3E");
+  }
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    --grano: none;
+  }
 }
 
 @media (min-width: 768px) {
@@ -955,8 +998,11 @@ img {
   gap: var(--e-3);
 }
 
+/* El latín en serif itálica, como en los pliegos de herbario: la única voz que no es Archivo (DESIGN.md) */
 .cientifico {
+  font-family: var(--serif);
   font-style: italic;
+  font-size: 1.0625rem;
   color: var(--tinta-suave);
   margin: var(--e-1) 0 0;
 }
@@ -2320,4 +2366,248 @@ textarea.control {
   align-content: start;
   gap: var(--e-1);
   padding: var(--e-3) var(--e-4);
+}
+
+/* ===================================================================================================================
+   Propuesta A (docs/diseno): capas que van al final para no ser pisadas por los «background» abreviados de arriba
+   =================================================================================================================== */
+
+/* Grano de papel sobre la bolsa, las etiquetas y el pie (el color de fondo sigue siendo el token de siempre) */
+.bolsa,
+.etiqueta,
+.pie {
+  background-image: var(--grano);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fundido {
+    transition: none;
+  }
+}
+
+/* Cerrar sesión en el celular: .boton-pequeno (más abajo en la hoja) le ponía 16 px de relleno a un botón de 44 px y
+   el ícono quedaba aplastado (auditoría, Gestión P2). Solo ícono, centrado, con su nombre accesible intacto. */
+@media (max-width: 767px) {
+  .boton.boton-salir {
+    width: 44px;
+    padding: 0;
+    justify-content: center;
+  }
+}
+
+/* Recorrido 3D: volver al encuadre inicial y croquis cuando la escena no carga */
+.ver-todo {
+  margin-top: var(--e-3);
+}
+
+.escena-fallo-vineta {
+  margin-bottom: var(--e-4);
+}
+
+/* ---------- Pliego de herbario: la planta con lámina (propuesta A) ----------
+   La lámina va montada en el papel de lámina (claro en ambos modos: es un objeto) y el rótulo, abajo a la
+   derecha, como en el pliego real. La foto propia del líder conserva la etiqueta de siempre. */
+.planta.pliego {
+  grid-template-columns: minmax(0, 1fr);
+  background-color: var(--papel-lamina);
+  padding: var(--e-4) var(--e-4) var(--e-3);
+}
+
+.pliego-lamina {
+  margin: 0;
+}
+
+.pliego-lamina img {
+  display: block;
+  width: auto;
+  max-width: 82%;
+  max-height: 440px;
+  aspect-ratio: auto;
+  object-fit: contain;
+  mix-blend-mode: multiply; /* el crema de la lámina se asienta en el papel */
+}
+
+.pliego .planta-cuerpo {
+  position: relative;
+  justify-self: end;
+  width: min(440px, 94%);
+  margin-top: calc(-1 * var(--e-6));
+  padding: var(--e-4) var(--e-5);
+  background: var(--papel);
+  border: 2px solid var(--tinta);
+}
+
+.pliego-credito {
+  margin: var(--e-3) 0 0;
+  max-width: none;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: var(--t-nota);
+  line-height: 1.4;
+  color: var(--ocre);
+}
+
+.pliego-credito a {
+  color: var(--tinta-lamina);
+}
+
+@media (min-width: 560px) {
+  .pliego .planta-cuerpo {
+    margin-top: -112px;
+  }
+}
+
+/* ---------- Inicio: tira de láminas en la etiqueta de cada huerto (propuesta A) ---------- */
+.tira-laminas {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-rows: 128px;
+  gap: 2px;
+  height: 128px;
+  overflow: hidden;
+  background: var(--papel-lamina);
+}
+
+.tira-laminas img {
+  display: block;
+  width: 100%;
+  height: 128px;
+  object-fit: cover;
+  object-position: center 30%;
+}
+
+/* Una o dos láminas ocupan el ancho completo, repartidas */
+.tira-laminas:has(img:only-child) {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.tira-laminas:has(img:nth-child(2):last-child) {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.tira-vacia {
+  grid-template-columns: minmax(0, 1fr);
+  place-items: center;
+}
+
+.tira-vacia img {
+  width: 128px;
+  object-fit: contain;
+}
+
+/* ---------- Inicio: cajón de especímenes (todas las láminas al mismo tamaño) ---------- */
+.bajada-seccion {
+  margin: calc(-1 * var(--e-2)) 0 var(--e-5);
+  color: var(--tinta-suave);
+}
+
+.cajon {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: var(--e-5) var(--e-3);
+}
+
+.cajon figure {
+  margin: 0;
+}
+
+.cajon-papel {
+  padding: var(--e-2);
+  background: var(--papel-lamina);
+  clip-path: polygon(
+    8px 0, calc(100% - 8px) 0, 100% 8px, 100% calc(100% - 8px),
+    calc(100% - 8px) 100%, 8px 100%, 0 calc(100% - 8px), 0 8px
+  );
+}
+
+.cajon-papel img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  mix-blend-mode: multiply;
+}
+
+.cajon figcaption {
+  display: grid;
+  margin-top: var(--e-2);
+}
+
+.cajon figcaption strong {
+  font-stretch: var(--ancho-titulo);
+  font-weight: 800;
+  font-size: var(--t-entrada);
+  line-height: 1.1;
+}
+
+.cajon figcaption .cientifico {
+  margin: 0;
+  font-size: var(--t-nota);
+}
+
+.cajon-autoria {
+  font-size: var(--t-nota);
+  color: var(--tinta-suave);
+}
+
+/* Atribución del mapa: con margen interior y sobre papel opaco (impeccable detect midió 4.49:1) */
+.ventana-mapa .leaflet-control-attribution {
+  padding: 2px 8px;
+  background: var(--papel);
+  color: var(--tinta);
+}
+
+.ventana-mapa .leaflet-control-attribution a {
+  color: var(--enlace);
+}
+
+/* ---------- Calendario: el día en que empieza una fase principal lleva su grabado (propuesta A) ---------- */
+.dia-con-evento {
+  grid-template-areas: 'fecha fecha' 'glifo fase' 'evento evento' 'sello sello';
+}
+
+.dia .grabado-luna {
+  grid-area: glifo;
+}
+
+.dia-evento {
+  grid-area: evento;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: var(--t-nota);
+  color: var(--tinta);
+}
+
+/* ---------- Reto pendiente: qué falta, en pasos (propuesta A) ---------- */
+.pasos-titulo {
+  margin-top: var(--e-3);
+}
+
+.pasos-reto {
+  margin: 0;
+  padding-left: 1.4em;
+  display: grid;
+  gap: var(--e-2);
+}
+
+.pasos-reto li::marker {
+  font-stretch: var(--ancho-titulo);
+  font-weight: 800;
+  color: var(--enlace);
+}
+
+/* Ajustes de la validación (impeccable detect, 12/11/2026):
+   - «Leer la etiqueta» usa el verde de enlace: el de acción quedaba en 4.3:1 sobre el papel con grano.
+   - Las bajadas no dejan una palabra sola en la última línea. */
+.etiqueta-enlace .ver {
+  color: var(--enlace);
+}
+
+.bajada,
+.bajada-seccion {
+  text-wrap: pretty;
 }

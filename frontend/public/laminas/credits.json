@@ -244,5 +244,168 @@
   "notes": [
    "Revisada a mano: nombre científico correcto y sin familia ni firma inventadas."
   ]
+ },
+ {
+  "file": "frontend/public/laminas/eucalyptus-globulus.webp",
+  "media": "image",
+  "ia": true,
+  "title": "Lámina de la especie Eucalyptus globulus (eucalipto)",
+  "creator": "Ilustración generada con IA (Higgsfield, modelo GPT Image 2.6) en el estilo de Köhler (1887)",
+  "date": "2026-11-12",
+  "license": "generada para el proyecto",
+  "creditRequired": true,
+  "higgsfieldJob": "b0273858-703a-42a2-a121-d023c938db45",
+  "credit": "Ilustración generada con IA en el estilo de Köhler (1887); no es una lámina histórica ni una foto del huerto",
+  "notes": [
+   "Revisada a mano: nombre científico correcto y sin familia ni firma inventadas."
+  ]
+ },
+ {
+  "file": "frontend/public/laminas/amaranthus-quitensis.webp",
+  "media": "image",
+  "ia": true,
+  "title": "Lámina de la especie Amaranthus quitensis (sangorache)",
+  "creator": "Ilustración generada con IA (Higgsfield, modelo GPT Image 2.6) en el estilo de Köhler (1887)",
+  "date": "2026-11-12",
+  "license": "generada para el proyecto",
+  "creditRequired": true,
+  "higgsfieldJob": "a8cf45e4-c3ae-4cc0-b69f-9f95942ea8d4",
+  "credit": "Ilustración generada con IA en el estilo de Köhler (1887); no es una lámina histórica ni una foto del huerto",
+  "notes": [
+   "Revisada a mano: nombre científico correcto y sin familia ni firma inventadas."
+  ]
+ },
+ {
+  "file": "frontend/public/laminas/ilex-guayusa.webp",
+  "media": "image",
+  "ia": true,
+  "title": "Lámina de la especie Ilex guayusa (guayusa)",
+  "creator": "Ilustración generada con IA (Higgsfield, modelo GPT Image 2.6) en el estilo de Köhler (1887)",
+  "date": "2026-11-12",
+  "license": "generada para el proyecto",
+  "creditRequired": true,
+  "higgsfieldJob": "e8b8f18d-d049-40a7-8a16-3f20b1b684d7",
+  "credit": "Ilustración generada con IA en el estilo de Köhler (1887); no es una lámina histórica ni una foto del huerto",
+  "notes": [
+   "Revisada a mano: nombre científico correcto y sin familia ni firma inventadas."
+  ]
+ },
+ {
+  "file": "frontend/public/laminas/borago-officinalis.webp",
+  "media": "image",
+  "ia": true,
+  "title": "Lámina de la especie Borago officinalis (borraja)",
+  "creator": "Ilustración generada con IA (Higgsfield, modelo GPT Image 2.6) en el estilo de Köhler (1887)",
+  "date": "2026-11-12",
+  "license": "generada para el proyecto",
+  "creditRequired": true,
+  "higgsfieldJob": "d6094462-fa44-4546-a97d-d40b32569936",
+  "credit": "Ilustración generada con IA en el estilo de Köhler (1887); no es una lámina histórica ni una foto del huerto",
+  "notes": [
+   "Revisada a mano: nombre científico correcto y sin familia ni firma inventadas."
+  ]
+ },
+ {
+  "file": "frontend/public/laminas/calendula-officinalis.webp",
+  "media": "image",
+  "ia": true,
+  "title": "Lámina de la especie Calendula officinalis (caléndula)",
+  "creator": "Ilustración generada con IA (Higgsfield, modelo GPT Image 2.6) en el estilo de Köhler (1887)",
+  "date": "2026-11-12",
+  "license": "generada para el proyecto",
+  "creditRequired": true,
+  "higgsfieldJob": "1fd1a4db-5016-46ed-a66f-9fcee47bf279",
+  "credit": "Ilustración generada con IA en el estilo de Köhler (1887); no es una lámina histórica ni una foto del huerto",
+  "notes": [
+   "Revisada a mano: nombre científico correcto y sin familia ni firma inventadas."
+  ]
+ },
+ {
+  "file": "frontend/public/laminas/rosmarinus-officinalis.webp",
+  "media": "image",
+  "ia": true,
+  "title": "Lámina de la especie Rosmarinus officinalis (romero)",
+  "creator": "Ilustración generada con IA (Higgsfield, modelo GPT Image 2.6) en el estilo de Köhler (1887)",
+  "date": "2026-11-12",
+  "license": "generada para el proyecto",
+  "creditRequired": true,
+  "higgsfieldJob": "aa7851c8-26a5-4401-9dda-2117ea97d486",
+  "credit": "Ilustración generada con IA en el estilo de Köhler (1887); no es una lámina histórica ni una foto del huerto",
+  "notes": [
+   "Revisada a mano: nombre científico correcto y sin familia ni firma inventadas."
+  ]
+ },
+ {
+  "file": "frontend/public/arte/texturas/tierra.webp",
+  "media": "image",
+  "ia": true,
+  "title": "Textura sin costura de tierra de camellón (escena 3D)",
+  "creator": "Ilustración generada con IA (Higgsfield, modelo GPT Image 2.6) en el estilo de Köhler (1887)",
+  "date": "2026-11-12",
+  "license": "generada para el proyecto",
+  "creditRequired": true,
+  "higgsfieldJob": "068712ad-3b6d-40ba-81a1-85cd1a18033c",
+  "credit": "Ilustración generada con IA en el estilo de Köhler (1887); no es una lámina histórica ni una foto del huerto",
+  "notes": [
+   "Texturas: bordes igualados por mezcla con copia desplazada (sin costura)."
+  ]
+ },
+ {
+  "file": "frontend/public/arte/texturas/cesped.webp",
+  "media": "image",
+  "ia": true,
+  "title": "Textura sin costura de césped (escena 3D)",
+  "creator": "Ilustración generada con IA (Higgsfield, modelo GPT Image 2.6) en el estilo de Köhler (1887)",
+  "date": "2026-11-12",
+  "license": "generada para el proyecto",
+  "creditRequired": true,
+  "higgsfieldJob": "3f27feb6-5f8c-4dfd-a538-32855f79af01",
+  "credit": "Ilustración generada con IA en el estilo de Köhler (1887); no es una lámina histórica ni una foto del huerto",
+  "notes": [
+   "Texturas: bordes igualados por mezcla con copia desplazada (sin costura)."
+  ]
+ },
+ {
+  "file": "frontend/public/arte/texturas/grava.webp",
+  "media": "image",
+  "ia": true,
+  "title": "Textura sin costura de grava de camino (escena 3D)",
+  "creator": "Ilustración generada con IA (Higgsfield, modelo GPT Image 2.6) en el estilo de Köhler (1887)",
+  "date": "2026-11-12",
+  "license": "generada para el proyecto",
+  "creditRequired": true,
+  "higgsfieldJob": "bb3ea104-a270-450b-b6ba-d8d88b1a4600",
+  "credit": "Ilustración generada con IA en el estilo de Köhler (1887); no es una lámina histórica ni una foto del huerto",
+  "notes": [
+   "Texturas: bordes igualados por mezcla con copia desplazada (sin costura)."
+  ]
+ },
+ {
+  "file": "frontend/public/arte/texturas/cerca-viva.webp",
+  "media": "image",
+  "ia": true,
+  "title": "Textura sin costura de cerca viva (escena 3D)",
+  "creator": "Ilustración generada con IA (Higgsfield, modelo GPT Image 2.6) en el estilo de Köhler (1887)",
+  "date": "2026-11-12",
+  "license": "generada para el proyecto",
+  "creditRequired": true,
+  "higgsfieldJob": "790339e6-c3f7-45a5-be50-f4ad398fdd17",
+  "credit": "Ilustración generada con IA en el estilo de Köhler (1887); no es una lámina histórica ni una foto del huerto",
+  "notes": [
+   "Texturas: bordes igualados por mezcla con copia desplazada (sin costura)."
+  ]
+ },
+ {
+  "file": "frontend/public/arte/vacios/croquis.webp",
+  "media": "image",
+  "ia": true,
+  "title": "Viñeta de croquis de huerto (escena 3D no disponible)",
+  "creator": "Ilustración generada con IA (Higgsfield, modelo GPT Image 2.6) en el estilo de Köhler (1887)",
+  "date": "2026-11-12",
+  "license": "generada para el proyecto",
+  "creditRequired": true,
+  "higgsfieldJob": "2f16769f-ad68-4e77-a1c7-8f0d09a667c4",
+  "credit": "Ilustración generada con IA en el estilo de Köhler (1887); no es una lámina histórica ni una foto del huerto",
+  "notes": []
  }
 ]

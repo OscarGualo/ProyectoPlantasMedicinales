@@ -58,6 +58,19 @@ eso mezclaría dos lenguajes: hay que decidirlo en la fase 5.
 
 **Total A:** unos 10,5 créditos (3 sin el video).
 
+### Estado de A tras la implementación (12/11/2026, propuesta A elegida)
+
+| ID | Estado | Detalle |
+|---|---|---|
+| A-01 | ⏸ Pendiente de recarga | Cuesta 7,5 créditos y el saldo era 5,75. `LaminaViva` ya acepta `video`: basta generar el clip y pasarle la ruta |
+| A-02 | ✅ Hecho | `frontend/public/arte/texturas/{tierra,cesped,grava,cerca-viva}.webp`, 41 a 60 KB. Los bordes se igualaron mezclando cada textura con su copia desplazada media baldosa (sin costura comprobada en mosaico de 2×2) |
+| A-03 | ✅ Hecho, **con especies cambiadas** | Matico (ambiguo en Ecuador: *Piper aduncum* o *Aristeguietia glutinosa*) y «toronjil de monte» (sin especie clara) se cambiaron por especies sin ambigüedad: *Eucalyptus globulus*, *Amaranthus quitensis* (sangorache), *Ilex guayusa*, *Borago officinalis*, *Calendula officinalis*, *Rosmarinus officinalis*. Los seis pies se revisaron a mano |
+| A-04 | ✅ Hecho **sin Higgsfield** | El grano se generó con un filtro SVG (`feTurbulence`) en CSS: menos de 1 KB, sin descarga y adaptado al modo oscuro. Ahorra 0,25 créditos |
+| A-05 | ✅ Hecho | `frontend/public/arte/vacios/croquis.webp` (9 KB), en la alternativa de la escena 3D (P-028) |
+| Kit de herbario | ✅ Recomprimido | De 187 a 140 KB |
+
+Gasto de la implementación: 2,75 créditos (6 láminas, 4 texturas y 1 viñeta, en calidad baja).
+
 ## 3. Recursos propuestos para B («Minga: el cartel comunitario»)
 
 Lenguaje: **xilografía y linograbado latinoamericano**, con tinta negra sobre papel crudo y una o dos tintas

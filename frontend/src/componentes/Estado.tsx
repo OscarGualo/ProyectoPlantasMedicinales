@@ -36,7 +36,7 @@ export function AvisoInfo({ children }: { children: ReactNode }) {
 }
 
 /** Viñetas grabadas de los estados vacíos (public/arte/vacios, generadas con IA y acreditadas). */
-export type Vineta = 'maceta' | 'semillas' | 'mapa' | 'lupa' | 'regadera'
+export type Vineta = 'maceta' | 'semillas' | 'mapa' | 'lupa' | 'regadera' | 'croquis'
 
 /**
  * Estado vacío con una indicación de qué hacer a continuación. Con `vineta`, la acompaña una viñeta grabada en

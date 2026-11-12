@@ -62,8 +62,10 @@ saberes del ciclo lunar que el propio MSP señala en decadencia.
 
 - Nombre: «Huertos Medicinales Comunitarios».
 - El MSP no exige identidad visual propia (confirmado el 03/11/2026): hay libertad para la identidad del
-  producto. La paleta verde vigente (primario `#15803D`) y las tipografías Lora y Noto Sans, elegidas con
-  ui-ux-pro-max, son la marca actual del producto.
+  producto. La marca actual es la de `DESIGN.md`, «La etiqueta de la planta seca» (elegida el 03/11/2026 y
+  evolucionada con la propuesta A el 12/11/2026): verde bolsa `#14532D` con acción `#15803D`, tipografía Archivo
+  Variable (Newsreader itálica solo para el latín) y láminas botánicas en grabado. Las tipografías Lora y Noto
+  Sans de la primera propuesta ya no se usan.
 
 ## Evidence on Hand
 

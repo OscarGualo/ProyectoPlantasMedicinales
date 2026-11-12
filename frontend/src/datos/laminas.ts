@@ -6,7 +6,7 @@
 
 export interface Lamina {
   src: string
-  /** Versión reducida (440 px) para miniaturas; solo existe en las ilustraciones nuevas. */
+  /** Versión reducida (440 px, WebP) para miniaturas, como la tira de la lista o el cajón de especímenes. */
   srcReducida?: string
   /** Pie que dice qué es la imagen. */
   pie: string
@@ -21,7 +21,14 @@ const KOHLER = 'Köhler, 1887'
 const IA = 'ilustración generada con IA'
 
 function kohler(especie: string, archivo: string, fuente: string): Lamina {
-  return { src: `/laminas/${archivo}.jpg`, pie: `Lámina de la especie ${especie}`, autoria: KOHLER, fuente, ia: false }
+  return {
+    src: `/laminas/${archivo}.jpg`,
+    srcReducida: `/laminas/${archivo}-440.webp`,
+    pie: `Lámina de la especie ${especie}`,
+    autoria: KOHLER,
+    fuente,
+    ia: false,
+  }
 }
 
 function generada(especie: string, archivo: string): Lamina {
@@ -57,6 +64,12 @@ const LAMINAS: Record<string, Lamina> = {
   'plantago major': generada('Plantago major', 'plantago-major'),
   'urtica dioica': generada('Urtica dioica', 'urtica-dioica'),
   'aloysia citrodora': generada('Aloysia citrodora', 'aloysia-citrodora'),
+  'eucalyptus globulus': generada('Eucalyptus globulus', 'eucalyptus-globulus'),
+  'amaranthus quitensis': generada('Amaranthus quitensis', 'amaranthus-quitensis'),
+  'ilex guayusa': generada('Ilex guayusa', 'ilex-guayusa'),
+  'borago officinalis': generada('Borago officinalis', 'borago-officinalis'),
+  'calendula officinalis': generada('Calendula officinalis', 'calendula-officinalis'),
+  'rosmarinus officinalis': generada('Rosmarinus officinalis', 'rosmarinus-officinalis'),
 }
 
 // Sinónimos botánicos aceptados.
@@ -67,6 +80,9 @@ const SINONIMOS: Record<string, string> = {
   'andropogon citratus': 'cymbopogon citratus',
   'aloysia triphylla': 'aloysia citrodora',
   'lippia citriodora': 'aloysia citrodora',
+  // El sangorache se publica también como subespecie o variedad de A. hybridus.
+  'amaranthus hybridus': 'amaranthus quitensis',
+  'salvia rosmarinus': 'rosmarinus officinalis',
 }
 
 export const CREDITO_LAMINAS = "Franz Eugen Köhler, «Köhler's Medizinal-Pflanzen» (1887), dominio público"

@@ -6,6 +6,7 @@ import type { Cultivo, FichaPublica, Planta } from '../api/tipos'
 import { AvisoError, Esqueleto, Vacio } from '../componentes/Estado'
 import { SelloEstado, SenalClasificacion } from '../componentes/Senal'
 import { laminaDe } from '../datos/laminas'
+import { Imagen } from '../componentes/Imagen'
 
 /** HU-011: la ficha pública como la etiqueta del huerto, con sus plantas y cultivos, sin datos privados. */
 export function FichaHuerto() {
@@ -93,9 +94,9 @@ export function FichaHuerto() {
           <figure className="laminas-huerto">
             <div className="laminas-fila">
               {laminasHuerto.map(({ planta, lamina }) => (
-                <img
+                <Imagen
                   key={planta.id}
-                  src={lamina.src}
+                  src={lamina.srcReducida ?? lamina.src}
                   alt={lamina.pie}
                   width={400}
                   height={560}
@@ -169,15 +170,20 @@ export function FichaHuerto() {
   )
 }
 
-/** La planta como su etiqueta: fotografía propia o lámina de la especie, campos y sello de clasificación. */
+/**
+ * La planta como su etiqueta. Con lámina de la especie, la etiqueta es un pliego de herbario: la lámina montada en
+ * el papel y el rótulo abajo a la derecha (docs/diseno, propuesta A). La fotografía propia del líder conserva su
+ * etiqueta de siempre: una foto del huerto nunca se presenta como lámina, ni al revés.
+ */
 function EtiquetaPlanta({ planta, orden }: { planta: Planta; orden: number }) {
   const lamina = planta.fotoUrl ? null : laminaDe(planta.nombreCientifico)
+  const clase = planta.fotoUrl ? '' : lamina ? ' pliego' : ' planta-sin-figura'
   return (
     <li className="revelar" style={{ '--orden': Math.min(orden, 8) } as CSSProperties}>
-      <article className={`etiqueta planta${planta.fotoUrl || lamina ? '' : ' planta-sin-figura'}`}>
+      <article className={`etiqueta planta${clase}`}>
         {planta.fotoUrl ? (
           <figure className="planta-figura">
-            <img
+            <Imagen
               src={planta.fotoUrl}
               alt={`Fotografía de ${planta.nombreComun} en el huerto`}
               loading="lazy"
@@ -187,11 +193,8 @@ function EtiquetaPlanta({ planta, orden }: { planta: Planta; orden: number }) {
             />
           </figure>
         ) : lamina ? (
-          <figure className="planta-figura">
-            <img src={lamina.src} alt={lamina.pie} loading="lazy" decoding="async" width={600} height={800} />
-            <figcaption>
-              {lamina.pie} ({lamina.autoria}).{lamina.fuente && <> <a href={lamina.fuente}>Fuente</a></>}
-            </figcaption>
+          <figure className="pliego-lamina">
+            <Imagen src={lamina.src} alt={lamina.pie} loading="lazy" decoding="async" width={600} height={800} />
           </figure>
         ) : null}
 
@@ -228,6 +231,11 @@ function EtiquetaPlanta({ planta, orden }: { planta: Planta; orden: number }) {
           {planta.descripcion && <p style={{ margin: 0 }}>{planta.descripcion}</p>}
           <p className="fuente">Fuente: {planta.fuente}</p>
         </div>
+        {lamina && (
+          <p className="pliego-credito">
+            {lamina.pie} ({lamina.autoria}).{lamina.fuente && <> <a href={lamina.fuente}>Fuente de la lámina</a></>}
+          </p>
+        )}
       </article>
     </li>
   )

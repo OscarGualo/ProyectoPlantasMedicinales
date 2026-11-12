@@ -1,6 +1,6 @@
 import { Component, lazy, Suspense, useEffect, useMemo, useState, type ReactNode } from 'react'
 import { Link, useParams } from 'react-router'
-import { ArrowLeft } from '@phosphor-icons/react'
+import { ArrowLeft, ArrowsOut } from '@phosphor-icons/react'
 import { api, mensajeDe } from '../api/cliente'
 import type { Cultivo, FichaPublica, Zona } from '../api/tipos'
 import { AvisoError, Cargando, Esqueleto } from '../componentes/Estado'
@@ -109,6 +109,13 @@ export function Recorrido3D() {
               </button>
             ))}
           </div>
+          {seleccionada && webgl && (
+            // La cámara vuelve al encuadre inicial (WEBGL_EXPERIENCES.md: «Ver todo»)
+            <button type="button" className="boton boton-secundario boton-pequeno ver-todo" onClick={() => setSeleccionada(null)}>
+              <ArrowsOut size={18} aria-hidden="true" />
+              Ver todo el huerto
+            </button>
+          )}
 
           <section className="panel-zona" aria-live="polite" aria-label="Cultivos de la zona elegida">
             {zona ? (
@@ -169,6 +176,8 @@ function CultivosZona({ cultivos, zonaHoraria }: { cultivos: Cultivo[]; zonaHora
 function FalloEscena({ children }: { children: ReactNode }) {
   return (
     <div className="escena-fallo">
+      {/* Decorativa: el croquis en papel que sustituye a la maqueta (generada con IA, ver credits.json) */}
+      <img className="vineta escena-fallo-vineta" src="/arte/vacios/croquis.webp" alt="" width={240} height={240} decoding="async" />
       <AvisoError>{MSG_13}</AvisoError>
       {children}
     </div>

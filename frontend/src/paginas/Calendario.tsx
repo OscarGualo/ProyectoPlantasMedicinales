@@ -42,6 +42,10 @@ const formatoLargo = new Intl.DateTimeFormat('es-EC', {
   timeZone: 'America/Guayaquil',
 })
 
+// Fecha local de Ecuador continental (aaaa-mm-dd) de un instante: para ubicar cada fase principal en su día.
+const fechaLocal = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Guayaquil' })
+const horaLocal = new Intl.DateTimeFormat('es-EC', { hour: '2-digit', minute: '2-digit', hourCycle: 'h23', timeZone: 'America/Guayaquil' })
+
 /** Solo la primera letra en mayúscula, como se escribe en castellano («Lunes, 9 de noviembre»). */
 const inicial = (t: string) => t.charAt(0).toUpperCase() + t.slice(1)
 
@@ -51,6 +55,7 @@ export function Calendario() {
   const [error, setError] = useState<string | null>(null)
   const [actividad, setActividad] = useState('')
   const [irA, setIrA] = useState('')
+  const eventos = new Map((datos?.fasesPrincipales ?? []).map((e) => [fechaLocal.format(new Date(e.instante)), e]))
 
   /** Pide un rango; si el servidor responde MSG-20 se conserva la vista anterior (HU-019 CA-02). */
   const pedir = useCallback(async (desde: string | null, filtro: string) => {
@@ -166,13 +171,23 @@ export function Calendario() {
             {datos.dias.map((d) => (
               <li
                 key={d.fecha}
-                className={`dia${d.resaltado ? ' dia-resaltado' : ''}`}
+                className={`dia${d.resaltado ? ' dia-resaltado' : ''}${eventos.has(d.fecha) ? ' dia-con-evento' : ''}`}
                 data-fase={d.fase ?? 'SIN_DATO'}
                 aria-current={d.resaltado ? 'true' : undefined}
               >
                 <span className="dia-fecha">{inicial(formatoDia.format(new Date(`${d.fecha}T00:00:00Z`)))}</span>
-                {d.fase && <GlifoLuna fase={d.fase} />}
+                {/* El día en que empieza una fase principal lleva su grabado y la hora; los demás, el glifo */}
+                {eventos.get(d.fecha) ? (
+                  <GrabadoLuna src={GRABADO_EVENTO[eventos.get(d.fecha)!.fase]} tamano={36} />
+                ) : (
+                  d.fase && <GlifoLuna fase={d.fase} />
+                )}
                 <span className="dia-fase">{d.faseEtiqueta ?? 'Sin dato'}</span>
+                {eventos.get(d.fecha) && (
+                  <span className="dia-evento">
+                    {inicial(eventos.get(d.fecha)!.etiqueta)} · {horaLocal.format(new Date(eventos.get(d.fecha)!.instante))}
+                  </span>
+                )}
                 {d.resaltado && <span className="sello sello-recomendado">Recomendado</span>}
               </li>
             ))}

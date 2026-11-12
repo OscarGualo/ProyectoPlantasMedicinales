@@ -3,8 +3,8 @@
 > Coordinación de las herramientas de diseño para el rediseño. Rama `ui/experiencia-visual` (desde `develop`),
 > worktree `HuertosMedicinales-ui`. Documentos en `docs/diseno/`.
 >
-> **Estado al 12/11/2026:** fases 1 a 7 hechas como **propuesta doble (A y B)**. **Esperando la decisión del
-> usuario** para pasar a la fase 8.
+> **Estado al 12/11/2026:** el usuario eligió la **propuesta A**. Fases 8 a 10 hechas (ver `VALIDACION_A.md`).
+> Queda pendiente la aprobación 3 (commit y merge).
 
 ## 1. Responsabilidades (una herramienta, una especialidad)
 
@@ -34,11 +34,11 @@
 | 5. Sistema de diseño | Tokens y componentes de A y B, con contraste verificado | ui-ux-pro-max, impeccable | `DESIGN_SYSTEM.md` | ✅ (propuesta) |
 | 6. Recursos audiovisuales | Cada recurso con su uso, peso, modelo y costo | Higgsfield | `ASSET_MANIFEST.md` | ✅ (propuesta; 3 muestras de B generadas) |
 | 7. Experiencias WebGL | Solo el recorrido 3D, con presupuesto P-066 | Three.js | `WEBGL_EXPERIENCES.md` | ✅ (propuesta) |
-| **⏸ Aprobación 1** | **El usuario elige A, B o un híbrido** | — | — | **Pendiente** |
-| 8. Implementar por páginas | Según `IMPLEMENTATION_PLAN.md` (la rama de plan elegida) | taste-skill, impeccable, Higgsfield, Three.js | Código en `frontend/` | Bloqueada |
+| **⏸ Aprobación 1** | **El usuario elige A, B o un híbrido** | — | — | ✅ **A**, el 12/11 |
+| 8. Implementar por páginas | Según `IMPLEMENTATION_PLAN.md` (la rama de plan elegida) | taste-skill, impeccable, Higgsfield, Three.js | Código en `frontend/` | ✅ A0 a A7 |
 | **⏸ Aprobación 2** | El usuario aprueba los recursos antes de gastar créditos (lote final) | Higgsfield | — | — |
-| 9. Motion design | `MOTION_GUIDELINES.md` (la sección elegida) | emil | Código | Bloqueada |
-| 10. Validar y optimizar | e2e 14/14, capturas, `impeccable detect`, P-066, contraste, reduced-motion | Playwright, impeccable, ui-ux-pro-max | Informe en `docs/diseno/` | Bloqueada |
+| 9. Motion design | `MOTION_GUIDELINES.md` (la sección elegida) | emil | Código | ✅ (fundido de imágenes, cámara 3D); la lámina viva espera créditos |
+| 10. Validar y optimizar | e2e 14/14, capturas, `impeccable detect`, P-066, contraste, reduced-motion | Playwright, impeccable, ui-ux-pro-max | `VALIDACION_A.md` | ✅ (P-066 en Android pendiente) |
 | **⏸ Aprobación 3** | El usuario aprueba antes de commit o merge a `develop` (y antes de avisar a los dueños de los archivos) | — | — | — |
 
 ## 3. Dependencias

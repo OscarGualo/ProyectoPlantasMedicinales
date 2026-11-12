@@ -8,6 +8,8 @@ import { api, mensajeDe } from '../api/cliente'
 import type { ResumenHuerto } from '../api/tipos'
 import { AvisoError, Esqueleto, Vacio } from '../componentes/Estado'
 import { LaminaViva, useCoincide } from '../componentes/LaminaViva'
+import { Imagen } from '../componentes/Imagen'
+import { laminaDe, type Lamina } from '../datos/laminas'
 
 // Marcador con forma de etiqueta colgante y una hoja: vectorial, sin imágenes que descargar.
 const HOJA_SVG =
@@ -40,6 +42,17 @@ export function Mapa() {
 
   const provincias = useMemo(() => new Set(huertos?.map((h) => h.provincia).filter(Boolean)).size, [huertos])
   const plantas = useMemo(() => huertos?.reduce((s, h) => s + h.plantas, 0) ?? 0, [huertos])
+  // Cajón de especímenes: cada especie una sola vez, solo las que tienen lámina (propuesta A)
+  const especiesConLamina = useMemo(() => {
+    const vistas = new Map<string, { especie: ResumenHuerto['especies'][number]; lamina: Lamina }>()
+    for (const h of huertos ?? []) {
+      for (const e of h.especies ?? []) {
+        const lamina = laminaDe(e.nombreCientifico)
+        if (lamina && !vistas.has(lamina.src)) vistas.set(lamina.src, { especie: e, lamina })
+      }
+    }
+    return [...vistas.values()]
+  }, [huertos])
   // La lámina del inicio solo entra en escritorio: en el celular el mapa debe quedar a la vista (contenido primero).
   const escritorio = useCoincide('(min-width: 900px)')
 
@@ -136,6 +149,7 @@ export function Mapa() {
             <li key={h.id} className="revelar" style={{ '--orden': Math.min(i, 8) } as CSSProperties}>
               <Link className="etiqueta-enlace" to={`/huertos/${h.id}`}>
                 <article className="etiqueta">
+                  <TiraLaminas huerto={h} />
                   <div className="etiqueta-cabeza">
                     <h3 className="etiqueta-nombre">{h.nombre}</h3>
                     <p className="secundario" style={{ margin: '6px 0 0' }}>
@@ -170,6 +184,66 @@ export function Mapa() {
           ))}
         </ul>
       )}
+
+      {especiesConLamina.length > 0 && (
+        <section aria-labelledby="titulo-especies">
+          <h2 id="titulo-especies">Qué crece en los huertos</h2>
+          <p className="bajada-seccion">
+            Las especies registradas en los huertos publicados, cada una con la lámina que la ilustra.
+          </p>
+          <ul className="cajon">
+            {especiesConLamina.map(({ especie, lamina }) => (
+              <li key={especie.nombreCientifico}>
+                <figure>
+                  <div className="cajon-papel">
+                    <Imagen
+                      src={lamina.srcReducida ?? lamina.src}
+                      alt={lamina.pie}
+                      width={440}
+                      height={584}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </div>
+                  <figcaption>
+                    <strong>{especie.nombreComun}</strong>
+                    <span className="cientifico">{especie.nombreCientifico}</span>
+                    <span className="cajon-autoria">{lamina.autoria}</span>
+                  </figcaption>
+                </figure>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
     </>
   )
+}
+
+/**
+ * Tira de láminas de las especies del huerto en lo alto de su etiqueta (hasta tres). Sin plantas registradas, la
+ * viñeta de semillas: no se inventan especies. Es decorativa: el nombre del huerto y sus campos dicen lo esencial.
+ */
+function TiraLaminas({ huerto }: { huerto: ResumenHuerto }) {
+  const laminas = (huerto.especies ?? [])
+    .map((e) => laminaDe(e.nombreCientifico))
+    .filter((l): l is NonNullable<typeof l> => l !== null)
+    .slice(0, 3)
+  if (laminas.length > 0) {
+    return (
+      <div className="tira-laminas" aria-hidden="true">
+        {laminas.map((l) => (
+          <Imagen key={l.src} src={l.srcReducida ?? l.src} alt="" width={440} height={584} loading="lazy" decoding="async" />
+        ))}
+      </div>
+    )
+  }
+  if (huerto.plantas === 0) {
+    return (
+      <div className="tira-laminas tira-vacia" aria-hidden="true">
+        <img src="/arte/vacios/semillas.webp" alt="" width={240} height={240} loading="lazy" decoding="async" />
+      </div>
+    )
+  }
+  return null
 }

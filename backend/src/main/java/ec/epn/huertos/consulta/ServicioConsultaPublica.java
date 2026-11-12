@@ -24,18 +24,36 @@ public class ServicioConsultaPublica {
     private final ServicioCultivos cultivos;
     private final JdbcClient jdbc;
 
-    /** HU-010: huertos publicados con coordenadas, cada uno con sus conteos de plantas y cultivos. */
+    /**
+     * HU-010: huertos publicados con coordenadas, cada uno con sus conteos de plantas y cultivos y los nombres de
+     * sus especies (la lista pública muestra sus láminas).
+     */
     @Transactional(readOnly = true)
     public List<ResumenHuerto> huertosPublicados() {
         return jdbc.sql("""
                         SELECT h.id, h.nombre, c.nombre AS comunidad, h.provincia, h.parroquia, h.latitud, h.longitud,
                                (SELECT count(*) FROM planta p WHERE p.huerto_id = h.id) AS plantas,
-                               (SELECT count(*) FROM cultivo k WHERE k.huerto_id = h.id) AS cultivos
+                               (SELECT count(*) FROM cultivo k WHERE k.huerto_id = h.id) AS cultivos,
+                               ARRAY(SELECT p.nombre_comun FROM planta p WHERE p.huerto_id = h.id ORDER BY p.id)
+                                   AS nombres_comunes,
+                               ARRAY(SELECT p.nombre_cientifico FROM planta p WHERE p.huerto_id = h.id ORDER BY p.id)
+                                   AS nombres_cientificos
                           FROM huerto h JOIN comunidad c ON c.id = h.comunidad_id
                          WHERE h.publicado AND h.latitud IS NOT NULL AND h.longitud IS NOT NULL
                          ORDER BY h.id""")
-                .query(ResumenHuerto.class)
+                .query((rs, n) -> new ResumenHuerto(rs.getLong("id"), rs.getString("nombre"),
+                        rs.getString("comunidad"), rs.getString("provincia"), rs.getString("parroquia"),
+                        rs.getBigDecimal("latitud"), rs.getBigDecimal("longitud"), rs.getLong("plantas"),
+                        rs.getLong("cultivos"),
+                        especies((String[]) rs.getArray("nombres_comunes").getArray(),
+                                (String[]) rs.getArray("nombres_cientificos").getArray())))
                 .list();
+    }
+
+    private static List<ResumenHuerto.Especie> especies(String[] comunes, String[] cientificos) {
+        return java.util.stream.IntStream.range(0, comunes.length)
+                .mapToObj(i -> new ResumenHuerto.Especie(comunes[i], cientificos[i]))
+                .toList();
     }
 
     /** HU-011: ficha de un huerto publicado o MSG-14 (CA-02). */

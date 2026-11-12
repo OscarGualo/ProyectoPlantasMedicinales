@@ -27,6 +27,8 @@ colors:
   info-fondo: "#e2ecf5"
   campo-borde: "#8fa996"
   papel-lamina: "#f1f5f1"
+  tinta-lamina: "#0f2417"
+  ocre: "#7a4a0c"
 typography:
   display:
     fontFamily: "Archivo Variable, system-ui, sans-serif"
@@ -153,8 +155,10 @@ gestión y el pie; el resto es papel y bandas de tono.
 
 ## Typography
 
-Una sola familia, **Archivo Variable**, con dos anchos: 62 % (condensado de etiqueta impresa) para títulos,
-nombres y cifras; 100 % para leer.
+**Archivo Variable**, con dos anchos: 62 % (condensado de etiqueta impresa) para títulos, nombres y cifras; 100 %
+para leer. Desde la evolución A (12/11/2026), el **latín** (nombres científicos, pies de lámina, notas de herbario)
+va en **Newsreader itálica 400**, como en los pliegos de herbario: es la única voz que no es Archivo y no agrega
+pasos a la escala (`--serif`, `.cientifico`).
 
 ### Hierarchy
 - **Display** (96 px máx.): título de la bolsa; dos líneas como máximo a todo ancho.
@@ -179,6 +183,10 @@ de 768 px; la barra superior solo es fija en escritorio.
 
 Plano. Las superficies se separan por **pasos de tono** (fondo → papel → banda), nunca por sombras ni líneas finas.
 La única sombra es la del globo del mapa, porque flota de verdad.
+
+**Grano de papel:** la bolsa, las etiquetas y el pie llevan un grano casi imperceptible (ruido SVG de 160 px, ≤ 7 %
+de tinta), que en modo oscuro es claro. Desaparece con `prefers-contrast: more`. No es una textura decorativa: es
+el papel.
 
 ## Shapes
 
@@ -211,6 +219,27 @@ celular, barra inferior en papel con el destino activo en banda y franja superio
 ### Lámina botánica
 Lámina de colección abierta que ilustra la **especie**, con pie que lo dice y enlace a la fuente; nunca se presenta
 como foto del huerto. La fotografía propia del líder siempre tiene prioridad.
+
+### Pliego de herbario (evolución A)
+Cuando una planta se ilustra con su **lámina**, su etiqueta es un pliego: la lámina montada en `papel-lamina`
+(`mix-blend-mode: multiply`, el crema se asienta en el papel) y el **rótulo** abajo a la derecha, con borde de tinta
+de 2 px, que lleva el nombre, el latín, el sello redondo, los campos y la fuente. El crédito de la lámina va al pie
+del pliego, en serif itálica `--ocre`. **La foto propia del líder no se monta como pliego:** conserva la etiqueta
+de siempre, para que una foto nunca pase por lámina ni al revés.
+
+### Cajón de especímenes (evolución A)
+En el inicio, «Qué crece en los huertos» reúne **una vez** cada especie registrada en los huertos publicados que
+tiene lámina. Todas al mismo tamaño (3:4) en papel troquelado de 8 px, con su nombre, su latín y su autoría. Cada
+etiqueta de huerto de la lista lleva en lo alto la **tira** de hasta tres láminas de sus especies; sin plantas, la
+viñeta de semillas (no se inventan especies). Requiere `especies` en `GET /api/publico/huertos`.
+
+### Recorrido 3D como maqueta de herbario (evolución A)
+Terreno de césped, camellones de tierra, camino de grava y cerca viva con **texturas grabadas** sin costura (WebP de
+512 px, ≤ 60 KB) que llegan después del primer cuadro. Cada cultivo es una planta de bajo polígono, con sombra falsa
+(un disco) y la señalética caliente o fría como **anillo en el suelo**. Luz de cielo (`hemisphereLight`) y sin
+mapas de sombra. **Cámara guiada:** al elegir una zona la encuadra en 600 ms con la curva de movimiento; con
+reduced-motion, salta. Tocar la vista cancela el vuelo, y «Ver todo el huerto» vuelve al encuadre inicial. Los
+rótulos de zona mantienen su tamaño en pantalla.
 
 ### Ilustración generada (ampliación del 12/11/2026)
 Para que las pantallas no sean solo texto, el mundo admite **ilustraciones grabadas generadas con IA** (Higgsfield)

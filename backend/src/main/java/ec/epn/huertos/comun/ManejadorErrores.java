@@ -2,6 +2,7 @@ package ec.epn.huertos.comun;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
@@ -36,9 +37,10 @@ public class ManejadorErrores {
 
     @ExceptionHandler({SolicitudInvalida.class, HttpMessageNotReadableException.class,
             MethodArgumentTypeMismatchException.class, MissingServletRequestParameterException.class,
-            MissingServletRequestPartException.class})
+            MissingServletRequestPartException.class, BindException.class})
     ResponseEntity<RespuestaError> solicitudInvalida(Exception e) {
-        return ResponseEntity.badRequest().body(new RespuestaError("SOLICITUD_INVALIDA", SOLICITUD_INVALIDA, null));
+        return ResponseEntity.badRequest()
+                .body(new RespuestaError("SOLICITUD_INVALIDA", SOLICITUD_INVALIDA, null));
     }
 
     @ExceptionHandler(NoResourceFoundException.class)

@@ -35,6 +35,14 @@ Dockerfile           Imagen única: compila el frontend y lo sirve desde el back
 Arquitectura: monolito modular (doc 06, AD-01). Una sola imagen sirve la API en `/api/**` y la aplicación React en
 el resto de rutas. La base es PostgreSQL y el esquema lo crea Flyway al arrancar.
 
+La versión integrada de I1 añade la migración `V3__integridad_envios.sql`,
+el control de contenido de los reenvíos y los campos `versionBase` y
+`claveEnvio` para las correcciones. Estos contratos se completan al reunir
+los aportes del equipo, actualizando frontend y backend juntos.
+
+Antes de aplicar V3 sobre información existente, se verifica en una copia
+de la base que se conservan las siembras, versiones y fotografías previas.
+
 ## Opción A: todo con Docker
 
 Solo necesitas [Docker Desktop](https://www.docker.com/products/docker-desktop/) abierto.
@@ -96,6 +104,19 @@ Las pruebas de integración usan Testcontainers: cada ejecución levanta un Post
 31/10/2026 12:00 y los datos de prueba del documento 05 §7. El reporte de cobertura queda en
 `backend/target/site/jacoco/index.html`.
 
+Si Docker no está disponible, se puede usar un PostgreSQL local desechable
+en `127.0.0.1:55432`, base `huertos_test` y usuario y contraseña de prueba
+`huertos`. La alternativa se activa desde la carpeta backend con:
+
+./mvnw verify -Dhuertos.pruebas.postgres-externo=true
+
+En PowerShell:
+
+.\mvnw.cmd '-Dhuertos.pruebas.postgres-externo=true' verify
+
+La suite borra y repuebla las tablas de esa base antes de cada caso.
+Esta instancia se reserva exclusivamente para pruebas.
+
 ```bash
 docker compose up -d                 # la base debe estar arriba
 cd frontend
@@ -103,11 +124,17 @@ npx playwright install chromium      # solo la primera vez
 npx playwright test                  # recorridos en navegador, incluido P-055 (demostración completa)
 ```
 
-Playwright levanta por su cuenta el backend con el perfil `e2e` (puerto 8081, base `huertos_e2e`, reloj fijo y
-calendario controlado CAL-T para 10–14/10/2026) y Vite en el puerto 5174, y restaura los datos antes de cada caso.
+Playwright levanta el backend con el perfil `e2e` en el puerto 8081,
+utiliza la base aislada `huertos_e2e` y ejecuta Vite en el puerto 5174.
+Los datos se restauran antes de cada caso.
 
-Cada prueba lleva el identificador de su caso del documento 04 en el nombre, por ejemplo
-`P-032 Registro de una siembra con fotografía`.
+En el candidato integrado, P-055 incluye un recorrido con CAL-T y otro
+con fechas reales fuera de su tramo controlado. P-050 compara los eventos
+lunares de noviembre de 2026 con
+[USNO](https://aa.usno.navy.mil/calculated/moon/phases?year=2026).
+Estas verificaciones se comprueban al integrar los aportes correspondientes.
+
+
 
 ## Despliegue
 
@@ -166,9 +193,17 @@ Si la base está en la misma red privada del servicio, puede no hacer falta.
 
 ### Integración continua
 
-`.github/workflows/ci.yml` corre en cada push a `main` y en cada pull request: `./mvnw verify` del backend,
-`npm run build` del frontend y `docker build` de la imagen. Los reportes de pruebas y cobertura quedan como
-artefactos de la ejecución en la pestaña *Actions*.
+`.github/workflows/ci.yml` configura cuatro trabajos: pruebas del backend,
+compilación del frontend, recorridos Playwright con PostgreSQL y
+construcción de la imagen Docker.
+
+El flujo se activa en cada pull request y en los cambios enviados a `main`.
+La imagen se construye después de que los otros tres trabajos terminen
+correctamente. Los reportes de pruebas y cobertura se publican como
+artefactos en GitHub Actions.
+
+El resultado de cada ejecución se verifica en la pestaña Actions del
+repositorio.
 
 ## Variables de entorno
 

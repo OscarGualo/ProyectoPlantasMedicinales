@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
 /**
  * Catálogo de mensajes del sistema (doc 05 §6). Los textos son literales de los criterios de aceptación
  * (doc 03): los casos de prueba los comparan exactamente. Los valores entre llaves se reemplazan, en orden,
@@ -39,8 +40,15 @@ public enum Mensaje {
     MSG_20("El calendario lunar está disponible desde {fecha inicial} hasta {fecha final}.", HttpStatus.BAD_REQUEST),
     MSG_21("El huerto no tiene ubicación registrada y no puede publicarse en el mapa.", HttpStatus.BAD_REQUEST),
     MSG_22("Esta zona no tiene cultivos registrados.", HttpStatus.OK),
-    MSG_23("Esta siembra no tiene correcciones registradas.", HttpStatus.OK);
-
+    MSG_23("Esta siembra no tiene correcciones registradas.", HttpStatus.OK),
+    MSG_24("Este envío ya se registró con otros datos. Revisa el resultado antes de realizar un nuevo envío.",
+            HttpStatus.CONFLICT),
+    MSG_25("La siembra cambió desde que abriste la corrección. Revisa la versión vigente e inténtalo nuevamente.",
+            HttpStatus.CONFLICT),
+    MSG_26("No se pudo validar la solicitud. Actualiza la página e inténtalo nuevamente.",
+            HttpStatus.FORBIDDEN),
+    MSG_27("No se pudo guardar la actividad. Los cambios no se registraron; inténtalo nuevamente.",
+            HttpStatus.SERVICE_UNAVAILABLE);
     private static final Pattern MARCADOR = Pattern.compile("\\{[^}]+}");
 
     private final String plantilla;

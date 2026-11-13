@@ -234,12 +234,14 @@ valores de ejemplo.
 
 | Documento | Contenido |
 |---|---|
-| [01 Visión y alcance](docs/01_Vision_y_alcance_v0.5.md) | Objetivos, capacidades C1–C8 y alcance |
-| [02 Plan de la iteración 1](docs/02_Plan_iteracion_1_v1.3.md) | Historias, esfuerzo, calendario y definición de terminado |
-| [03 Historias de usuario](docs/03_Historias_de_usuario_I1_v1.2.md) | HU-001 a HU-020 con criterios de aceptación |
-| [04 Casos de prueba](docs/04_Casos_de_prueba_I1_v1.2.md) | P-001 a P-055 y registro de ejecuciones |
-| [05 Reglas, datos y trazabilidad](docs/05_Reglas_datos_y_trazabilidad_v1.2.md) | Glosario, reglas RN, mensajes MSG y datos de prueba |
-| [06 Arquitectura y diseño](docs/06_Arquitectura_y_diseno_v0.1.md) | Monolito modular, modelo de datos, API y pruebas |
+| [Índice de la versión 1](docs/v1/README.md) | Todos los documentos de la versión 1 y sus evidencias |
+| [01 Visión y alcance](docs/v1/01_Vision_y_alcance_v1.md) | Objetivos, capacidades C1–C8 y alcance |
+| [02 Plan de la iteración](docs/v1/02_Plan_de_iteracion_v1.md) | Historias, esfuerzo, calendario y definición de terminado |
+| [03 Historias de usuario](docs/v1/03_Historias_de_usuario_v1.md) | HU-001 a HU-020 con criterios de aceptación |
+| [04 Casos de prueba y resultados](docs/v1/04_Casos_de_prueba_y_resultados_v1.md) | Catálogo P-001 a P-082 |
+| [Casos de prueba ejecutados](docs/v1/Casos_de_prueba_ejecutados_I1_v1.md) | Ejecución de P-001 a P-082 con capturas ([PDF](docs/v1/Casos_de_prueba_ejecutados_I1_v1.pdf), [Word](docs/v1/Casos_de_prueba_ejecutados_I1_v1.docx)) |
+| [05 Reglas, datos y trazabilidad](docs/v1/05_Reglas_datos_y_trazabilidad_v1.md) | Glosario, reglas RN, mensajes MSG y datos de prueba |
+| [06 Arquitectura y diseño](docs/v1/06_Arquitectura_y_diseno_v1.md) | Arquitectura de la versión 1 |
 
 Estado del trabajo y siguientes pasos: [`SIGUIENTES_PASOS.md`](SIGUIENTES_PASOS.md).
 
@@ -253,4 +255,4 @@ Estado del trabajo y siguientes pasos: [`SIGUIENTES_PASOS.md`](SIGUIENTES_PASOS.
 
 La comunidad escoge al líder y el MSP lo autoriza. El líder incorpora fichas del catálogo institucional de lectura y gestiona fotografías, cultivos y evidencias; no redacta información medicinal. La carga inicial contiene cuatro fichas trazadas a los anexos MSP, sin dosis ni usos terapéuticos incorporados. V4 conserva relaciones y registros operativos, sustituye el contenido educativo coincidente por su referencia institucional y mantiene privados los registros sin correspondencia.
 
-La documentación actual está en [docs/v2_2](docs/v2_2/README.md). El candidato se verificó localmente con 94 pruebas Java, 21 recorridos y migración de una copia V3 a V4; el CI de la nueva integración debe ejecutarse en GitHub. No usar datos o contraseñas de demostración como acreditación de autorización real.
+La documentación actual está en [docs/v1](docs/v1/README.md). El candidato se verificó localmente con 94 pruebas Java, 21 recorridos y migración de una copia V3 a V4; el CI de la nueva integración debe ejecutarse en GitHub. No usar datos o contraseñas de demostración como acreditación de autorización real.

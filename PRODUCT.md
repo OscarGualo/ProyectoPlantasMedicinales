@@ -92,4 +92,4 @@ saberes del ciclo lunar que el propio MSP señala en decadencia.
 
 ## Procedencia de las fichas
 
-La información educativa se selecciona desde el catálogo MSP de lectura. El líder gestiona la fotografía, los cultivos y las evidencias de su huerto, sin editar nombres, clasificación, usos, dosis ni contraindicaciones. El contrato vigente se encuentra en [la documentación 2.2](docs/v2_2/README.md).
+La información educativa se selecciona desde el catálogo MSP de lectura. El líder gestiona la fotografía, los cultivos y las evidencias de su huerto, sin editar nombres, clasificación, usos, dosis ni contraindicaciones. El contrato vigente se encuentra en [la documentación de la versión 1](docs/v1/README.md).

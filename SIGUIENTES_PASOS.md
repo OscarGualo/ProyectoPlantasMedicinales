@@ -117,7 +117,7 @@ Funcionalidad completa (bloques 9–10/11 y 11/11 hechos el 03 y 04/11). Por ind
 responsive/Android va **al final**.
 
 ### Siguiente: documentos y registro de resultados (12/11)
-1. **Registrar resultados** en las tablas de ejecución de `docs/04_Casos_de_prueba_I1_v1.2.md` (fecha, responsable,
+1. **Registrar resultados** en las tablas de ejecución de `docs/v1/04_Casos_de_prueba_y_resultados_v1.md` (fecha, responsable,
    versión y navegador, resultado, aprobado) con la salida de `./mvnw verify` y `npx playwright test`.
 2. **Doc 05 §6**: completar el catálogo MSG-02 a MSG-23 (el PDF original solo trae MSG-01; los textos están en
    `comun/Mensaje.java`).
@@ -187,4 +187,4 @@ node .claude/skills/taste-skill/scripts/inspect.mjs http://localhost:5173/<ruta>
 
 ## Contrato vigente del candidato de corrección
 
-Seguir la documentación 2.2 en docs/v2_2. El editor libre de plantas queda sustituido por selección del catálogo institucional y fotografía propia. La comunidad escoge al líder y el MSP lo autoriza. No modificar V1 a V3; V4 realiza el cambio incremental. El CI añade push a develop. La publicación o merge del candidato requiere revisar los resultados del nuevo PR; no se usa el CI del commit base como prueba del cambio.
+Seguir la documentación de la versión 1 en docs/v1. El editor libre de plantas queda sustituido por selección del catálogo institucional y fotografía propia. La comunidad escoge al líder y el MSP lo autoriza. No modificar V1 a V3; V4 realiza el cambio incremental. El CI añade push a develop. La publicación o merge del candidato requiere revisar los resultados del nuevo PR; no se usa el CI del commit base como prueba del cambio.

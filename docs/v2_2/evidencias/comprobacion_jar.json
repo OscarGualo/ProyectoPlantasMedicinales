@@ -1,0 +1,45 @@
+[
+  {
+    "ruta": "/",
+    "estado": 200,
+    "bytes": 750,
+    "tipo": "text/html"
+  },
+  {
+    "ruta": "/ingresar",
+    "estado": 200,
+    "bytes": 750,
+    "tipo": "text/html"
+  },
+  {
+    "ruta": "/calendario",
+    "estado": 200,
+    "bytes": 750,
+    "tipo": "text/html"
+  },
+  {
+    "ruta": "/api/publico/huertos",
+    "estado": 200,
+    "bytes": 429,
+    "tipo": "application/json"
+  },
+  {
+    "ruta": "/api/publico/catalogo-plantas",
+    "estado": 200,
+    "bytes": 1471,
+    "tipo": "application/json",
+    "fichas": 4,
+    "sin_usos_ni_dosis_inventados": true
+  },
+  {
+    "ruta": "/fuentes/msp-lineamientos-2017.pdf",
+    "estado": 200,
+    "bytes": 1621644,
+    "tipo": "application/pdf"
+  },
+  {
+    "ruta": "/api/publico/e2e/restaurar",
+    "metodo": "POST",
+    "estado": 404
+  }
+]

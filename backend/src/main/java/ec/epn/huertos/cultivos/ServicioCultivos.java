@@ -56,9 +56,15 @@ public class ServicioCultivos {
         Zona zona = zonas.findById(s.zonaId())
                 .filter(z -> Objects.equals(z.getHuertoId(), huertoId))
                 .orElseThrow(() -> ErrorNegocio.enCampo(Mensaje.MSG_09, "zonaId"));
+        if (!"CULTIVO".equals(zona.getTipo())) {
+            throw ErrorNegocio.enCampo(Mensaje.MSG_29, "zonaId");
+        }
         Planta planta = plantas.findById(s.plantaId())
                 .filter(p -> Objects.equals(p.getHuertoId(), huertoId))
                 .orElseThrow(() -> ErrorNegocio.enCampo(Mensaje.MSG_03, "plantaId"));
+        if (planta.getCatalogoCodigo() == null) {
+            throw ErrorNegocio.enCampo(Mensaje.MSG_28, "plantaId");
+        }
         Cultivo c = cultivos.save(new Cultivo(huertoId, planta.getId(), zona.getId(), reloj.instant()));
         return cultivos.vista(c.getId());
     }

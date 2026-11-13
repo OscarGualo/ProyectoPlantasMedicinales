@@ -206,7 +206,7 @@ function EtiquetaPlanta({ planta, orden }: { planta: Planta; orden: number }) {
           <dl className="campos">
             <div>
               <dt>Familia</dt>
-              <dd>{planta.familia}</dd>
+              <dd>{planta.familia ?? 'No consta en la ficha incorporada'}</dd>
             </div>
             <div>
               <dt>Ciclo</dt>
@@ -218,15 +218,18 @@ function EtiquetaPlanta({ planta, orden }: { planta: Planta; orden: number }) {
                 <dd>{planta.otrosNombres}</dd>
               </div>
             )}
+            {planta.altitud && <div><dt>Altitud</dt><dd>{planta.altitud}</dd></div>}
+            {planta.distribucion && <div><dt>Distribución</dt><dd>{planta.distribucion}</dd></div>}
             {planta.usos && (
               <div className="ancho-completo">
-                <dt>Usos aprobados por el líder</dt>
+                <dt>Información de la fuente MSP</dt>
                 <dd>{planta.usos}</dd>
               </div>
             )}
           </dl>
           {planta.descripcion && <p style={{ margin: 0 }}>{planta.descripcion}</p>}
           <p className="fuente">Fuente: {planta.fuente}</p>
+          {planta.institucional && <a href="/fuentes/msp-lineamientos-2017.pdf" target="_blank" rel="noopener noreferrer">Consultar fuente institucional MSP</a>}
         </div>
       </article>
     </li>

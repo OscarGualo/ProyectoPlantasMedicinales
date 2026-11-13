@@ -29,8 +29,9 @@ public class ServicioConsultaPublica {
     public List<ResumenHuerto> huertosPublicados() {
         return jdbc.sql("""
                         SELECT h.id, h.nombre, c.nombre AS comunidad, h.provincia, h.parroquia, h.latitud, h.longitud,
-                               (SELECT count(*) FROM planta p WHERE p.huerto_id = h.id) AS plantas,
-                               (SELECT count(*) FROM cultivo k WHERE k.huerto_id = h.id) AS cultivos
+                               (SELECT count(*) FROM planta p WHERE p.huerto_id = h.id AND p.catalogo_codigo IS NOT NULL) AS plantas,
+                               (SELECT count(*) FROM cultivo k JOIN planta p ON p.id=k.planta_id
+                                 WHERE k.huerto_id=h.id AND p.catalogo_codigo IS NOT NULL) AS cultivos
                           FROM huerto h JOIN comunidad c ON c.id = h.comunidad_id
                          WHERE h.publicado AND h.latitud IS NOT NULL AND h.longitud IS NOT NULL
                          ORDER BY h.id""")
@@ -42,10 +43,13 @@ public class ServicioConsultaPublica {
     @Transactional(readOnly = true)
     public FichaPublica ficha(Long huertoId) {
         Huerto h = huertos.publicado(huertoId);
+        var fichas = plantas.deHuerto(huertoId);
+        var ids = fichas.stream().map(p -> p.id()).collect(java.util.stream.Collectors.toSet());
         return new FichaPublica(h.getId(), h.getNombre(), h.getDescripcion(), h.getComunidad().getNombre(),
                 h.getProvincia(), h.getParroquia(), h.getDireccion(), h.getLatitud(), h.getLongitud(),
                 h.getZonaHoraria(), h.getSuperficieM2(), h.getDiseno(), h.getTipoCerca(), h.getTipoSuelo(),
                 h.getFuenteAgua(), h.getTecnicaRiego(), h.getTipoAbono(),
-                plantas.deHuerto(huertoId), cultivos.deHuerto(huertoId), huertos.zonasDe(huertoId));
+                fichas, cultivos.deHuerto(huertoId).stream().filter(c -> ids.contains(c.plantaId())).toList(),
+                huertos.zonasDe(huertoId));
     }
 }

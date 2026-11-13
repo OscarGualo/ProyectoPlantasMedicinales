@@ -184,3 +184,7 @@ node .claude/skills/taste-skill/scripts/inspect.mjs http://localhost:5173/<ruta>
   elegible más reciente por fecha del hecho. Huerto no publicado → MSG-14.
 - P-055 en e2e: el perfil `e2e` usa CAL-T solo en 10–14/10/2026 (`ConfigCalTE2e`), porque con efemérides reales el
   10/10/2026 es luna oscura y la insignia del recorrido no aparecería. El calendario e2e sigue con fases reales.
+
+## Contrato vigente del candidato de corrección
+
+Seguir la documentación 2.2 en docs/v2_2. El editor libre de plantas queda sustituido por selección del catálogo institucional y fotografía propia. La comunidad escoge al líder y el MSP lo autoriza. No modificar V1 a V3; V4 realiza el cambio incremental. El CI añade push a develop. La publicación o merge del candidato requiere revisar los resultados del nuevo PR; no se usa el CI del commit base como prueba del cambio.

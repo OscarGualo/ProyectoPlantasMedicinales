@@ -1,0 +1,22 @@
+﻿caso,resultado,intentos,milisegundos
+P-052 Filtro de días de siembra,expected,1,4980
+P-053 Filtro de días de cosecha de raíces,expected,1,3796
+P-054 Retiro del filtro,expected,1,3002
+P-023 Marcadores de los huertos publicados,expected,1,2755
+P-024 Huerto no publicado en el mapa,expected,1,2613
+P-025 Consulta de la ficha pública de un huerto,expected,1,5797
+P-026 Enlace directo a un huerto no publicado,expected,1,2515
+P-071 Cierre interrumpido conserva estado y permite reintentar,expected,1,3596
+P-072 La última selección vence a respuestas anteriores,expected,1,3936
+P-076 El fallo cartográfico se informa y la ficha sigue accesible,expected,1,3828
+P-077 El mapa sin huertos muestra estado vacío,expected,1,2726
+P-073 La ficha muestra altitud y distribución cuando la fuente las aporta,expected,1,2927
+P-074 Gestión de Galápagos usa la hora del huerto,expected,1,5102
+El líder incorpora una ficha institucional y no tiene editor medicinal,expected,1,6705
+P-063 Sesión y token CSRF se renuevan y rechazan la cabecera anterior,expected,1,524
+P-028 Fallo de carga de la escena,expected,1,6664
+P-029 Cultivos de una zona,expected,1,3986
+P-030 Señalética caliente y fría,expected,1,3574
+P-031 Zona sin cultivos,expected,1,3638
+P-055 Recorrido integrado de la primera iteración · CAL-T,expected,1,22010
+P-055 Recorrido integrado de la primera iteración · efemérides reales,expected,1,20978

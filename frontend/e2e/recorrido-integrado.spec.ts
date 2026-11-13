@@ -17,6 +17,7 @@ async function ingresar(page: Page, usuario: string) {
   await page.locator('input[name="contrasena"]').fill('clave-prueba')
   await page.getByRole('button', { name: 'Iniciar sesión' }).click()
   await expect(page).toHaveURL(/\/gestion$/)
+  await expect(page.getByRole('form', { name: 'Características' })).toBeVisible()
 }
 
 async function salir(page: Page) {

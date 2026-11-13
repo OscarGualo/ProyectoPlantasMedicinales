@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router'
 import { CalendarDots, Leaf, MapTrifold, Plant, SignIn, SignOut } from '@phosphor-icons/react'
 import { useSesion } from '../sesion/ContextoSesion'
@@ -10,6 +10,8 @@ import { CREDITO_LAMINAS } from '../datos/laminas'
  */
 export function Diseno() {
   const { sesion, cerrar } = useSesion()
+  const [errorSalida, setErrorSalida] = useState<string | null>(null)
+  const [saliendo, setSaliendo] = useState(false)
   const navegar = useNavigate()
   const { pathname } = useLocation()
   const principal = useRef<HTMLElement>(null)
@@ -26,8 +28,17 @@ export function Diseno() {
   }, [pathname])
 
   async function salir() {
-    await cerrar()
-    navegar('/') // HU-002 CA-01: tras cerrar sesión se muestra la consulta pública
+    if (saliendo) return
+    setSaliendo(true)
+    setErrorSalida(null)
+    try {
+      await cerrar()
+      navegar('/')
+    } catch {
+      setErrorSalida('No se confirmó el cierre de sesión. Revisa tu conexión y vuelve a intentarlo.')
+    } finally {
+      setSaliendo(false)
+    }
   }
 
   const destinos = [
@@ -65,6 +76,7 @@ export function Diseno() {
               type="button"
               className="boton boton-tenue boton-pequeno boton-salir"
               onClick={salir}
+              disabled={saliendo}
               aria-label="Cerrar sesión"
             >
               <SignOut size={20} aria-hidden="true" />
@@ -76,6 +88,7 @@ export function Diseno() {
 
       <div className="lienzo">
         <main id="contenido" className="contenido" ref={principal} tabIndex={-1}>
+          {errorSalida && <p className="aviso aviso-error" role="alert">{errorSalida}</p>}
           <Outlet />
         </main>
       </div>
@@ -84,7 +97,7 @@ export function Diseno() {
         <div className="pie-interior">
           <p className="pie-nombre">Huertos Medicinales Comunitarios</p>
           <p>
-            Aplicación educativa del Ministerio de Salud Pública del Ecuador. El contenido medicinal se atribuye a su
+            Aplicación educativa de huertos medicinales con información de los lineamientos del MSP. El contenido se atribuye a su
             fuente y no reemplaza la atención de salud.
           </p>
           <p>

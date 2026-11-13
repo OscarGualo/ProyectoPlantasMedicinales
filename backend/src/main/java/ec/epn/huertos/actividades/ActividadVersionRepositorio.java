@@ -37,8 +37,9 @@ public interface ActividadVersionRepositorio extends JpaRepository<ActividadVers
     @Query("""
             SELECT v FROM ActividadVersion v
              WHERE v.actividadId IN (
-                   SELECT a.id FROM Actividad a, Cultivo c, Huerto h
+                   SELECT a.id FROM Actividad a, Cultivo c, Huerto h, Planta p
                     WHERE c.id = a.cultivoId AND h.id = c.huertoId
+                      AND p.id = c.plantaId AND p.catalogoCodigo IS NOT NULL
                       AND h.comunidad.id = :comunidadId AND h.publicado = true)
                AND v.numero = (SELECT MAX(v2.numero) FROM ActividadVersion v2 WHERE v2.actividadId = v.actividadId)
              ORDER BY v.fechaHecho DESC, v.actividadId DESC""")

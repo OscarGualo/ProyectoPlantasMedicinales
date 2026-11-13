@@ -9,11 +9,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 class MensajeTest {
 
     @Test
-    void elCatalogoTieneLos27MensajesConCodigoDelDocumento() {
-        assertThat(Mensaje.values()).hasSize(27);
+    void elCatalogoTieneLos29MensajesConCodigoDelDocumento() {
+        assertThat(Mensaje.values()).hasSize(29);
         assertThat(Arrays.stream(Mensaje.values()).map(Mensaje::codigo))
                 .startsWith("MSG-01", "MSG-02")
-                .endsWith("MSG-23", "MSG-24", "MSG-25", "MSG-26", "MSG-27");
+                .endsWith("MSG-23", "MSG-24", "MSG-25", "MSG-26", "MSG-27", "MSG-28", "MSG-29");
     }
 
     @Test

@@ -1,0 +1,224 @@
+{
+  "commit": "78d87974152092c2d07125060021d0afdae9dac9",
+  "entorno": "JAR normal, base PostgreSQL aislada, Edge Windows",
+  "casos": [
+    {
+      "id": "A-01",
+      "esperado": "Rechazar cultivos fuera de una zona de tipo CULTIVO",
+      "obtenido": [
+        {
+          "tipo": "BODEGA",
+          "estado": 201,
+          "respuesta": {
+            "id": 5,
+            "plantaId": 4,
+            "planta": "Hierba luisa",
+            "clasificacion": null,
+            "zonaId": 10,
+            "zona": "B1",
+            "estado": "SEMBRADO",
+            "estadoEtiqueta": "sembrado",
+            "registradoEn": "2026-11-12T03:50:24.432067Z",
+            "actualizadoEn": "2026-11-12T03:50:24.432067Z"
+          }
+        },
+        {
+          "tipo": "CAMINO",
+          "estado": 201,
+          "respuesta": {
+            "id": 6,
+            "plantaId": 4,
+            "planta": "Hierba luisa",
+            "clasificacion": null,
+            "zonaId": 5,
+            "zona": "C1",
+            "estado": "SEMBRADO",
+            "estadoEtiqueta": "sembrado",
+            "registradoEn": "2026-11-12T03:50:24.555342Z",
+            "actualizadoEn": "2026-11-12T03:50:24.555342Z"
+          }
+        },
+        {
+          "tipo": "CERCA",
+          "estado": 201,
+          "respuesta": {
+            "id": 7,
+            "plantaId": 4,
+            "planta": "Hierba luisa",
+            "clasificacion": null,
+            "zonaId": 6,
+            "zona": "CE1",
+            "estado": "SEMBRADO",
+            "estadoEtiqueta": "sembrado",
+            "registradoEn": "2026-11-12T03:50:24.597767Z",
+            "actualizadoEn": "2026-11-12T03:50:24.597767Z"
+          }
+        }
+      ],
+      "resultado": "Diferencia confirmada"
+    },
+    {
+      "id": "A-02",
+      "esperado": "Error de validación de nombre común con más de 120 caracteres",
+      "obtenido": {
+        "estado": 500,
+        "respuesta": {
+          "codigo": "ERROR_INTERNO",
+          "mensaje": "Ocurrió un error inesperado. Inténtalo nuevamente."
+        }
+      },
+      "resultado": "Diferencia confirmada"
+    },
+    {
+      "id": "A-03",
+      "esperado": "Mostrar altitud y distribución informadas en la ficha pública",
+      "obtenido": {
+        "api": {
+          "altitud": "ALTITUD-AUDITORIA-2500",
+          "distribucion": "DISTRIBUCION-AUDITORIA-PICHINCHA"
+        },
+        "interfaz": {
+          "altitud": false,
+          "distribucion": false
+        }
+      },
+      "resultado": "Diferencia confirmada"
+    },
+    {
+      "id": "A-04",
+      "esperado": "Conservar lista e informar que no se pudo cargar la cartografía",
+      "obtenido": {
+        "peticiones_bloqueadas": 18,
+        "lista_disponible": true,
+        "alertas": []
+      },
+      "resultado": "Diferencia confirmada"
+    },
+    {
+      "id": "A-05",
+      "esperado": "Conservar el último filtro elegido: COSECHA_SEMILLAS_RAICES",
+      "obtenido": {
+        "filtro_final": "SIEMBRA",
+        "orden_de_respuesta": "segundo filtro antes del primero"
+      },
+      "resultado": "Diferencia confirmada"
+    },
+    {
+      "id": "A-06",
+      "esperado": "Informar el fallo sin presentar la sesión como cerrada",
+      "obtenido": {
+        "interfaz_oculta_sesion": true,
+        "sesion_servidor": true,
+        "reaparece_al_recargar": true,
+        "errores": [
+          "No se pudo conectar con el servidor. Revisa tu conexión e inténtalo nuevamente."
+        ]
+      },
+      "resultado": "Diferencia confirmada"
+    },
+    {
+      "id": "A-07",
+      "esperado": "Acceso acorde a P-064 para visitante, líder propio y ajeno",
+      "obtenido": [
+        {
+          "rol": "visitante",
+          "foto": "historica",
+          "estado": 404,
+          "esperado": 404,
+          "tipo_respuesta": "application/json",
+          "cache": "no-cache, no-store, max-age=0, must-revalidate"
+        },
+        {
+          "rol": "visitante",
+          "foto": "vigente",
+          "estado": 200,
+          "esperado": 200,
+          "tipo_respuesta": "image/png",
+          "cache": "no-store"
+        },
+        {
+          "rol": "visitante",
+          "foto": "huerto_privado",
+          "estado": 404,
+          "esperado": 404,
+          "tipo_respuesta": "application/json",
+          "cache": "no-cache, no-store, max-age=0, must-revalidate"
+        },
+        {
+          "rol": "lider1",
+          "foto": "historica",
+          "estado": 200,
+          "esperado": 200,
+          "tipo_respuesta": "image/png",
+          "cache": "no-store"
+        },
+        {
+          "rol": "lider1",
+          "foto": "vigente",
+          "estado": 200,
+          "esperado": 200,
+          "tipo_respuesta": "image/png",
+          "cache": "no-store"
+        },
+        {
+          "rol": "lider1",
+          "foto": "huerto_privado",
+          "estado": 404,
+          "esperado": 404,
+          "tipo_respuesta": "application/json",
+          "cache": "no-cache, no-store, max-age=0, must-revalidate"
+        },
+        {
+          "rol": "lider2",
+          "foto": "historica",
+          "estado": 404,
+          "esperado": 404,
+          "tipo_respuesta": "application/json",
+          "cache": "no-cache, no-store, max-age=0, must-revalidate"
+        },
+        {
+          "rol": "lider2",
+          "foto": "vigente",
+          "estado": 200,
+          "esperado": 200,
+          "tipo_respuesta": "image/png",
+          "cache": "no-store"
+        },
+        {
+          "rol": "lider2",
+          "foto": "huerto_privado",
+          "estado": 200,
+          "esperado": 200,
+          "tipo_respuesta": "image/png",
+          "cache": "no-store"
+        }
+      ],
+      "resultado": "Cumple el escenario adicional"
+    },
+    {
+      "id": "A-08",
+      "esperado": "Mostrar actualización en Pacific/Galapagos para un huerto de Galápagos",
+      "obtenido": {
+        "fila": "Hierba luisa\nZona B1 · actualizado 11 nov 2026, 10:50 p. m.\nSin clasificar\nBitácora de siembras\nEstado\nsembrado\nen crecimiento\ncosechado\nperdido",
+        "esperado_galapagos": "11 nov 2026, 9:50 p. m.",
+        "valor_continental": "11 nov 2026, 10:50 p. m."
+      },
+      "resultado": "Diferencia confirmada"
+    },
+    {
+      "id": "A-09",
+      "esperado": "Definir si una cuenta desactivada conserva permisos hasta finalizar su sesión",
+      "obtenido": {
+        "estado_consulta_existente": 200,
+        "nota": "La revocación administrativa está pospuesta; la ERS debe precisar el efecto sobre sesiones activas."
+      },
+      "resultado": "Observación: política de desactivación pendiente de precisar"
+    }
+  ],
+  "balance": {
+    "diferencias_funcionales_confirmadas": 7,
+    "matriz_fotos": 9,
+    "combinaciones_fotos_correctas": 9,
+    "observaciones_de_regla": 1
+  }
+}

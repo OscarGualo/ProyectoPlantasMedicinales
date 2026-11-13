@@ -1,11 +1,11 @@
-import { useEffect, useState, type FormEvent } from 'react'
+import { useState, type FormEvent } from 'react'
 import { Link } from 'react-router'
 import { CheckCircle, FloppyDisk, Globe, MapPin, SquaresFour } from '@phosphor-icons/react'
-import { api, mensajeDe } from '../../api/cliente'
+import { api } from '../../api/cliente'
 import type { HuertoGestion } from '../../api/tipos'
-import { AvisoError, AvisoExito, Cargando } from '../../componentes/Estado'
+import { AvisoError, AvisoExito } from '../../componentes/Estado'
 import { Campo } from '../../componentes/Campo'
-import { useHuertoGestionado } from './Gestion'
+import { useDatosHuertoGestionado } from './Gestion'
 import { useEnvio } from './useEnvio'
 import { BotonEnviar } from './BotonEnviar'
 import { ABONOS, CERCAS, DISENOS, FUENTES_AGUA, PROVINCIAS, SUELOS, TECNICAS_RIEGO } from './catalogos'
@@ -18,19 +18,7 @@ const numero = (v: string) => (v.trim() === '' ? null : Number(v))
 
 /** HU-003 (ubicación), HU-004 (características) y HU-005 (publicación). */
 export function GestionHuerto() {
-  const huertoId = useHuertoGestionado()
-  const [huerto, setHuerto] = useState<HuertoGestion | null>(null)
-  const [errorCarga, setErrorCarga] = useState<string | null>(null)
-
-  useEffect(() => {
-    api
-      .get<HuertoGestion>(`/api/huertos/${huertoId}`)
-      .then(setHuerto)
-      .catch((e) => setErrorCarga(mensajeDe(e)))
-  }, [huertoId])
-
-  if (errorCarga) return <AvisoError>{errorCarga}</AvisoError>
-  if (!huerto) return <Cargando lineas={6} />
+  const { huerto, actualizarHuerto: setHuerto } = useDatosHuertoGestionado()
 
   return (
     <>

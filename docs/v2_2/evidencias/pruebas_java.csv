@@ -1,0 +1,90 @@
+﻿Clase,Prueba,Resultado,Segundos
+SesionPruebaIntegracion,p001,Aprobada,2.229
+SesionPruebaIntegracion,p002,Aprobada,0.26
+SesionPruebaIntegracion,p003,Aprobada,0.398
+SesionPruebaIntegracion,p004,Aprobada,0.129
+SesionPruebaIntegracion,p005,Aprobada,0.121
+CondicionLunarPruebaIntegracion,p038,Aprobada,1.189
+CondicionLunarPruebaIntegracion,p039,Aprobada,0.385
+CondicionLunarPruebaIntegracion,p040,Aprobada,0.302
+CorreccionPruebaIntegracion,fechaFutura,Aprobada,0.414
+CorreccionPruebaIntegracion,p041,Aprobada,0.444
+CorreccionPruebaIntegracion,p042,Aprobada,0.533
+CorreccionPruebaIntegracion,p043,Aprobada,0.46
+CorreccionPruebaIntegracion,p044,Aprobada,0.518
+HistorialPruebaIntegracion,historialAjeno,Aprobada,0.328
+HistorialPruebaIntegracion,p045,Aprobada,0.374
+HistorialPruebaIntegracion,p046,Aprobada,0.327
+IntegridadEnviosPruebaIntegracion,correccionSimultanea,Aprobada,0.618
+IntegridadEnviosPruebaIntegracion,insigniaSoloConHuertosPublicados,Aprobada,0.47
+IntegridadEnviosPruebaIntegracion,reversionAlConfirmar,Aprobada,0.307
+IntegridadEnviosPruebaIntegracion,fotoHistoricaPrivada,Aprobada,1.631
+IntegridadEnviosPruebaIntegracion,reversionDespuesDeFoto,Aprobada,0.395
+IntegridadEnviosPruebaIntegracion,envioSimultaneo,Aprobada,0.278
+IntegridadEnviosPruebaIntegracion,claveConOtrosDatos,Aprobada,0.281
+IntegridadEnviosPruebaIntegracion,gestionPrivada,Aprobada,0.251
+IntegridadEnviosPruebaIntegracion,correccionRepetida,Aprobada,0.326
+SiembraPruebaIntegracion,p032,Aprobada,1.534
+SiembraPruebaIntegracion,p033,Aprobada,0.822
+SiembraPruebaIntegracion,p034,Aprobada,0.23
+SiembraPruebaIntegracion,p035,Aprobada,0.392
+SiembraPruebaIntegracion,p036,Aprobada,0.181
+SiembraPruebaIntegracion,p037,Aprobada,0.431
+MensajeTest,sinArgumentosConservaElTextoLiteral,Aprobada,0.003
+MensajeTest,elCatalogoTieneLos27MensajesConCodigoDelDocumento,Aprobada,0.045
+MensajeTest,reemplazaLosMarcadoresEnOrden,Aprobada,0.002
+CultivoPruebaIntegracion,p019,Aprobada,0.293
+CultivoPruebaIntegracion,p020,Aprobada,0.212
+CultivoPruebaIntegracion,p021,Aprobada,0.409
+CultivoPruebaIntegracion,p022,Aprobada,0.159
+CultivoPruebaIntegracion,cultivoAjeno,Aprobada,0.176
+ValidadorImagenTest,unBytePorEncima,Aprobada,0.044
+ValidadorImagenTest,limiteExacto,Aprobada,0.017
+ValidadorImagenTest,jpegValido,Aprobada,0.018
+ValidadorImagenTest,textoDisfrazado,Aprobada,0.002
+ValidadorImagenTest,firmaSinImagen,Aprobada,0.005
+ValidadorImagenTest,pngGrande,Aprobada,0.015
+HuertoGestionPruebaIntegracion,p006,Aprobada,0.335
+HuertoGestionPruebaIntegracion,p007,Aprobada,0.186
+HuertoGestionPruebaIntegracion,p008,Aprobada,0.271
+HuertoGestionPruebaIntegracion,p009,Aprobada,0.204
+HuertoGestionPruebaIntegracion,p010,Aprobada,0.162
+HuertoGestionPruebaIntegracion,p011,Aprobada,0.246
+HuertoGestionPruebaIntegracion,p012,Aprobada,0.18
+HuertoGestionPruebaIntegracion,zonaHorariaPorProvincia,Aprobada,0.27
+CalendarioPruebaIntegracion,p050,Aprobada,0.248
+CalendarioPruebaIntegracion,p051,Aprobada,0.16
+CalendarioPruebaIntegracion,p052,Aprobada,0.193
+CalendarioPruebaIntegracion,p053,Aprobada,0.165
+CalendarioPruebaIntegracion,p054,Aprobada,0.148
+CalendarioPruebaIntegracion,p050ReferenciaOficial,Aprobada,0.163
+RN-10: actividades por fase,cadaFaseTieneActividadesYLaTablaCitaSuFuente,Aprobada,0.013
+RN-10: actividades por fase,laCosechaDeSemillasYRaicesSoloEnMenguante,Aprobada,0.004
+RN-10: actividades por fase,laSiembraSeRecomiendaEnCrecienteYLlena,Aprobada,0.003
+CAL-T: calendario controlado del entorno de prueba,el12DeOctubreNoTieneDato,Aprobada,0.012
+CAL-T: calendario controlado del entorno de prueba,cadaValorAbarcaElDiaCompletoEnLaZonaDelHuerto,Aprobada,0.003
+RN-09: intervalos entre puntos medios,sinEfemeridesNoHayFase,Aprobada,0.003
+RN-09: intervalos entre puntos medios,elInstanteDeCadaFasePrincipalPerteneceASuFase,Aprobada,0.008
+RN-09: intervalos entre puntos medios,laLunaLlenaIncluyeLosDiasAlrededorDelPlenilunio,Aprobada,0.002
+RN-09: intervalos entre puntos medios,faseEntreEventos,Aprobada,0.601
+RN-09: intervalos entre puntos medios,elCambioOcurreEnElPuntoMedio,Aprobada,0.007
+RN-06: regla de siembra,crecienteOLlenaSonConformes,Aprobada,0.005
+RN-06: regla de siembra,sinFaseQuedaPendiente,Aprobada,0.002
+RN-06: regla de siembra,oscuraOMenguanteNoSonConformes,Aprobada,0.004
+Efemérides con commons-suncalc,unPlenilunioCalculadoEsLunaLlena,Aprobada,0.005
+Efemérides con commons-suncalc,lasFasesPrincipalesSeSucedenEnOrdenCadaSieteDiasYMedio,Aprobada,0.015
+PlantaPruebaIntegracion,p013,Aprobada,0.436
+PlantaPruebaIntegracion,p014,Aprobada,0.244
+PlantaPruebaIntegracion,p015,Aprobada,0.519
+PlantaPruebaIntegracion,p016,Aprobada,0.262
+PlantaPruebaIntegracion,p017,Aprobada,0.205
+PlantaPruebaIntegracion,p018,Aprobada,0.21
+PlantaPruebaIntegracion,fichaAjena,Aprobada,0.163
+ElegibilidadInsigniaTest,sinElegibles,Aprobada,0.003
+ElegibilidadInsigniaTest,variasElegibles,Aprobada,0.004
+ElegibilidadInsigniaTest,unaElegible,Aprobada,0.003
+ElegibilidadInsigniaTest,sinFoto,Aprobada,0.002
+RetoPruebaIntegracion,p047,Aprobada,0.605
+RetoPruebaIntegracion,p048,Aprobada,0.775
+RetoPruebaIntegracion,p049,Aprobada,0.371
+RetoPruebaIntegracion,huertoNoPublicado,Aprobada,0.107

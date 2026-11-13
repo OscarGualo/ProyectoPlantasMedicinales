@@ -46,12 +46,9 @@ export function ProveedorSesion({ children }: { children: ReactNode }) {
   }, [])
 
   const cerrar = useCallback(async () => {
-    try {
-      await api.delete('/api/sesion')
-    } finally {
-      setSesion(ANONIMA)
-      setFinalizada(false)
-    }
+    await api.delete('/api/sesion')
+    setSesion(ANONIMA)
+    setFinalizada(false)
   }, [])
 
   const valor = useMemo(

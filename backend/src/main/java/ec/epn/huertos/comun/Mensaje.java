@@ -48,7 +48,9 @@ public enum Mensaje {
     MSG_26("No se pudo validar la solicitud. Actualiza la página e inténtalo nuevamente.",
             HttpStatus.FORBIDDEN),
     MSG_27("No se pudo guardar la actividad. Los cambios no se registraron; inténtalo nuevamente.",
-            HttpStatus.SERVICE_UNAVAILABLE);
+            HttpStatus.SERVICE_UNAVAILABLE),
+    MSG_28("La información educativa proviene del catálogo del MSP. Selecciona una ficha institucional; esos campos no se pueden editar.", HttpStatus.BAD_REQUEST),
+    MSG_29("La zona seleccionada no es una zona de cultivo.", HttpStatus.BAD_REQUEST);
     private static final Pattern MARCADOR = Pattern.compile("\\{[^}]+}");
 
     private final String plantilla;

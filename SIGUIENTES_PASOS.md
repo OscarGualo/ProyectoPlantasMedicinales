@@ -187,4 +187,4 @@ node .claude/skills/taste-skill/scripts/inspect.mjs http://localhost:5173/<ruta>
 
 ## Contrato vigente del candidato de corrección
 
-Seguir la documentación de la versión 1 en docs/v1. El editor libre de plantas queda sustituido por selección del catálogo institucional y fotografía propia. La comunidad escoge al líder y el MSP lo autoriza. No modificar V1 a V3; V4 realiza el cambio incremental. El CI añade push a develop. La publicación o merge del candidato requiere revisar los resultados del nuevo PR; no se usa el CI del commit base como prueba del cambio.
+Seguir la documentación 2.2 en docs/v2_2. El editor libre de plantas queda sustituido por selección del catálogo institucional y fotografía propia. La comunidad escoge al líder y el MSP lo autoriza. No modificar V1 a V3; V4 realiza el cambio incremental. El CI añade push a develop. La publicación o merge del candidato requiere revisar los resultados del nuevo PR; no se usa el CI del commit base como prueba del cambio.

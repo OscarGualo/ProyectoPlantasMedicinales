@@ -6,7 +6,7 @@ import 'leaflet/dist/leaflet.css'
 import { ArrowRight } from '@phosphor-icons/react'
 import { api, mensajeDe } from '../api/cliente'
 import type { ResumenHuerto } from '../api/tipos'
-import { AvisoError, Esqueleto, Vacio } from '../componentes/Estado'
+import { AvisoError, AvisoInfo, Esqueleto, Vacio } from '../componentes/Estado'
 
 // Marcador con forma de etiqueta colgante y una hoja: vectorial, sin imágenes que descargar.
 const HOJA_SVG =
@@ -27,6 +27,7 @@ const plural = (n: number, uno: string, varios: string) => `${n} ${n === 1 ? uno
 
 /** HU-010: mapa del Ecuador con un marcador por cada huerto publicado, y cada huerto como su etiqueta. */
 export function Mapa() {
+  const [falloMapa, setFalloMapa] = useState(false)
   const [huertos, setHuertos] = useState<ResumenHuerto[] | null>(null)
   const [error, setError] = useState<string | null>(null)
 
@@ -79,6 +80,7 @@ export function Mapa() {
           aria-label="Mapa de huertos publicados en el Ecuador"
         >
           <TileLayer
+            eventHandlers={{ tileerror: () => setFalloMapa(true) }}
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">colaboradores de OpenStreetMap</a>'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
@@ -98,6 +100,7 @@ export function Mapa() {
         </MapContainer>
       </div>
 
+      {falloMapa && <AvisoInfo>No se pudo cargar el mapa base. Puedes consultar los huertos en la lista.</AvisoInfo>}
       <AvisoError>{error}</AvisoError>
 
       <h2 id="titulo-lista">Huertos publicados</h2>

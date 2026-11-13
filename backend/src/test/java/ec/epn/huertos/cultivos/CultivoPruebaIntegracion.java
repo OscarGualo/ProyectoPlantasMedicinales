@@ -117,4 +117,12 @@ class CultivoPruebaIntegracion extends PruebaIntegracion {
                         .contentType(MediaType.APPLICATION_JSON).content("{\"plantaId\": 1, \"zonaId\": 1}"))
                 .andExpect(status().isForbidden());
     }
+    @Test
+    void rechazaZonasNoCultivables() throws Exception {
+        var sesion = iniciarSesion("l1");
+        long antes = cultivos();
+        for(long zona : new long[]{5,6,7}) registrar(sesion,1,zona)
+            .andExpect(status().isBadRequest()).andExpect(jsonPath("$.codigo").value("MSG-29"));
+        assertThat(cultivos()).isEqualTo(antes);
+    }
 }

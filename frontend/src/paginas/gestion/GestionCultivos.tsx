@@ -6,7 +6,7 @@ import { ESTADOS_CULTIVO, type Cultivo, type EstadoCultivo, type Planta, type Zo
 import { AvisoError, AvisoExito, Cargando, Vacio } from '../../componentes/Estado'
 import { Campo } from '../../componentes/Campo'
 import { SenalClasificacion } from '../../componentes/Senal'
-import { useHuertoGestionado } from './Gestion'
+import { useHuertoGestionado, useZonaHorariaHuerto } from './Gestion'
 import { useEnvio } from './useEnvio'
 import { BotonEnviar } from './BotonEnviar'
 
@@ -16,11 +16,7 @@ interface Datos {
   zonas: Zona[]
 }
 
-const formatoFecha = new Intl.DateTimeFormat('es-EC', {
-  dateStyle: 'medium',
-  timeStyle: 'short',
-  timeZone: 'America/Guayaquil',
-})
+
 
 /** HU-008 (registrar un cultivo) y HU-009 (cambiar su estado). */
 export function GestionCultivos() {
@@ -34,7 +30,7 @@ export function GestionCultivos() {
       api.get<Planta[]>(`/api/huertos/${huertoId}/plantas`),
       api.get<Zona[]>(`/api/huertos/${huertoId}/zonas`),
     ])
-      .then(([cultivos, plantas, zonas]) => setDatos({ cultivos, plantas, zonas }))
+      .then(([cultivos, plantas, zonas]) => setDatos({ cultivos, plantas: plantas.filter(p => p.institucional), zonas }))
       .catch((e) => setError(mensajeDe(e)))
   }, [huertoId])
 
@@ -157,6 +153,8 @@ function NuevoCultivo(props: {
 
 function FilaCultivo({ cultivo, alCambiar }: { cultivo: Cultivo; alCambiar: (c: Cultivo) => void }) {
   const envio = useEnvio()
+  const zonaHoraria = useZonaHorariaHuerto()
+  const formatoFecha = new Intl.DateTimeFormat('es-EC', {dateStyle: 'medium', timeStyle: 'short', timeZone: zonaHoraria})
 
   async function cambiar(estado: EstadoCultivo) {
     const r = await envio.enviar(

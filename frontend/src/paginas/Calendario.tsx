@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState, type FormEvent } from 'react'
+import { useCallback, useEffect, useRef, useState, type FormEvent } from 'react'
 import { ArrowLeft, ArrowRight, X } from '@phosphor-icons/react'
 import { api, mensajeDe } from '../api/cliente'
 import type { CalendarioLunar, FaseLunar } from '../api/tipos'
@@ -33,18 +33,22 @@ export function Calendario() {
   const [error, setError] = useState<string | null>(null)
   const [actividad, setActividad] = useState('')
   const [irA, setIrA] = useState('')
+  const ultimaSolicitud = useRef(0)
 
   /** Pide un rango; si el servidor responde MSG-20 se conserva la vista anterior (HU-019 CA-02). */
   const pedir = useCallback(async (desde: string | null, filtro: string) => {
+    const solicitud = ++ultimaSolicitud.current
     const q = new URLSearchParams()
     if (desde) q.set('desde', desde)
     if (filtro) q.set('actividad', filtro)
     try {
       const r = await api.get<CalendarioLunar>(`/api/publico/calendario-lunar${q.size ? `?${q}` : ''}`)
+      if (solicitud !== ultimaSolicitud.current) return false
       setDatos(r)
       setError(null)
       return true
     } catch (e) {
+      if (solicitud !== ultimaSolicitud.current) return false
       setError(mensajeDe(e))
       return false
     }
@@ -76,7 +80,7 @@ export function Calendario() {
         <h1 id="titulo-calendario">Calendario lunar</h1>
         <p className="bajada">
           La fase de cada día y lo que la práctica recomienda hacer en el huerto. Elige una actividad para ver sus
-          días.
+          días. La fase diaria corresponde a las 12:00 de Ecuador continental; cada siembra se evalúa a su hora real.
         </p>
       </section>
 

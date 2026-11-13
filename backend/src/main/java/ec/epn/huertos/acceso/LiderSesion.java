@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  * Usuario autenticado que se guarda en la sesión del servidor (AD-03). En la iteración 1 solo los líderes
- * designados por el MSP tienen cuenta (RN-01).
+ * escogidos por su comunidad y autorizados por el MSP tienen cuenta (RN-01).
  */
 public final class LiderSesion implements UserDetails, CredentialsContainer {
 

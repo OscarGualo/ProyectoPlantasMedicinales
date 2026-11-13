@@ -1,0 +1,95 @@
+﻿clase,metodo,segundos,resultado
+ec.epn.huertos.acceso.SesionPruebaIntegracion,p001,1.842,Aprobado
+ec.epn.huertos.acceso.SesionPruebaIntegracion,p002,0.184,Aprobado
+ec.epn.huertos.acceso.SesionPruebaIntegracion,p003,0.364,Aprobado
+ec.epn.huertos.acceso.SesionPruebaIntegracion,p004,0.115,Aprobado
+ec.epn.huertos.acceso.SesionPruebaIntegracion,p005,0.107,Aprobado
+ec.epn.huertos.actividades.CondicionLunarPruebaIntegracion,p038,1.023,Aprobado
+ec.epn.huertos.actividades.CondicionLunarPruebaIntegracion,p039,0.337,Aprobado
+ec.epn.huertos.actividades.CondicionLunarPruebaIntegracion,p040,0.26,Aprobado
+ec.epn.huertos.actividades.CorreccionPruebaIntegracion,fechaFutura,0.31,Aprobado
+ec.epn.huertos.actividades.CorreccionPruebaIntegracion,p041,0.337,Aprobado
+ec.epn.huertos.actividades.CorreccionPruebaIntegracion,p042,0.257,Aprobado
+ec.epn.huertos.actividades.CorreccionPruebaIntegracion,p043,0.23,Aprobado
+ec.epn.huertos.actividades.CorreccionPruebaIntegracion,p044,0.445,Aprobado
+ec.epn.huertos.actividades.HistorialPruebaIntegracion,historialAjeno,0.219,Aprobado
+ec.epn.huertos.actividades.HistorialPruebaIntegracion,p045,0.301,Aprobado
+ec.epn.huertos.actividades.HistorialPruebaIntegracion,p046,0.197,Aprobado
+ec.epn.huertos.actividades.IntegridadEnviosPruebaIntegracion,correccionSimultanea,0.397,Aprobado
+ec.epn.huertos.actividades.IntegridadEnviosPruebaIntegracion,insigniaSoloConHuertosPublicados,0.497,Aprobado
+ec.epn.huertos.actividades.IntegridadEnviosPruebaIntegracion,reversionAlConfirmar,0.251,Aprobado
+ec.epn.huertos.actividades.IntegridadEnviosPruebaIntegracion,fotoHistoricaPrivada,1.236,Aprobado
+ec.epn.huertos.actividades.IntegridadEnviosPruebaIntegracion,reversionDespuesDeFoto,0.44,Aprobado
+ec.epn.huertos.actividades.IntegridadEnviosPruebaIntegracion,envioSimultaneo,0.272,Aprobado
+ec.epn.huertos.actividades.IntegridadEnviosPruebaIntegracion,claveConOtrosDatos,0.275,Aprobado
+ec.epn.huertos.actividades.IntegridadEnviosPruebaIntegracion,gestionPrivada,0.225,Aprobado
+ec.epn.huertos.actividades.IntegridadEnviosPruebaIntegracion,correccionRepetida,0.328,Aprobado
+ec.epn.huertos.actividades.SiembraPruebaIntegracion,p032,1.344,Aprobado
+ec.epn.huertos.actividades.SiembraPruebaIntegracion,p033,1.139,Aprobado
+ec.epn.huertos.actividades.SiembraPruebaIntegracion,p034,0.347,Aprobado
+ec.epn.huertos.actividades.SiembraPruebaIntegracion,p035,0.398,Aprobado
+ec.epn.huertos.actividades.SiembraPruebaIntegracion,p036,0.193,Aprobado
+ec.epn.huertos.actividades.SiembraPruebaIntegracion,p037,0.469,Aprobado
+ec.epn.huertos.comun.MensajeTest,sinArgumentosConservaElTextoLiteral,0.003,Aprobado
+ec.epn.huertos.comun.MensajeTest,elCatalogoTieneLos29MensajesConCodigoDelDocumento,0.037,Aprobado
+ec.epn.huertos.comun.MensajeTest,reemplazaLosMarcadoresEnOrden,0.002,Aprobado
+ec.epn.huertos.cultivos.CultivoPruebaIntegracion,rechazaZonasNoCultivables,0.263,Aprobado
+ec.epn.huertos.cultivos.CultivoPruebaIntegracion,p019,0.329,Aprobado
+ec.epn.huertos.cultivos.CultivoPruebaIntegracion,p020,0.232,Aprobado
+ec.epn.huertos.cultivos.CultivoPruebaIntegracion,p021,0.393,Aprobado
+ec.epn.huertos.cultivos.CultivoPruebaIntegracion,p022,0.167,Aprobado
+ec.epn.huertos.cultivos.CultivoPruebaIntegracion,cultivoAjeno,0.151,Aprobado
+ec.epn.huertos.fotos.ValidadorImagenTest,unBytePorEncima,0.057,Aprobado
+ec.epn.huertos.fotos.ValidadorImagenTest,limiteExacto,0.047,Aprobado
+ec.epn.huertos.fotos.ValidadorImagenTest,jpegValido,0.016,Aprobado
+ec.epn.huertos.fotos.ValidadorImagenTest,textoDisfrazado,0.0,Aprobado
+ec.epn.huertos.fotos.ValidadorImagenTest,firmaSinImagen,0.007,Aprobado
+ec.epn.huertos.fotos.ValidadorImagenTest,pngGrande,0.009,Aprobado
+ec.epn.huertos.huertos.HuertoGestionPruebaIntegracion,p006,0.343,Aprobado
+ec.epn.huertos.huertos.HuertoGestionPruebaIntegracion,p007,0.195,Aprobado
+ec.epn.huertos.huertos.HuertoGestionPruebaIntegracion,p008,0.299,Aprobado
+ec.epn.huertos.huertos.HuertoGestionPruebaIntegracion,p009,0.183,Aprobado
+ec.epn.huertos.huertos.HuertoGestionPruebaIntegracion,p010,0.132,Aprobado
+ec.epn.huertos.huertos.HuertoGestionPruebaIntegracion,p011,0.193,Aprobado
+ec.epn.huertos.huertos.HuertoGestionPruebaIntegracion,p012,0.123,Aprobado
+ec.epn.huertos.huertos.HuertoGestionPruebaIntegracion,zonaHorariaPorProvincia,0.143,Aprobado
+ec.epn.huertos.luna.CalendarioPruebaIntegracion,p050,0.223,Aprobado
+ec.epn.huertos.luna.CalendarioPruebaIntegracion,p051,0.126,Aprobado
+ec.epn.huertos.luna.CalendarioPruebaIntegracion,p052,0.106,Aprobado
+ec.epn.huertos.luna.CalendarioPruebaIntegracion,p053,0.107,Aprobado
+ec.epn.huertos.luna.CalendarioPruebaIntegracion,p054,0.101,Aprobado
+ec.epn.huertos.luna.CalendarioPruebaIntegracion,p050ReferenciaOficial,0.119,Aprobado
+RN-10: actividades por fase,cadaFaseTieneActividadesYLaTablaCitaSuFuente,0.009,Aprobado
+RN-10: actividades por fase,laCosechaDeSemillasYRaicesSoloEnMenguante,0.002,Aprobado
+RN-10: actividades por fase,laSiembraSeRecomiendaEnCrecienteYLlena,0.003,Aprobado
+CAL-T: calendario controlado del entorno de prueba,el12DeOctubreNoTieneDato,0.008,Aprobado
+CAL-T: calendario controlado del entorno de prueba,cadaValorAbarcaElDiaCompletoEnLaZonaDelHuerto,0.004,Aprobado
+RN-09: intervalos entre puntos medios,sinEfemeridesNoHayFase,0.003,Aprobado
+RN-09: intervalos entre puntos medios,elInstanteDeCadaFasePrincipalPerteneceASuFase,0.01,Aprobado
+RN-09: intervalos entre puntos medios,laLunaLlenaIncluyeLosDiasAlrededorDelPlenilunio,0.002,Aprobado
+RN-09: intervalos entre puntos medios,faseEntreEventos,0.231,Aprobado
+RN-09: intervalos entre puntos medios,elCambioOcurreEnElPuntoMedio,0.003,Aprobado
+RN-06: regla de siembra,crecienteOLlenaSonConformes,0.002,Aprobado
+RN-06: regla de siembra,sinFaseQuedaPendiente,0.002,Aprobado
+RN-06: regla de siembra,oscuraOMenguanteNoSonConformes,0.001,Aprobado
+Efemérides con commons-suncalc,unPlenilunioCalculadoEsLunaLlena,0.004,Aprobado
+Efemérides con commons-suncalc,lasFasesPrincipalesSeSucedenEnOrdenCadaSieteDiasYMedio,0.011,Aprobado
+ec.epn.huertos.plantas.PlantaPruebaIntegracion,nombreLibreLargoNoProduce500,0.155,Aprobado
+ec.epn.huertos.plantas.PlantaPruebaIntegracion,rechazaCatalogoInexistente,0.124,Aprobado
+ec.epn.huertos.plantas.PlantaPruebaIntegracion,p013,0.294,Aprobado
+ec.epn.huertos.plantas.PlantaPruebaIntegracion,p014,0.116,Aprobado
+ec.epn.huertos.plantas.PlantaPruebaIntegracion,p015,0.314,Aprobado
+ec.epn.huertos.plantas.PlantaPruebaIntegracion,p016,0.158,Aprobado
+ec.epn.huertos.plantas.PlantaPruebaIntegracion,p017,0.259,Aprobado
+ec.epn.huertos.plantas.PlantaPruebaIntegracion,p018,0.123,Aprobado
+ec.epn.huertos.plantas.PlantaPruebaIntegracion,catalogoNoTieneOperacionDeEscritura,0.142,Aprobado
+ec.epn.huertos.plantas.PlantaPruebaIntegracion,fichaAnteriorSinCatalogoNoSePublica,0.193,Aprobado
+ec.epn.huertos.plantas.PlantaPruebaIntegracion,fichaAjena,0.127,Aprobado
+ec.epn.huertos.retos.ElegibilidadInsigniaTest,sinElegibles,0.003,Aprobado
+ec.epn.huertos.retos.ElegibilidadInsigniaTest,variasElegibles,0.005,Aprobado
+ec.epn.huertos.retos.ElegibilidadInsigniaTest,unaElegible,0.005,Aprobado
+ec.epn.huertos.retos.ElegibilidadInsigniaTest,sinFoto,0.002,Aprobado
+ec.epn.huertos.retos.RetoPruebaIntegracion,p047,0.714,Aprobado
+ec.epn.huertos.retos.RetoPruebaIntegracion,p048,0.618,Aprobado
+ec.epn.huertos.retos.RetoPruebaIntegracion,p049,0.29,Aprobado
+ec.epn.huertos.retos.RetoPruebaIntegracion,huertoNoPublicado,0.097,Aprobado

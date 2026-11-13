@@ -30,13 +30,16 @@ public class Planta {
     @Column(name = "huerto_id", nullable = false, updatable = false)
     private Long huertoId;
 
+    @Column(name = "catalogo_codigo")
+    private String catalogoCodigo;
+
     @Column(name = "nombre_comun", nullable = false)
     private String nombreComun;
 
-    @Column(name = "nombre_cientifico", nullable = false)
+    @Column(name = "nombre_cientifico")
     private String nombreCientifico;
 
-    @Column(nullable = false)
+    @Column
     private String familia;
 
     @Column(nullable = false)

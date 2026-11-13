@@ -54,8 +54,8 @@ export interface Planta {
   id: number
   huertoId: number
   nombreComun: string
-  nombreCientifico: string
-  familia: string
+  nombreCientifico: string | null
+  familia: string | null
   fuente: string
   otrosNombres: string | null
   descripcion: string | null
@@ -65,6 +65,20 @@ export interface Planta {
   clasificacion: Clasificacion | null
   usos: string | null
   fotoUrl: string | null
+  catalogoCodigo: string | null
+  institucional: boolean
+}
+
+export interface FichaMsp {
+  codigo: string
+  nombreComun: string
+  nombreCientifico: string | null
+  familia: string | null
+  fuente: string
+  descripcion: string | null
+  clasificacion: Clasificacion | null
+  usos: string | null
+  version: string
 }
 
 export type EstadoCultivo = 'SEMBRADO' | 'EN_CRECIMIENTO' | 'COSECHADO' | 'PERDIDO'

@@ -248,3 +248,9 @@ Estado del trabajo y siguientes pasos: [`SIGUIENTES_PASOS.md`](SIGUIENTES_PASOS.
 - Una rama por historia (`hu-014-registrar-siembra`) y un pull request revisado por otro integrante.
 - Mensajes de commit que citan la historia: `HU-014: valida el tamaño de la fotografía`.
 - Una historia está terminada cuando cumple la definición de terminado del documento 02 §6.
+
+## Corrección de autoridad y catálogo institucional (12/11/2026)
+
+La comunidad escoge al líder y el MSP lo autoriza. El líder incorpora fichas del catálogo institucional de lectura y gestiona fotografías, cultivos y evidencias; no redacta información medicinal. La carga inicial contiene cuatro fichas trazadas a los anexos MSP, sin dosis ni usos terapéuticos incorporados. V4 conserva relaciones y registros operativos, sustituye el contenido educativo coincidente por su referencia institucional y mantiene privados los registros sin correspondencia.
+
+La documentación actual está en [docs/v2_2](docs/v2_2/README.md). El candidato se verificó localmente con 94 pruebas Java, 21 recorridos y migración de una copia V3 a V4; el CI de la nueva integración debe ejecutarse en GitHub. No usar datos o contraseñas de demostración como acreditación de autorización real.

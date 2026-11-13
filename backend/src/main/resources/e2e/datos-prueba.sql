@@ -67,3 +67,12 @@ SELECT setval('huerto_id_seq', 100);
 SELECT setval('zona_id_seq', 100);
 SELECT setval('planta_id_seq', 100);
 SELECT setval('cultivo_id_seq', 100);
+
+-- Catálogo sintético exclusivo de las bases test/e2e; no es contenido medicinal.
+INSERT INTO catalogo_planta_msp(codigo,nombre_comun,nombre_cientifico,familia,fuente,descripcion,clasificacion,version)
+VALUES
+ ('TEST-FRIA','Planta de prueba','Plantae probatoria','Familia de prueba','Catálogo de prueba del equipo','Ficha sintética sin uso medicinal','FRIA','TEST-1'),
+ ('TEST-CALIENTE','Planta caliente de prueba','Planta calida','Familia de prueba','Catálogo de prueba del equipo','Ficha sintética sin uso medicinal','CALIENTE','TEST-1'),
+ ('TEST-NEUTRA','Planta sin clasificar','Planta neutra','Familia de prueba','Catálogo de prueba del equipo','Ficha sintética sin uso medicinal',NULL,'TEST-1')
+ON CONFLICT(codigo) DO UPDATE SET nombre_comun=EXCLUDED.nombre_comun,activo=TRUE;
+UPDATE planta SET catalogo_codigo=CASE WHEN id IN(1,2) THEN 'TEST-FRIA' WHEN id=3 THEN 'TEST-CALIENTE' ELSE 'TEST-NEUTRA' END;

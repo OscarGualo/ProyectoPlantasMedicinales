@@ -39,7 +39,8 @@ const SINONIMOS: Record<string, string> = {
 export const CREDITO_LAMINAS = KOHLER
 
 /** Lámina de la especie por su nombre científico (género y especie), si existe en el catálogo. */
-export function laminaDe(nombreCientifico: string): Lamina | null {
+export function laminaDe(nombreCientifico: string | null): Lamina | null {
+  if (!nombreCientifico) return null
   const clave = nombreCientifico.trim().toLowerCase().split(/\s+/).slice(0, 2).join(' ')
   return LAMINAS[SINONIMOS[clave] ?? clave] ?? null
 }

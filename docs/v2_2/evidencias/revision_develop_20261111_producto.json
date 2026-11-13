@@ -1,0 +1,32 @@
+{
+  "huertos_publicos": 3,
+  "comprobaciones": [
+    {
+      "ruta": "/",
+      "estado": 200
+    },
+    {
+      "ruta": "/huertos/1/3d",
+      "estado": 200
+    },
+    {
+      "ruta": "/api/publico/huertos",
+      "estado": 200
+    },
+    {
+      "ruta": "/api/sesion",
+      "estado": 200
+    },
+    {
+      "recurso_js": "/assets/index-CvLIt0bO.js",
+      "estado": 200
+    },
+    {
+      "inicio_sesion": "lider.demo1",
+      "gestion_privada": 200
+    },
+    {
+      "restauracion_e2e_en_perfil_normal": 404
+    }
+  ]
+}

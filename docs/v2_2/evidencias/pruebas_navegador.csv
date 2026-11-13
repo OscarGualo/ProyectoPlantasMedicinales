@@ -1,0 +1,15 @@
+﻿Prueba,Resultado,Segundos
+P-052 Filtro de días de siembra,passed,7.793
+P-053 Filtro de días de cosecha de raíces,passed,6.683
+P-054 Retiro del filtro,passed,3.495
+P-023 Marcadores de los huertos publicados,passed,3.675
+P-024 Huerto no publicado en el mapa,passed,3.64
+P-025 Consulta de la ficha pública de un huerto,passed,10.052
+P-026 Enlace directo a un huerto no publicado,passed,4.28
+P-063 Sesión y token CSRF se renuevan y rechazan la cabecera anterior,passed,1.039
+P-028 Fallo de carga de la escena,passed,7.666
+P-029 Cultivos de una zona,passed,4.842
+P-030 Señalética caliente y fría,passed,4.252
+P-031 Zona sin cultivos,passed,4.287
+P-055 Recorrido integrado de la primera iteración · CAL-T,passed,29.42
+P-055 Recorrido integrado de la primera iteración · efemérides reales,passed,27.284

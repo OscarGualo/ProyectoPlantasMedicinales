@@ -39,7 +39,7 @@ export function Ingresar() {
       <section className="etiqueta">
         <h1>Ingreso de líderes</h1>
         <p className="secundario">
-          Solo los líderes designados por el Ministerio de Salud Pública tienen cuenta. El mapa y las fichas de los
+          Solo los líderes escogidos por su comunidad y autorizados por el MSP tienen cuenta. El mapa y las fichas de los
           huertos son de consulta pública.
         </p>
         {finalizada && <AvisoInfo>{MSG_02}</AvisoInfo>}

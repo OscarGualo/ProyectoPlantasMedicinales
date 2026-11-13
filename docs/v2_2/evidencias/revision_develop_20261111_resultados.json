@@ -1,0 +1,72 @@
+{
+  "rama": "develop",
+  "commit": "78d87974152092c2d07125060021d0afdae9dac9",
+  "java": {
+    "tests": 89,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "navegador": {
+    "tipo": "Edge 157 en Windows 11",
+    "resultados": {
+      "startTime": "2026-11-12T02:42:41.468Z",
+      "duration": 160250.12300000002,
+      "expected": 14,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    }
+  },
+  "frontend": "npm ci y npm run build correctos",
+  "producto": {
+    "huertos_publicos": 3,
+    "comprobaciones": [
+      {
+        "ruta": "/",
+        "estado": 200
+      },
+      {
+        "ruta": "/huertos/1/3d",
+        "estado": 200
+      },
+      {
+        "ruta": "/api/publico/huertos",
+        "estado": 200
+      },
+      {
+        "ruta": "/api/sesion",
+        "estado": 200
+      },
+      {
+        "recurso_js": "/assets/index-CvLIt0bO.js",
+        "estado": 200
+      },
+      {
+        "inicio_sesion": "lider.demo1",
+        "gestion_privada": 200
+      },
+      {
+        "restauracion_e2e_en_perfil_normal": 404
+      }
+    ]
+  },
+  "interfaz": {
+    "producto": "JAR integrado con SPA",
+    "mapa": "3 marcadores",
+    "escena": "canvas 3D disponible",
+    "sesion": "lider.demo1 accede a gestión",
+    "navegador": "Edge 157"
+  },
+  "ci": {
+    "pr": 11,
+    "run": 43140337802,
+    "resultado": "4 trabajos aprobados; incluida imagen Docker"
+  },
+  "pendientes": [
+    "Actualizar docs del repositorio a documentación final y resultados reales",
+    "Activar CI en push a develop",
+    "Prueba física Android y croquis P-027",
+    "Protocolos formales de rendimiento y recuperación P-066 a P-068"
+  ]
+}

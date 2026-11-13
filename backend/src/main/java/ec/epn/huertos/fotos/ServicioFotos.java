@@ -65,15 +65,16 @@ public class ServicioFotos {
         boolean visible = jdbc.sql("""
                         SELECT EXISTS (
                             SELECT 1 FROM planta p JOIN huerto h ON h.id = p.huerto_id
-                             WHERE p.foto_id = :id AND (h.publicado OR h.lider_id = :usuario)
+                             WHERE p.foto_id = :id AND ((h.publicado AND p.catalogo_codigo IS NOT NULL) OR h.lider_id = :usuario)
                             UNION ALL
                             SELECT 1 FROM actividad_version v
                               JOIN actividad a ON a.id = v.actividad_id
                               JOIN cultivo c ON c.id = a.cultivo_id
+                              JOIN planta p ON p.id = c.planta_id
                               JOIN huerto h ON h.id = c.huerto_id
                              WHERE v.foto_id = :id
                                AND (h.lider_id = :usuario OR (
-                                    h.publicado AND v.numero = (SELECT MAX(otra.numero)
+                                    h.publicado AND p.catalogo_codigo IS NOT NULL AND v.numero = (SELECT MAX(otra.numero)
                                         FROM actividad_version otra WHERE otra.actividad_id = v.actividad_id))))
                         """)
                 .param("id", id)

@@ -12,7 +12,7 @@ web
   sin cuenta, que quiere descubrir dónde existen huertos medicinales comunitarios en el Ecuador, entender
   cómo está organizado un huerto y aprender sobre plantas medicinales y prácticas lunares. Usa sobre todo el
   celular, en conexiones móviles o Wi-Fi de calidad variable.
-- **Líder de huerto**: persona designada por el Ministerio de Salud Pública (MSP) como responsable de un
+- **Líder de huerto**: persona escogida por su comunidad y autorizada por el Ministerio de Salud Pública (MSP) como responsable de un
   huerto. Mantiene la ficha del huerto, sus plantas y cultivos, y registra las actividades con evidencia
   fotográfica. Trabaja desde un celular Android de gama media, a veces en el propio huerto. Registrar debe
   tomar pocos pasos o abandona el seguimiento (doc 01 §1.6).
@@ -79,7 +79,7 @@ saberes del ciclo lunar que el propio MSP señala en decadencia.
 1. El saber ancestral se muestra con su fuente: nada medicinal sin atribución.
 2. Lo público se entiende en cinco segundos desde un celular, con una mano y mala conexión.
 3. Registrar un hecho del huerto toma pocos pasos; el sistema nunca bloquea el registro por la condición lunar.
-4. La autoridad es del líder designado: la interfaz nunca sugiere que otros puedan modificar un huerto.
+4. La autoridad es del líder escogido por la comunidad y autorizado por el MSP: la interfaz nunca sugiere que otros puedan modificar un huerto.
 5. Reconocer sin competir de forma injusta: los retos celebran hechos verificables.
 
 ## Accessibility & Inclusion
@@ -89,3 +89,7 @@ saberes del ciclo lunar que el propio MSP señala en decadencia.
 - Celulares de gama media y conectividad variable: páginas livianas, imágenes de tamaño limitado,
   alternativa en lista cuando la escena 3D no carga.
 - Respetar `prefers-reduced-motion`.
+
+## Procedencia de las fichas
+
+La información educativa se selecciona desde el catálogo MSP de lectura. El líder gestiona la fotografía, los cultivos y las evidencias de su huerto, sin editar nombres, clasificación, usos, dosis ni contraindicaciones. El contrato vigente se encuentra en [la documentación 2.2](docs/v2_2/README.md).

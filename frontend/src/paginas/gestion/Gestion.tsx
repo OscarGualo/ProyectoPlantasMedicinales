@@ -1,3 +1,7 @@
+import { useEffect, useState } from 'react'
+import { api, mensajeDe } from '../../api/cliente'
+import type { HuertoGestion } from '../../api/tipos'
+import { AvisoError, Cargando } from '../../componentes/Estado'
 import { Link, NavLink, Outlet, useOutletContext } from 'react-router'
 import { Eye, Flower, House, Plant } from '@phosphor-icons/react'
 import { useSesion } from '../../sesion/ContextoSesion'
@@ -5,6 +9,9 @@ import { Vacio } from '../../componentes/Estado'
 
 interface ContextoGestion {
   huertoId: number
+  zonaHoraria: string
+  huerto: HuertoGestion
+  actualizarHuerto: (huerto: HuertoGestion) => void
 }
 
 /**
@@ -14,6 +21,17 @@ interface ContextoGestion {
 export function Gestion() {
   const { sesion } = useSesion()
   const huerto = sesion.huertos[0]
+  const [datos, setDatos] = useState<HuertoGestion | null>(null)
+  const [error, setError] = useState<string | null>(null)
+  useEffect(() => {
+    let vigente = true
+    setDatos(null)
+    setError(null)
+    if (huerto) api.get<HuertoGestion>(`/api/huertos/${huerto.id}`)
+      .then((h) => { if (vigente) setDatos(h) })
+      .catch((e) => { if (vigente) setError(mensajeDe(e)) })
+    return () => { vigente = false }
+  }, [huerto?.id])
 
   if (!huerto) {
     return (
@@ -23,13 +41,16 @@ export function Gestion() {
     )
   }
 
+  if (error) return <AvisoError>{error}</AvisoError>
+  if (!datos || datos.id !== huerto.id) return <Cargando texto="Cargando el huerto…" />
+
   return (
     <>
       <header className="cabeza-gestion">
         <div className="fila">
           <div>
             <h1>{huerto.nombre ?? 'Mi huerto'}</h1>
-            <p>Lo que registras aquí aparece en la etiqueta pública de tu huerto.</p>
+            <p>Gestiona los datos de tu huerto y su información institucional. La consulta pública depende de su publicación.</p>
           </div>
           <Link className="boton boton-tenue boton-pequeno" to={`/huertos/${huerto.id}`}>
             <Eye size={18} aria-hidden="true" />
@@ -51,11 +72,20 @@ export function Gestion() {
           </NavLink>
         </nav>
       </header>
-      <Outlet context={{ huertoId: huerto.id } satisfies ContextoGestion} />
+      <Outlet context={{ huertoId: huerto.id, zonaHoraria: datos.zonaHoraria,
+        huerto: datos, actualizarHuerto: setDatos } satisfies ContextoGestion} />
     </>
   )
 }
 
 export function useHuertoGestionado(): number {
   return useOutletContext<ContextoGestion>().huertoId
+}
+
+export function useZonaHorariaHuerto(): string {
+  return useOutletContext<ContextoGestion>().zonaHoraria
+}
+
+export function useDatosHuertoGestionado() {
+  return useOutletContext<ContextoGestion>()
 }

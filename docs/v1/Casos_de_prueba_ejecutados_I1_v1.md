@@ -6,7 +6,7 @@
 **Fecha de ejecución:** 12-noviembre-2026  
 **Responsables:** Oscar Gualotuña, Mauricio López, Gabriel Vinueza, Jean Espinosa, Christian Yanchatipan
 
-Ejecución de los 82 casos de la iteración 1 (P-001 a P-082) con el texto vigente del [documento 04](04_Casos_de_prueba_y_resultados_v1.md), automatizada con Playwright y registrada con capturas de pantalla, en el formato de la plantilla de casos de prueba del aula. Versión en Word: [Casos_de_prueba_ejecutados_I1_v1.docx](Casos_de_prueba_ejecutados_I1_v1.docx) · versión en PDF: [Casos_de_prueba_ejecutados_I1_v1.pdf](Casos_de_prueba_ejecutados_I1_v1.pdf).
+Ejecución de los 82 casos de la iteración 1 (P-001 a P-082) con el texto vigente del [documento 04](04_Casos_de_prueba_y_resultados_v1.md), automatizada con Playwright y registrada con capturas de pantalla, en el formato de la plantilla de casos de prueba del aula. Versión en PDF: [Casos_de_prueba_ejecutados_I1_v1.pdf](Casos_de_prueba_ejecutados_I1_v1.pdf).
 
 **Resultado:** 82 de 82 casos aprobados.
 

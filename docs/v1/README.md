@@ -17,7 +17,7 @@ Esta edición 2.2.1 documenta el candidato de corrección local preparado sobre 
 - [Plan y seguimiento de la primera iteración](02_Plan_de_iteracion_v1.md)
 - [Historias de usuario de la primera iteración](03_Historias_de_usuario_v1.md)
 - [Casos de prueba y resultados de verificación](04_Casos_de_prueba_y_resultados_v1.md)
-- [Casos de prueba ejecutados P-001 a P-082 con capturas](Casos_de_prueba_ejecutados_I1_v1.md) · [PDF](Casos_de_prueba_ejecutados_I1_v1.pdf) · [Word](Casos_de_prueba_ejecutados_I1_v1.docx)
+- [Casos de prueba ejecutados P-001 a P-082 con capturas](Casos_de_prueba_ejecutados_I1_v1.md) · [PDF](Casos_de_prueba_ejecutados_I1_v1.pdf)
 - [Reglas de negocio, glosario, datos y trazabilidad](05_Reglas_datos_y_trazabilidad_v1.md)
 - [Arquitectura y diseño del producto](06_Arquitectura_y_diseno_v1.md)
 - [Especificación de requisitos de software](07_ERS_consolidada_v1.md)

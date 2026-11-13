@@ -13,21 +13,22 @@ Esta edición 2.2.1 documenta el candidato de corrección local preparado sobre 
 
 ## Índice
 
-- [Visión y alcance del proyecto](01_Vision_y_alcance_techmOS.md)
-- [Plan y seguimiento de la primera iteración](02_Plan_de_iteracion_techmOS.md)
-- [Historias de usuario de la primera iteración](03_Historias_de_usuario_techmOS.md)
-- [Casos de prueba y resultados de verificación](04_Casos_de_prueba_y_resultados_techmOS.md)
-- [Reglas de negocio, glosario, datos y trazabilidad](05_Reglas_datos_y_trazabilidad_techmOS.md)
-- [Arquitectura y diseño del producto](06_Arquitectura_y_diseno_techmOS.md)
-- [Especificación de requisitos de software](07_ERS_consolidada_techmOS.md)
-- [Revisión técnica y control de cambios](08_Revision_tecnica_y_cambios_techmOS.md)
-- [Referencia astronómica para la verificación lunar](09_Referencia_lunar_techmOS.md)
-- [Resultados de verificación de la primera iteración](10_Resultados_de_verificacion_techmOS.md)
-- [Distribución del trabajo y responsabilidades](11_Distribucion_del_trabajo_techmOS.md)
-- [Manual de instalación, pruebas y demostración](12_Manual_de_ejecucion_techmOS.md)
-- [Anexo A. Distribución técnica del código integrado](Anexo_A_Reparto_tecnico_techmOS.md)
-- [Anexo B. Registro técnico de la contribución de Mauricio López](Anexo_B_Guia_Mauricio_techmOS.md)
-- [Informe de la versión 1 de Huertos Medicinales Comunitarios](Proyecto-Version1-techmOS.md)
+- [Visión y alcance del proyecto](01_Vision_y_alcance_v1.md)
+- [Plan y seguimiento de la primera iteración](02_Plan_de_iteracion_v1.md)
+- [Historias de usuario de la primera iteración](03_Historias_de_usuario_v1.md)
+- [Casos de prueba y resultados de verificación](04_Casos_de_prueba_y_resultados_v1.md)
+- [Casos de prueba ejecutados P-001 a P-082 con capturas](Casos_de_prueba_ejecutados_I1_v1.md) · [PDF](Casos_de_prueba_ejecutados_I1_v1.pdf)
+- [Reglas de negocio, glosario, datos y trazabilidad](05_Reglas_datos_y_trazabilidad_v1.md)
+- [Arquitectura y diseño del producto](06_Arquitectura_y_diseno_v1.md)
+- [Especificación de requisitos de software](07_ERS_consolidada_v1.md)
+- [Revisión técnica y control de cambios](08_Revision_tecnica_y_cambios_v1.md)
+- [Referencia astronómica para la verificación lunar](09_Referencia_lunar_v1.md)
+- [Resultados de verificación de la primera iteración](10_Resultados_de_verificacion_v1.md)
+- [Distribución del trabajo y responsabilidades](11_Distribucion_del_trabajo_v1.md)
+- [Manual de instalación, pruebas y demostración](12_Manual_de_ejecucion_v1.md)
+- [Anexo A. Distribución técnica del código integrado](Anexo_A_Reparto_tecnico_v1.md)
+- [Anexo B. Registro técnico de la contribución de Mauricio López](Anexo_B_Guia_Mauricio_v1.md)
+- [Informe de la versión 1 de Huertos Medicinales Comunitarios](Proyecto-Version1-v1.md)
 
 ## Identidad y lectura del paquete
 
@@ -41,7 +42,7 @@ Esta entrega contiene documentación, evidencia y un candidato de corrección lo
 
 Los diagramas de arquitectura están incluidos como bloques Mermaid, acompañados por texto. Los enlaces entre documentos y evidencias son relativos para conservar su funcionamiento al extraer el ZIP.
 
-- [Autoridad y procedencia de las fichas institucionales](13_Autoridad_y_catalogo_MSP_techmOS.md).
+- [Autoridad y procedencia de las fichas institucionales](13_Autoridad_y_catalogo_MSP_v1.md).
 
 ## Aclaración de la edición 2.2.1
 
